@@ -117,14 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>Команда разработчиков: 
-Маркова Альбина
-Останкова Анастасия
-Пермякова Вера
-Тобохова Саргылаана
-Версия продукт: 1.1 (нечетные - нестабильная версия)
-Последние изменения: тут надо автосохранение забахать, чтоб сам вставлял
-</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Последние изменения: 
+реализовано специальное навигационное окно, в котором отображаются в графическом виде 
+осциллограммы всех каналов, хранящиеся в памяти программы на данный момент, а также 
+отображаются их названия для лучшего восприятия. </value>
   </data>
 </root>
