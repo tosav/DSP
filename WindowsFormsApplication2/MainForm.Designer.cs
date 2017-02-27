@@ -29,36 +29,59 @@
         private void InitializeComponent()
         {
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.save = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.моделированиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сДискретнымиАргументамиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.задержанныйЕдиничныйИмпульсToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.задержанныйЕдиничныйСкачокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.меандрСПериодомToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.пилаСПериодомLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сНепрерывнымиАргументамиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.соСлучайнымиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.белыйШумВToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.случайныйСигналАРССpqToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.фильтрацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.арифметическаяСуперпозицияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.мультипликативнаяСуперпозицияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.статистикаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.инструментыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SigInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.задатьДиапазонToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.осцилограммаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.создатьToolStripMenuItem,
+            this.save,
             this.открытьToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // создатьToolStripMenuItem
+            // save
             // 
-            this.создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
-            this.создатьToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
-            this.создатьToolStripMenuItem.Text = "Создать";
-            this.создатьToolStripMenuItem.Click += new System.EventHandler(this.File);
+            this.save.Enabled = false;
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(181, 26);
+            this.save.Text = "Сохранить";
+            this.save.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // открытьToolStripMenuItem
             // 
@@ -70,26 +93,178 @@
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // моделированиеToolStripMenuItem
             // 
+            this.моделированиеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сДискретнымиАргументамиToolStripMenuItem,
+            this.сНепрерывнымиАргументамиToolStripMenuItem,
+            this.соСлучайнымиToolStripMenuItem});
             this.моделированиеToolStripMenuItem.Name = "моделированиеToolStripMenuItem";
             this.моделированиеToolStripMenuItem.Size = new System.Drawing.Size(136, 24);
             this.моделированиеToolStripMenuItem.Text = "Моделирование";
             // 
+            // сДискретнымиАргументамиToolStripMenuItem
+            // 
+            this.сДискретнымиАргументамиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.задержанныйЕдиничныйИмпульсToolStripMenuItem,
+            this.задержанныйЕдиничныйСкачокToolStripMenuItem,
+            this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem,
+            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem,
+            this.меандрСПериодомToolStripMenuItem,
+            this.пилаСПериодомLToolStripMenuItem});
+            this.сДискретнымиАргументамиToolStripMenuItem.Name = "сДискретнымиАргументамиToolStripMenuItem";
+            this.сДискретнымиАргументамиToolStripMenuItem.Size = new System.Drawing.Size(304, 26);
+            this.сДискретнымиАргументамиToolStripMenuItem.Text = "С дискретными аргументами";
+            // 
+            // задержанныйЕдиничныйИмпульсToolStripMenuItem
+            // 
+            this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Name = "задержанныйЕдиничныйИмпульсToolStripMenuItem";
+            this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Text = "Задержанный единичный импульс";
+            this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // задержанныйЕдиничныйСкачокToolStripMenuItem
+            // 
+            this.задержанныйЕдиничныйСкачокToolStripMenuItem.Name = "задержанныйЕдиничныйСкачокToolStripMenuItem";
+            this.задержанныйЕдиничныйСкачокToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.задержанныйЕдиничныйСкачокToolStripMenuItem.Text = "Задержанный единичный скачок";
+            this.задержанныйЕдиничныйСкачокToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem
+            // 
+            this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Name = "дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem";
+            this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Text = "Дискретизированная убывающая экспонента";
+            this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem
+            // 
+            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Name = "дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem" +
+    "";
+            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Text = "Дискретизированная синусоида с заданными амплитудой a, круговой частотой \u03C9 и начальной фазой \u03C6.";
+            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // меандрСПериодомToolStripMenuItem
+            // 
+            this.меандрСПериодомToolStripMenuItem.Name = "меандрСПериодомToolStripMenuItem";
+            this.меандрСПериодомToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.меандрСПериодомToolStripMenuItem.Text = "\"Меандр\" с периодом L";
+            this.меандрСПериодомToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // пилаСПериодомLToolStripMenuItem
+            // 
+            this.пилаСПериодомLToolStripMenuItem.Name = "пилаСПериодомLToolStripMenuItem";
+            this.пилаСПериодомLToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.пилаСПериодомLToolStripMenuItem.Text = "\"Пила\" с периодом L";
+            this.пилаСПериодомLToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // сНепрерывнымиАргументамиToolStripMenuItem
+            // 
+            this.сНепрерывнымиАргументамиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem,
+            this.cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem,
+            this.cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem});
+            this.сНепрерывнымиАргументамиToolStripMenuItem.Name = "сНепрерывнымиАргументамиToolStripMenuItem";
+            this.сНепрерывнымиАргументамиToolStripMenuItem.Size = new System.Drawing.Size(304, 26);
+            this.сНепрерывнымиАргументамиToolStripMenuItem.Text = "С непрерывными аргументами";
+            // 
+            // сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem
+            // 
+            this.сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Name = "сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem";
+            this.сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Size = new System.Drawing.Size(554, 26);
+            this.сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Text = "Cигнал с экспоненциальной огибающей - амплитудная модуляция";
+            this.сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem
+            // 
+            this.cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Name = "cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem";
+            this.cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Size = new System.Drawing.Size(554, 26);
+            this.cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Text = "Cигнал с балансной огибающей - амплитудная модуляция";
+            this.cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem
+            // 
+            this.cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Name = "cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem";
+            this.cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Size = new System.Drawing.Size(554, 26);
+            this.cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Text = "Cигнал с тональной огибающей. - амплитудная модуляция";
+            this.cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // соСлучайнымиToolStripMenuItem
+            // 
+            this.соСлучайнымиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.белыйШумВToolStripMenuItem,
+            this.белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMenuItem,
+            this.случайныйСигналАРССpqToolStripMenuItem});
+            this.соСлучайнымиToolStripMenuItem.Name = "соСлучайнымиToolStripMenuItem";
+            this.соСлучайнымиToolStripMenuItem.Size = new System.Drawing.Size(304, 26);
+            this.соСлучайнымиToolStripMenuItem.Text = "Случайных сигналов";
+            // 
+            // белыйШумВToolStripMenuItem
+            // 
+            this.белыйШумВToolStripMenuItem.Name = "белыйШумВToolStripMenuItem";
+            this.белыйШумВToolStripMenuItem.Size = new System.Drawing.Size(751, 26);
+            this.белыйШумВToolStripMenuItem.Text = "Белый шум равномерный в [a,b]";
+            this.белыйШумВToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMenuItem
+            // 
+            this.белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMenuItem.Name = "белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMen" +
+    "uItem";
+            this.белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMenuItem.Size = new System.Drawing.Size(751, 26);
+            this.белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMenuItem.Text = "Белый шум распределенный по нормальному закону с заданным средним a, и дисперсией" +
+    " σ ²";
+            this.белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
+            // случайныйСигналАРССpqToolStripMenuItem
+            // 
+            this.случайныйСигналАРССpqToolStripMenuItem.Name = "случайныйСигналАРССpqToolStripMenuItem";
+            this.случайныйСигналАРССpqToolStripMenuItem.Size = new System.Drawing.Size(751, 26);
+            this.случайныйСигналАРССpqToolStripMenuItem.Text = "Случайный сигнал АРСС (p,q)";
+            this.случайныйСигналАРССpqToolStripMenuItem.Click += new System.EventHandler(this.modelling);
+            // 
             // фильтрацияToolStripMenuItem
             // 
+            this.фильтрацияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.арифметическаяСуперпозицияToolStripMenuItem,
+            this.мультипликативнаяСуперпозицияToolStripMenuItem});
             this.фильтрацияToolStripMenuItem.Name = "фильтрацияToolStripMenuItem";
             this.фильтрацияToolStripMenuItem.Size = new System.Drawing.Size(106, 24);
             this.фильтрацияToolStripMenuItem.Text = "Фильтрация";
             // 
+            // арифметическаяСуперпозицияToolStripMenuItem
+            // 
+            this.арифметическаяСуперпозицияToolStripMenuItem.Enabled = false;
+            this.арифметическаяСуперпозицияToolStripMenuItem.Name = "арифметическаяСуперпозицияToolStripMenuItem";
+            this.арифметическаяСуперпозицияToolStripMenuItem.Size = new System.Drawing.Size(328, 26);
+            this.арифметическаяСуперпозицияToolStripMenuItem.Text = "Арифметическая суперпозиция";
+            this.арифметическаяСуперпозицияToolStripMenuItem.Click += new System.EventHandler(this.арифметическаяСуперпозицияToolStripMenuItem_Click);
+            // 
+            // мультипликативнаяСуперпозицияToolStripMenuItem
+            // 
+            this.мультипликативнаяСуперпозицияToolStripMenuItem.Enabled = false;
+            this.мультипликативнаяСуперпозицияToolStripMenuItem.Name = "мультипликативнаяСуперпозицияToolStripMenuItem";
+            this.мультипликативнаяСуперпозицияToolStripMenuItem.Size = new System.Drawing.Size(328, 26);
+            this.мультипликативнаяСуперпозицияToolStripMenuItem.Text = "Мультипликативная суперпозиция";
+            this.мультипликативнаяСуперпозицияToolStripMenuItem.Click += new System.EventHandler(this.мультипликативнаяСуперпозицияToolStripMenuItem_Click);
+            // 
             // анализToolStripMenuItem
             // 
+            this.анализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.статистикаToolStripMenuItem});
             this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
             this.анализToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
             this.анализToolStripMenuItem.Text = "Анализ";
+            // 
+            // статистикаToolStripMenuItem
+            // 
+            this.статистикаToolStripMenuItem.Name = "статистикаToolStripMenuItem";
+            this.статистикаToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.статистикаToolStripMenuItem.Text = "Статистика";
             // 
             // настройкиToolStripMenuItem
             // 
@@ -128,25 +303,59 @@
             this.моделированиеToolStripMenuItem,
             this.фильтрацияToolStripMenuItem,
             this.анализToolStripMenuItem,
+            this.инструментыToolStripMenuItem,
+            this.осцилограммаToolStripMenuItem,
             this.настройкиToolStripMenuItem,
             this.справкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(687, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1128, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
+            // 
+            // инструментыToolStripMenuItem
+            // 
+            this.инструментыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SigInfo,
+            this.задатьДиапазонToolStripMenuItem});
+            this.инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
+            this.инструментыToolStripMenuItem.Size = new System.Drawing.Size(115, 24);
+            this.инструментыToolStripMenuItem.Text = "Инструменты";
+            // 
+            // SigInfo
+            // 
+            this.SigInfo.Enabled = false;
+            this.SigInfo.Name = "SigInfo";
+            this.SigInfo.Size = new System.Drawing.Size(249, 26);
+            this.SigInfo.Text = "Информация о сигнале";
+            this.SigInfo.Click += new System.EventHandler(this.информацияОСигналеToolStripMenuItem_Click);
+            // 
+            // задатьДиапазонToolStripMenuItem
+            // 
+            this.задатьДиапазонToolStripMenuItem.Enabled = false;
+            this.задатьДиапазонToolStripMenuItem.Name = "задатьДиапазонToolStripMenuItem";
+            this.задатьДиапазонToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
+            this.задатьДиапазонToolStripMenuItem.Text = "Задать диапазон";
+            this.задатьДиапазонToolStripMenuItem.Click += new System.EventHandler(this.задатьДиапазонToolStripMenuItem_Click);
+            // 
+            // осцилограммаToolStripMenuItem
+            // 
+            this.осцилограммаToolStripMenuItem.Name = "осцилограммаToolStripMenuItem";
+            this.осцилограммаToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
+            this.осцилограммаToolStripMenuItem.Text = "Осцилограмма";
+            this.осцилограммаToolStripMenuItem.Click += new System.EventHandler(this.осцилограммаToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 459);
+            this.ClientSize = new System.Drawing.Size(1128, 604);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DSP - Markova, Ostankova, Permyakova, Tobokhova";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -159,7 +368,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem моделированиеToolStripMenuItem;
@@ -170,6 +378,29 @@
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem1;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem инструментыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SigInfo;
+        private System.Windows.Forms.ToolStripMenuItem осцилограммаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem задатьДиапазонToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem save;
+        private System.Windows.Forms.ToolStripMenuItem сДискретнымиАргументамиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem задержанныйЕдиничныйИмпульсToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem задержанныйЕдиничныйСкачокToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сНепрерывнымиАргументамиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem меандрСПериодомToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem пилаСПериодомLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сигналСЭкспоненциальнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cигналСБаланснойОгибающейАмплитуднаяМодуляцияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cигналСТональнойОгибающейАмплитуднаяМодуляцияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem соСлучайнымиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem белыйШумВToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem белыйШумРаспределенныйПоНормальномуЗаконуСЗаданнымСреднимAИДисперсиейToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem случайныйСигналАРССpqToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem статистикаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem арифметическаяСуперпозицияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem мультипликативнаяСуперпозицияToolStripMenuItem;
     }
 }
 
