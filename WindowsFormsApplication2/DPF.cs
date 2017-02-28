@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using ComplexConsole;
 
 namespace WindowsFormsApplication2
 {
@@ -45,13 +46,20 @@ namespace WindowsFormsApplication2
         {
             if (!kol.Contains(n))
             {
-                CreateChart(mini, maxi, n);
+                CreateChart(0, 1700, n);
                 order.Add(chart); //добавление чарта в общий список
-                //double k = 1 / 60 / disp.getFD();
-                //тут будет код преобразования Фурье
+                                  //double k = 1 / 60 / disp.getFD();
+                                  //тут будет код преобразования Фурье
+                Complex Xn = new Complex();
                 for (int i = 0; i < disp.getN(); i++)//инициализация массива
                 {
-                    chart.Series[0].Points.AddXY(i, disp.getData()[n, i].Y);
+                    Xn+= new Complex(Convert.ToDouble(disp.getData()[n, i].Y) * Math.Cos(i), Convert.ToDouble(disp.getData()[n, i].Y) * Math.Sin(i));
+                }
+                Xn = Xn * Math.Pow(disp.getN(),3)*new Complex(Math.Cos(2*Math.PI/disp.getN()),-Math.Sin(2 * Math.PI / disp.getN()));
+                for (int i = 0; i < disp.getN(); i++)//инициализация массива
+                {
+                    Complex z = Xn * new Complex(Math.Cos(i), Math.Sin(i));
+                    chart.Series[0].Points.AddXY(i, z.Abs);
                     chart.Tag = n.ToString();
                 }
                 chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
