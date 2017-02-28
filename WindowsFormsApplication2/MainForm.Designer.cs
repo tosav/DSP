@@ -62,6 +62,7 @@
             this.SigInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.задатьДиапазонToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.осцилограммаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.дПToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,21 +80,21 @@
             // 
             this.save.Enabled = false;
             this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(181, 26);
+            this.save.Size = new System.Drawing.Size(158, 26);
             this.save.Text = "Сохранить";
             this.save.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -123,21 +124,21 @@
             // задержанныйЕдиничныйИмпульсToolStripMenuItem
             // 
             this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Name = "задержанныйЕдиничныйИмпульсToolStripMenuItem";
-            this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Size = new System.Drawing.Size(815, 26);
             this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Text = "Задержанный единичный импульс";
             this.задержанныйЕдиничныйИмпульсToolStripMenuItem.Click += new System.EventHandler(this.modelling);
             // 
             // задержанныйЕдиничныйСкачокToolStripMenuItem
             // 
             this.задержанныйЕдиничныйСкачокToolStripMenuItem.Name = "задержанныйЕдиничныйСкачокToolStripMenuItem";
-            this.задержанныйЕдиничныйСкачокToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.задержанныйЕдиничныйСкачокToolStripMenuItem.Size = new System.Drawing.Size(815, 26);
             this.задержанныйЕдиничныйСкачокToolStripMenuItem.Text = "Задержанный единичный скачок";
             this.задержанныйЕдиничныйСкачокToolStripMenuItem.Click += new System.EventHandler(this.modelling);
             // 
             // дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem
             // 
             this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Name = "дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem";
-            this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Size = new System.Drawing.Size(815, 26);
             this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Text = "Дискретизированная убывающая экспонента";
             this.дискретизированнаяУбывающаяЭкспонентаToolStripMenuItem.Click += new System.EventHandler(this.modelling);
             // 
@@ -145,21 +146,22 @@
             // 
             this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Name = "дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem" +
     "";
-            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
-            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Text = "Дискретизированная синусоида с заданными амплитудой a, круговой частотой \u03C9 и начальной фазой \u03C6.";
+            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Size = new System.Drawing.Size(815, 26);
+            this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Text = "Дискретизированная синусоида с заданными амплитудой a, круговой частотой ω и нача" +
+    "льной фазой φ.";
             this.дискретизированнаяСинусоидаСЗаданнымиАмплитудойAКруговойЧастотойToolStripMenuItem.Click += new System.EventHandler(this.modelling);
             // 
             // меандрСПериодомToolStripMenuItem
             // 
             this.меандрСПериодомToolStripMenuItem.Name = "меандрСПериодомToolStripMenuItem";
-            this.меандрСПериодомToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.меандрСПериодомToolStripMenuItem.Size = new System.Drawing.Size(815, 26);
             this.меандрСПериодомToolStripMenuItem.Text = "\"Меандр\" с периодом L";
             this.меандрСПериодомToolStripMenuItem.Click += new System.EventHandler(this.modelling);
             // 
             // пилаСПериодомLToolStripMenuItem
             // 
             this.пилаСПериодомLToolStripMenuItem.Name = "пилаСПериодомLToolStripMenuItem";
-            this.пилаСПериодомLToolStripMenuItem.Size = new System.Drawing.Size(665, 26);
+            this.пилаСПериодомLToolStripMenuItem.Size = new System.Drawing.Size(815, 26);
             this.пилаСПериодомLToolStripMenuItem.Text = "\"Пила\" с периодом L";
             this.пилаСПериодомLToolStripMenuItem.Click += new System.EventHandler(this.modelling);
             // 
@@ -263,7 +265,7 @@
             // статистикаToolStripMenuItem
             // 
             this.статистикаToolStripMenuItem.Name = "статистикаToolStripMenuItem";
-            this.статистикаToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.статистикаToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.статистикаToolStripMenuItem.Text = "Статистика";
             // 
             // настройкиToolStripMenuItem
@@ -305,6 +307,7 @@
             this.анализToolStripMenuItem,
             this.инструментыToolStripMenuItem,
             this.осцилограммаToolStripMenuItem,
+            this.дПToolStripMenuItem,
             this.настройкиToolStripMenuItem,
             this.справкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -345,6 +348,13 @@
             this.осцилограммаToolStripMenuItem.Size = new System.Drawing.Size(127, 24);
             this.осцилограммаToolStripMenuItem.Text = "Осцилограмма";
             this.осцилограммаToolStripMenuItem.Click += new System.EventHandler(this.осцилограммаToolStripMenuItem_Click);
+            // 
+            // дПToolStripMenuItem
+            // 
+            this.дПToolStripMenuItem.Name = "дПToolStripMenuItem";
+            this.дПToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.дПToolStripMenuItem.Text = "ДПФ";
+            this.дПToolStripMenuItem.Click += new System.EventHandler(this.ДПТToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -401,6 +411,7 @@
         private System.Windows.Forms.ToolStripMenuItem статистикаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem арифметическаяСуперпозицияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem мультипликативнаяСуперпозицияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem дПToolStripMenuItem;
     }
 }
 
