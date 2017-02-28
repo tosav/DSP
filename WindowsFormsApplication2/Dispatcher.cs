@@ -14,27 +14,27 @@ namespace WindowsFormsApplication2
 {
     public class Dispatcher
     {
-        bool wasnavigation=false;//указывает наличие или отсутсвие навигации в прошлом
+        bool wasnavigation = false;//указывает наличие или отсутсвие навигации в прошлом
         private static Dispatcher transmitter;
         MainForm mf;
         SignalInfo sinf;
-        int K=0; //число каналов в многоканальном сигнале
-        int N=0;// количество отсчетов в сигнале  - N
+        int K = 0; //число каналов в многоканальном сигнале
+        int N = 0;// количество отсчетов в сигнале  - N
         double FD;// частота дискретизации в Герцах: fd = 1/T, где T – шаг между отсчетами в секундах
         DateTime date_beg, date_fin;// дата начала сигнала в формате ДД-ММ-ГГГГ 
         String[] names;  //имена всех каналов, разделенные знаком “;” (в конце последнего имени может быть или не быть “;”, программа в любом должна правильно прочитать это имя, при записи TXT рекомендуем писать этот разделительный знак в конце строки)
         PointF[,] data;  // массив для значений сигнала 
         String path;
         oscillogram Osc;
-        double start=0, finish=0;
+        double start = 0, finish = 0;
         Navigation nav;
         Modelling mod;
         public Model mo;
         //int number_model;
         String textmod;
-        Hashtable hash=new Hashtable(); //для чего хэш?
+        Hashtable hash = new Hashtable(); //для чего хэш?
         bool nav_was_del = true;
-
+        DPF dpf;
         public Dispatcher() { }
 
         public static Dispatcher getInstance()
@@ -59,9 +59,9 @@ namespace WindowsFormsApplication2
         public void setSinf()
         {
             if (nav != null)
-                sinf=new SignalInfo();
+                sinf = new SignalInfo();
             else
-                sinf=null;
+                sinf = null;
         }
 
         public SignalInfo getSinf() { return sinf; }
@@ -114,7 +114,7 @@ namespace WindowsFormsApplication2
 
         public oscillogram getOsc() { return Osc; }
 
-        public void setFD(double fd){ FD = fd; }
+        public void setFD(double fd) { FD = fd; }
 
         public double getFD() { return FD; }
 
@@ -126,17 +126,19 @@ namespace WindowsFormsApplication2
 
         public DateTime getDateBegin() { return date_beg; }
 
-        public void setNames(String[] nam) {
+        public void setNames(String[] nam)
+        {
             names = nam;
         }
 
-        public String[] getNames() {
+        public String[] getNames()
+        {
             return names;
         }
 
         public void setData(PointF[,] d)
         {
-           data = d;
+            data = d;
         }
 
         public PointF[,] getData()
@@ -158,7 +160,7 @@ namespace WindowsFormsApplication2
             }
             else
             {
-                PointF[,] xex = new PointF[K+1, N]; //создаём нов массивс с кол-вом каналов на 1 больше
+                PointF[,] xex = new PointF[K + 1, N]; //создаём нов массивс с кол-вом каналов на 1 больше
                 for (int i = 0; i < K; i++)
                     for (int j = 0; j < N; j++)
                         xex[i, j] = data[i, j]; //перекидываем все старые значения
@@ -176,7 +178,8 @@ namespace WindowsFormsApplication2
                 nav.MdiParent = mf;
                 nav.Show();
             }
-            else {
+            else
+            {
                 nav.blabla();
                 setNav(nav); //добавление формы навигации (this) в диспетчер
                 mf.callItem();
@@ -194,7 +197,7 @@ namespace WindowsFormsApplication2
         }
         public void setwasnavigation(bool was)
         {
-            wasnavigation=was;
+            wasnavigation = was;
         }
         public bool getwasnavigation()
         {
@@ -292,16 +295,16 @@ namespace WindowsFormsApplication2
             if (nav != null)
                 if (data != null)
                     nav.VAsf(1);
-            if (start>finish)
+            if (start > finish)
             {
                 finish = start;
                 start = fn;
             }
-            if ((finish-start) < 1)
+            if ((finish - start) < 1)
             {
                 finish = start + 1;
             }
-            if (Osc!=null)
+            if (Osc != null)
                 Osc.area(Convert.ToInt32(start), Convert.ToInt32(finish));
             if (mo != null)
                 mo.area(Convert.ToInt32(start), Convert.ToInt32(finish));
@@ -378,12 +381,44 @@ namespace WindowsFormsApplication2
             {
                 st = new Stat(mf);
                 st.MdiParent = mf;
-                try {st.Owner = mf;}
+                try { st.Owner = mf; }
                 catch (ArgumentException argEx) { }
             }
             st.SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
             st.Show();
             set("stat", st); //то создаётся новая дочерняя форма с осциллограммами
+        }
+
+        public void CreateDPF(int level)
+        {
+            if (getDPF() == null) //если не создана осциллограмма
+            {
+                setDPF(new DPF(mf)); //то создаётся новая дочерняя форма с осциллограммами
+                getDPF().MdiParent = mf;
+
+                try
+                {
+                    getDPF().Owner = mf;
+                }
+                catch (ArgumentException argEx)
+                {
+                    //MessageBox.Show("Error: Could not do this. Original error: " + argEx.Message);
+                }
+            }
+            getDPF().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
+            getDPF().Show();
+        }
+        public DPF getDPF()
+        {
+            return dpf;
+        }
+        public void setDPF(DPF d)
+        {
+            if (d == null)
+                mf.dpf(false);
+            else
+                mf.dpf(true);
+            dpf = d;
         }
     }
 }

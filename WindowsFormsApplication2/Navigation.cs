@@ -237,6 +237,13 @@ namespace WindowsFormsApplication2
             if (disp.getOsc()!=null)
                 disp.getOsc().Close();
         }
+
+        private void dPFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int level;
+            for (level = 0; !chart.Equals(order[level]); level++) { }//определеяем, на каком графике будт рисоваться линия (из какого графика событие)
+            disp.CreateDPF(level);
+        }
     }
 }
  

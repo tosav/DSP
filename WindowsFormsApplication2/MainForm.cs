@@ -260,10 +260,33 @@ namespace WindowsFormsApplication2 {
                 disp.CreateOsc((int)clickedItem.Tag);*/
         }
         private void ДПТItemClickHandler(object sender, EventArgs e) {
+
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            //во первых надо узнать который из них
+            if (clickedItem.CheckState.Equals(CheckState.Checked))
+            {
+                if (disp.getDPF().order.Count() > 1)
+                    for (int j = 0; j < disp.getOsc().order.Count(); j++)
+                    { //проверяем, какой пункт совпадает по названию с осциллограммой
+                        if (disp.getDPF().order[j].Series[0].LegendText == clickedItem.Text)
+                            disp.getDPF().remove(j);//передаём номер графика на удаление
+                    }
+                else
+                    disp.getDPF().remove(0);
+            }
+            //тут галку впарить или передать добавить в осцилограммы
+            else
+                disp.CreateDPF((int)clickedItem.Tag);
+
         }
         public void osc(bool k)
         {
             this.задатьДиапазонToolStripMenuItem.Enabled = k;
+        }
+
+        public void dpf(bool k)
+        {
+            this.дПToolStripMenuItem.Enabled = k;
         }
 
         public void sv(bool k)
