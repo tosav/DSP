@@ -26,6 +26,7 @@ namespace WindowsFormsApplication2 {
         PointF[,] data;  // массив для значений сигнала //мб удалить его после передачи? 
         ToolStripMenuItem[] items; //выпадающий список с названиями каналов
         ToolStripMenuItem[] calls; //выпадающий список с названиями каналов
+        ToolStripMenuItem[] calls2; //выпадающий список с названиями каналов
         Modelling modellng;
         super sup;
         public MainForm() {
@@ -55,7 +56,6 @@ namespace WindowsFormsApplication2 {
             disp.setSinf();
             disp.getSinf().Show();//пока пойдет
         }
-
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e) {
             disp.setDelNav(false);
             Stream myStream = null;
@@ -169,25 +169,33 @@ namespace WindowsFormsApplication2 {
         {
             this.осцилограммаToolStripMenuItem.DropDownItems.Clear();
             this.статистикаToolStripMenuItem.DropDownItems.Clear();
+            this.дПToolStripMenuItem.DropDownItems.Clear();
             if (disp.getNav() != null) //если есть окно навигации //хотя,по-моему, оно всегда будет (Аля)
             {
                 items = new ToolStripMenuItem[disp.getNames().Length]; //создаётся массив по кол-ву каналов
                 calls = new ToolStripMenuItem[disp.getNames().Length]; //создаётся массив по кол-ву каналов
+                calls2 = new ToolStripMenuItem[disp.getNames().Length]; //создаётся массив по кол-ву каналов
                 for (int i = 0; i < disp.getNames().Length; i++)
                 {
                         items[i] = new ToolStripMenuItem();
                         calls[i] = new ToolStripMenuItem();
+                        calls2[i] = new ToolStripMenuItem();
                         items[i].Name = "dynamicItem" + disp.getNames()[i];
                         calls[i].Name = "dynamicItem" + disp.getNames()[i];
+                        calls2[i].Name = "dynamicItem" + disp.getNames()[i];
                         items[i].Tag = i;
                         calls[i].Tag = i;
+                        calls2[i].Tag = i;
                         items[i].Text = disp.getNames()[i];
                         calls[i].Text = disp.getNames()[i];
+                        calls2[i].Text = disp.getNames()[i];
                         items[i].Click += new EventHandler(MenuItemClickHandler);
                         calls[i].Click += new EventHandler(StatMenuItemClickHandler);
+                        calls2[i].Click += new EventHandler(ДПТItemClickHandler);
                 }
                 this.осцилограммаToolStripMenuItem.DropDownItems.AddRange(items);
                 this.статистикаToolStripMenuItem.DropDownItems.AddRange(calls);
+                this.дПToolStripMenuItem.DropDownItems.AddRange(calls2);
             }
 
         }
@@ -195,6 +203,7 @@ namespace WindowsFormsApplication2 {
         //для передачи имён каналов в окно осциллограмм
         private void осцилограммаToolStripMenuItem_Click(object sender, EventArgs e)  { }
 
+        private void ДПТToolStripMenuItem_Click(object sender, EventArgs e) { }
         private void MenuItemClickHandler(object sender, EventArgs e)
         {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
@@ -250,9 +259,34 @@ namespace WindowsFormsApplication2 {
             else
                 disp.CreateOsc((int)clickedItem.Tag);*/
         }
+        private void ДПТItemClickHandler(object sender, EventArgs e) {
+
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            //во первых надо узнать который из них
+            if (clickedItem.CheckState.Equals(CheckState.Checked))
+            {
+                if (disp.getDPF().order.Count() > 1)
+                    for (int j = 0; j < disp.getOsc().order.Count(); j++)
+                    { //проверяем, какой пункт совпадает по названию с осциллограммой
+                        if (disp.getDPF().order[j].Series[0].LegendText == clickedItem.Text)
+                            disp.getDPF().remove(j);//передаём номер графика на удаление
+                    }
+                else
+                    disp.getDPF().remove(0);
+            }
+            //тут галку впарить или передать добавить в осцилограммы
+            else
+                disp.CreateDPF((int)clickedItem.Tag);
+
+        }
         public void osc(bool k)
         {
             this.задатьДиапазонToolStripMenuItem.Enabled = k;
+        }
+
+        public void dpf(bool k)
+        {
+            this.дПToolStripMenuItem.Enabled = k;
         }
 
         public void sv(bool k)

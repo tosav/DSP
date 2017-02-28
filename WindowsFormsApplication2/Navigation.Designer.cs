@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.осцилограммаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dPFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,9 +39,10 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.осцилограммаToolStripMenuItem});
+            this.осцилограммаToolStripMenuItem,
+            this.dPFToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(191, 58);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(191, 84);
             // 
             // осцилограммаToolStripMenuItem
             // 
@@ -48,6 +50,13 @@
             this.осцилограммаToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.осцилограммаToolStripMenuItem.Text = "Осцилограмма";
             this.осцилограммаToolStripMenuItem.Click += new System.EventHandler(this.осцилограммаToolStripMenuItem_Click);
+            // 
+            // dPFToolStripMenuItem
+            // 
+            this.dPFToolStripMenuItem.Name = "dPFToolStripMenuItem";
+            this.dPFToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.dPFToolStripMenuItem.Text = "DPF";
+            this.dPFToolStripMenuItem.Click += new System.EventHandler(this.dPFToolStripMenuItem_Click);
             // 
             // Navigation
             // 
@@ -73,5 +82,6 @@
 
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem осцилограммаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dPFToolStripMenuItem;
     }
 }
