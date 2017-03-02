@@ -249,7 +249,6 @@ namespace WindowsFormsApplication2
             }
             return maxi;
         }
-
         public double maxi(PointF[] data, int s, int f)
         {
             double maxi = data[s].Y;

@@ -21,10 +21,15 @@ namespace WindowsFormsApplication2
         private int X2;
         private int Y2;
         int prob = 30;
-        Interval inter;
-        int W = 700; // стандартная длина графика
-        int H = 200; // стандартная высота графика + отступ с названием канала
-
+        private Interval inter;
+        private int W = 700; // стандартная длина графика
+        private int H = 200; // стандартная высота графика + отступ с названием канала
+        private double Re;//Реальная часть
+        private double Im;//Мнимая
+        private double Amplitude;//Амплитуда для АЧХ
+        private double Faza;//Фаза для ФЧХ
+        private double Frecuensy;//Частота гармоники
+        Complex[] Furie;
         private void resize(object sender, EventArgs e)
         {
             if (order.Count > 0)
@@ -35,10 +40,28 @@ namespace WindowsFormsApplication2
                 location();
             }
         }
-
         public DPF(MainForm ParrentForm)
         {
             InitializeComponent();
+            Furie = new Complex[disp.getN()];
+        }
+        void FFP(int n)
+        {
+            int N = disp.getN();
+            double Arg;
+            for (int k = 0; k < N; k++)
+            {
+                Furie[k] = new Complex();
+                for (int i = 0; i < N; i++)
+                {
+                    Arg = 2 * Math.PI * k * i / N;
+                    Furie[k].Re += disp.getData()[n, i].Y * Math.Cos(Arg);
+                    Furie[k].Im -= disp.getData()[n, i].Y * Math.Sin(Arg);
+                }
+                Furie[k].Amplitude = (Math.Sqrt(Math.Pow(Furie[k].Re, 2) + Math.Pow(Furie[k].Im, 2))) / N;
+                Furie[k].Faza = Math.Atan(Furie[k].Im / Furie[k].Re / Math.PI * 180);
+                Furie[k].Frecuensy = ((N - 1) * (k));
+            }
         }
 
         //создание и добавление нового чарта на форму
@@ -46,20 +69,17 @@ namespace WindowsFormsApplication2
         {
             if (!kol.Contains(n))
             {
-                CreateChart(0, 1700, n);
-                order.Add(chart); //добавление чарта в общий список
-                                  //double k = 1 / 60 / disp.getFD();
-                                  //тут будет код преобразования Фурье
-                Complex Xn = new Complex();
-                for (int i = 0; i < disp.getN(); i++)//инициализация массива
+                FFP(n);
+                PointF[] Xn = new PointF[disp.getN()];
+                for (int i = 0; i < disp.getN(); i++)
                 {
-                    Xn+= new Complex(Convert.ToDouble(disp.getData()[n, i].Y) * Math.Cos(i), Convert.ToDouble(disp.getData()[n, i].Y) * Math.Sin(i));
+                    Xn[i] = new PointF(0, Convert.ToSingle(Furie[i].Amplitude / disp.getN()));
                 }
-                Xn = Xn * Math.Pow(disp.getN(),3)*new Complex(Math.Cos(2*Math.PI/disp.getN()),-Math.Sin(2 * Math.PI / disp.getN()));
+                CreateChart(disp.mini(Xn, 0, disp.getN()), disp.maxi(Xn, 0, disp.getN()), n);
+                order.Add(chart);
                 for (int i = 0; i < disp.getN(); i++)//инициализация массива
                 {
-                    Complex z = Xn * new Complex(Math.Cos(i), Math.Sin(i));
-                    chart.Series[0].Points.AddXY(i, z.Abs);
+                    chart.Series[0].Points.AddXY(i, Xn[i].Y);
                     chart.Tag = n.ToString();
                 }
                 chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
