@@ -59,8 +59,8 @@ namespace WindowsFormsApplication2
                     Furie[k].Im -= disp.getData()[n, i].Y * Math.Sin(Arg);
                 }
                 Furie[k].Amplitude = (Math.Sqrt(Math.Pow(Furie[k].Re, 2) + Math.Pow(Furie[k].Im, 2))) / N;
-                Furie[k].Faza = Math.Atan(Furie[k].Im / Furie[k].Re / Math.PI * 180);
-                Furie[k].Frecuensy = ((N - 1) * (k));
+                Furie[k].Faza = Math.Atan2(Furie[k].Im, Furie[k].Re) / Math.PI * 180;
+                Furie[k].Frecuensy = (N - 1) * k;
             }
         }
 
@@ -73,7 +73,7 @@ namespace WindowsFormsApplication2
                 PointF[] Xn = new PointF[disp.getN()];
                 for (int i = 0; i < disp.getN(); i++)
                 {
-                    Xn[i] = new PointF(0, Convert.ToSingle(Furie[i].Amplitude / disp.getN()));
+                    Xn[i] = new PointF(0, Convert.ToSingle(Furie[i].Frecuensy));
                 }
                 CreateChart(disp.mini(Xn, 0, disp.getN()), disp.maxi(Xn, 0, disp.getN()), n);
                 order.Add(chart);
