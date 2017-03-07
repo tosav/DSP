@@ -14,6 +14,7 @@ namespace ComplexConsole
         public double Amplitude { get; set; }//Амплитуда для АЧХ
         public double Faza { get; set; }//Фаза для ФЧХ
         public double Frecuensy { get; set; }//Частота гармоники
+        public double Arg { get; set; }//Значение в точке
         public Complex(double r, double i)
         {
             Re = r;

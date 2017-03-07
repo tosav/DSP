@@ -34,7 +34,7 @@ namespace WindowsFormsApplication2
         String textmod;
         Hashtable hash = new Hashtable(); //для чего хэш?
         bool nav_was_del = true;
-        DPF dpf;
+        DFT dpf;
         public Dispatcher() { }
 
         public static Dispatcher getInstance()
@@ -392,7 +392,7 @@ namespace WindowsFormsApplication2
         {
             if (getDPF() == null) //если не создана осциллограмма
             {
-                setDPF(new DPF(mf)); //то создаётся новая дочерняя форма с осциллограммами
+                setDPF(new DFT(mf)); //то создаётся новая дочерняя форма с осциллограммами
                 getDPF().MdiParent = mf;
 
                 try
@@ -407,11 +407,11 @@ namespace WindowsFormsApplication2
             getDPF().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
             getDPF().Show();
         }
-        public DPF getDPF()
+        public DFT getDPF()
         {
             return dpf;
         }
-        public void setDPF(DPF d)
+        public void setDPF(DFT d)
         {
             if (d == null)
                 mf.dpf(false);
