@@ -40,6 +40,31 @@ namespace WindowsFormsApplication2
                 location();
             }
         }
+        static void quickSort(PointF[] a, int l, int r)
+        {
+            PointF temp;
+            PointF x = a[l + (r - l) / 2];
+            int i = l;
+            int j = r;
+            while (i <= j)
+            {
+                while (a[i].X < x.X) i++;
+                while (a[j].X > x.X) j--;
+                if (i <= j)
+                {
+                    temp = a[i];
+                    a[i] = a[j];
+                    a[j] = temp;
+                    i++;
+                    j--;
+                }
+            }
+            if (i < r)
+                quickSort(a, i, r);
+
+            if (l < j)
+                quickSort(a, l, j);
+        }
         public DPF(MainForm ParrentForm)
         {
             InitializeComponent();
@@ -63,18 +88,23 @@ namespace WindowsFormsApplication2
                 Furie[k].Frecuensy = (N - 1) * k;
             }
         }
-
+        public PointF[] Sortmas() //и тут все это дело будет преобразовываться
+        {
+            PointF[] Xn = new PointF[disp.getN()];
+            for (int i = 0; i < disp.getN(); i++)
+            {
+                Xn[i] = new PointF(Convert.ToSingle(Furie[i].Frecuensy), Convert.ToSingle(Furie[i].Amplitude));
+            }
+            quickSort(Xn, 0, disp.getN()-1);
+            return Xn;
+        }
         //создание и добавление нового чарта на форму
         public void SetData(int n, double mini, double maxi)
         {
             if (!kol.Contains(n))
             {
                 FFP(n);
-                PointF[] Xn = new PointF[disp.getN()];
-                for (int i = 0; i < disp.getN(); i++)
-                {
-                    Xn[i] = new PointF(0, Convert.ToSingle(Furie[i].Frecuensy));
-                }
+                PointF[] Xn = Sortmas();
                 CreateChart(disp.mini(Xn, 0, disp.getN()), disp.maxi(Xn, 0, disp.getN()), n);
                 order.Add(chart);
                 for (int i = 0; i < disp.getN(); i++)//инициализация массива
