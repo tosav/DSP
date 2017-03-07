@@ -55,11 +55,11 @@
     </Compile>
     <Compile Include="ComplexConsole.cs" />
     <Compile Include="Dispatcher.cs" />
-    <Compile Include="DPF.cs">
+    <Compile Include="DFT.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DPF.Designer.cs">
-      <DependentUpon>DPF.cs</DependentUpon>
+    <Compile Include="DFT.Designer.cs">
+      <DependentUpon>DFT.cs</DependentUpon>
     </Compile>
     <Compile Include="super.cs">
       <SubType>Form</SubType>
@@ -126,8 +126,8 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DPF.resx">
-      <DependentUpon>DPF.cs</DependentUpon>
+    <EmbeddedResource Include="DFT.resx">
+      <DependentUpon>DFT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interval.resx">
       <DependentUpon>Interval.cs</DependentUpon>

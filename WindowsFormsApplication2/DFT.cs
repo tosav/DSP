@@ -7,7 +7,7 @@ using ComplexConsole;
 
 namespace WindowsFormsApplication2
 {
-    public partial class DPF : Form
+    public partial class DFT : Form
     {
         bool loc = true;//локальный масштаб
         bool sharp = true;//решетка
@@ -65,7 +65,7 @@ namespace WindowsFormsApplication2
             if (l < j)
                 quickSort(a, l, j);
         }
-        public DPF(MainForm ParrentForm)
+        public DFT(MainForm ParrentForm)
         {
             InitializeComponent();
             Furie = new Complex[disp.getN()];
@@ -84,7 +84,7 @@ namespace WindowsFormsApplication2
                     Furie[k].Im -= disp.getData()[n, i].Y * Math.Sin(Arg);
                 }
                 Furie[k].Amplitude = (Math.Sqrt(Math.Pow(Furie[k].Re, 2) + Math.Pow(Furie[k].Im, 2))) / N;
-                Furie[k].Faza = Math.Atan2(Furie[k].Im, Furie[k].Re) / Math.PI * 180;
+                Furie[k].Faza = Math.Atan2(Furie[k].Im, Furie[k].Re / Math.PI * 180);
                 Furie[k].Frecuensy = (N - 1) * k;
             }
         }
@@ -104,7 +104,10 @@ namespace WindowsFormsApplication2
             if (!kol.Contains(n))
             {
                 FFP(n);
-                PointF[] Xn = Sortmas();
+                //PointF[] Xn = Sortmas();
+                PointF[] Xn = new PointF[disp.getN()];
+                for (int i = 0; i < disp.getN(); i++)
+                    Xn[i] = new PointF(i, Convert.ToSingle(Furie[i].Faza));
                 CreateChart(disp.mini(Xn, 0, disp.getN()), disp.maxi(Xn, 0, disp.getN()), n);
                 order.Add(chart);
                 for (int i = 0; i < disp.getN(); i++)//инициализация массива
