@@ -24,12 +24,8 @@ namespace WindowsFormsApplication2
         private Interval inter;
         private int W = 700; // стандартная длина графика
         private int H = 200; // стандартная высота графика + отступ с названием канала
-        private double Re;//Реальная часть
-        private double Im;//Мнимая
-        private double Amplitude;//Амплитуда для АЧХ
-        private double Faza;//Фаза для ФЧХ
-        private double Frecuensy;//Частота гармоники
         Complex[] Furie;
+
         private void resize(object sender, EventArgs e)
         {
             if (order.Count > 0)
@@ -40,36 +36,11 @@ namespace WindowsFormsApplication2
                 location();
             }
         }
-        static void quickSort(PointF[] a, int l, int r)
-        {
-            PointF temp;
-            PointF x = a[l + (r - l) / 2];
-            int i = l;
-            int j = r;
-            while (i <= j)
-            {
-                while (a[i].X < x.X) i++;
-                while (a[j].X > x.X) j--;
-                if (i <= j)
-                {
-                    temp = a[i];
-                    a[i] = a[j];
-                    a[j] = temp;
-                    i++;
-                    j--;
-                }
-            }
-            if (i < r)
-                quickSort(a, i, r);
-
-            if (l < j)
-                quickSort(a, l, j);
-        }
         public DFT(MainForm ParrentForm)
         {
             InitializeComponent();
             Furie = new Complex[disp.getN()];
-        }
+        }/*
         void FFP(int n)
         {
             int N = disp.getN();
@@ -87,50 +58,47 @@ namespace WindowsFormsApplication2
                 Furie[k].Faza = Math.Atan2(Furie[k].Im, Furie[k].Re / Math.PI * 180);
                 Furie[k].Frecuensy = (N - 1) * k;
             }
-        }
-        public PointF[] Sortmas() //и тут все это дело будет преобразовываться
+        }*/
+        public void DDFT(int n)
         {
-            PointF[] Xn = new PointF[disp.getN()];
             for (int i = 0; i < disp.getN(); i++)
             {
-                Xn[i] = new PointF(Convert.ToSingle(Furie[i].Frecuensy), Convert.ToSingle(Furie[i].Amplitude));
+                Furie[i] = new Complex();
+                for (int j = 0; j < disp.getN(); j++)
+                {
+                    Furie[i].Re += disp.getData()[n, j].Y * Math.Cos(2 * Math.PI * i * j / disp.getFD());
+                    Furie[i].Im += disp.getData()[n, j].Y * -(Math.Sin(2 * Math.PI * i * j / disp.getFD()));
+                }
+                Furie[i].Amplitude = (Math.Sqrt(Math.Pow(Furie[i].Re, 2) + Math.Pow(Furie[i].Im, 2)));
+                Furie[i].Faza = i / (disp.getFD() / 180);
             }
-            quickSort(Xn, 0, disp.getN()-1);
-            return Xn;
         }
         //создание и добавление нового чарта на форму
         public void SetData(int n, double mini, double maxi)
         {
+
             if (!kol.Contains(n))
             {
-                FFP(n);
-                //PointF[] Xn = Sortmas();
-                PointF[] Xn = new PointF[disp.getN()];
-                for (int i = 0; i < disp.getN(); i++)
-                    Xn[i] = new PointF(i, Convert.ToSingle(Furie[i].Faza));
-                CreateChart(disp.mini(Xn, 0, disp.getN()), disp.maxi(Xn, 0, disp.getN()), n);
-                order.Add(chart);
-                for (int i = 0; i < disp.getN(); i++)//инициализация массива
+                DDFT(n);
+                CreateChart( n);
+                order.Add(chart); //добавление чарта в общий список
+                for (int i = 1; i < disp.getN(); i++)//инициализация массива
                 {
-                    chart.Series[0].Points.AddXY(i, Xn[i].Y);
-                    chart.Tag = n.ToString();
+                    chart.Series[0].Points.AddXY(Furie[i].Faza, Furie[i].Amplitude);
                 }
+                chart.Tag = n.ToString();
                 chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
                 chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
-                //изменение размеров окна
                 this.Width = this.W;
                 this.Height = prob + this.H * order.Count + 40;
-
                 this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
                 this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
             }
         }
 
-        private void CreateChart(double min, double max, int n)
+        private void CreateChart(int n)
         {
-
-            /*               DateTime date = new DateTime(2001, 01, 01, 0, 0, 0);
-                           date += TimeSpan.FromSeconds(disp.getDateFin().Subtract(disp.getDateBegin()).Seconds);*/
+            
             kol.Add(n);
             disp.getMf().CheckItem(n);
             // Создаём новый элемент управления Chart
@@ -144,20 +112,9 @@ namespace WindowsFormsApplication2
             ChartArea area = new ChartArea();
             // Даём ей имя (чтобы потом добавлять графики)
             area.Name = "myGraph";
-            //area.AxisX.LabelStyle.Format = "dd:HH:mm:ss";
-            //area.AxisX.IntervalType = DateTimeIntervalType.Auto;
-            area.AxisY.Minimum = min;
-            area.AxisY.Maximum = max;
-            area.AxisX.Minimum = 0;
-            area.AxisX.Maximum = disp.getN();
-            //area.AxisX.Maximum = date.ToOADate();
-            //задаём кол-во знаков после запятой для меток на осях
             area.AxisY.LabelStyle.Format = "N2";
             area.AxisX.LabelStyle.Format = "N0";
             area.AxisX.ScrollBar.Enabled = true;
-            // area.AxisX.Minimum = ChartPoint.BaseTime.ToOADate();
-            //area.AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Auto;
-            //area.AxisX.LabelStyle.Format = "T";
             area.CursorX.IsUserEnabled = true;
             area.CursorX.IsUserSelectionEnabled = true;
             area.AxisX.ScaleView.Zoomable = true;
@@ -166,7 +123,12 @@ namespace WindowsFormsApplication2
             area.BorderColor = Color.Black;
             area.BorderWidth = 1;
             area.AxisX.MajorGrid.Enabled = sharp;
+            area.AxisX.IsLogarithmic = true;
+            area.AxisY.IsLogarithmic = true;
             area.AxisY.MajorGrid.Enabled = sharp;
+            area.AxisY.MajorGrid.LineColor = Color.Black;
+            area.AxisX.MajorGrid.LineColor = Color.Black;
+            
             //area
             // Добавляем область в диаграмму
             chart.ChartAreas.Add(area);

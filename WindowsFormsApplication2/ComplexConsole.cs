@@ -23,7 +23,7 @@ namespace ComplexConsole
         public Complex()
         {
             Re = 0d;
-            Im = 1d;
+            Im = 0d;
         }
     }
 }
