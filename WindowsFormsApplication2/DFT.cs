@@ -40,36 +40,21 @@ namespace WindowsFormsApplication2
         {
             InitializeComponent();
             Furie = new Complex[disp.getN()];
-        }/*
-        void FFP(int n)
-        {
-            int N = disp.getN();
-            double Arg;
-            for (int k = 0; k < N; k++)
-            {
-                Furie[k] = new Complex();
-                for (int i = 0; i < N; i++)
-                {
-                    Arg = 2 * Math.PI * k * i / N;
-                    Furie[k].Re += disp.getData()[n, i].Y * Math.Cos(Arg);
-                    Furie[k].Im -= disp.getData()[n, i].Y * Math.Sin(Arg);
-                }
-                Furie[k].Amplitude = (Math.Sqrt(Math.Pow(Furie[k].Re, 2) + Math.Pow(Furie[k].Im, 2))) / N;
-                Furie[k].Faza = Math.Atan2(Furie[k].Im, Furie[k].Re / Math.PI * 180);
-                Furie[k].Frecuensy = (N - 1) * k;
-            }
-        }*/
+        }
         public void DDFT(int n)
         {
             for (int i = 0; i < disp.getN(); i++)
             {
+                double Re = 0, Im = 0 ;
                 Furie[i] = new Complex();
                 for (int j = 0; j < disp.getN(); j++)
                 {
-                    Furie[i].Re += disp.getData()[n, j].Y * Math.Cos(2 * Math.PI * i * j / disp.getFD());
-                    Furie[i].Im += disp.getData()[n, j].Y * -(Math.Sin(2 * Math.PI * i * j / disp.getFD()));
+                    Re += disp.getData()[n, j].Y * Math.Cos(2 * Math.PI * i * j / disp.getFD());
+                    Im += disp.getData()[n, j].Y * -(Math.Sin(2 * Math.PI * i * j / disp.getFD()));
                 }
-                Furie[i].Amplitude = (Math.Sqrt(Math.Pow(Furie[i].Re, 2) + Math.Pow(Furie[i].Im, 2)));
+                Furie[i].Re = Re;
+                Furie[i].Im = Im;
+                Furie[i].Amplitude = (Math.Sqrt(Math.Pow(Re, 2) + Math.Pow(Im, 2)));
                 Furie[i].Faza = i / (disp.getFD() / 180);
             }
         }

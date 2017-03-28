@@ -8,7 +8,7 @@ namespace ComplexConsole
 {
     public class Complex
     {
-        public static readonly Complex I = new Complex(0d, 1d);
+        public static readonly Complex I = new Complex(0d, 0d);
         public double Re { get; set; }
         public double Im { get; set; }
         public double Amplitude { get; set; }//Амплитуда для АЧХ
