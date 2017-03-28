@@ -63,6 +63,8 @@
             this.задатьДиапазонToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.осцилограммаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.дПToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.корреляционныйАнализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.спектральныйАнализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -257,7 +259,9 @@
             // анализToolStripMenuItem
             // 
             this.анализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.статистикаToolStripMenuItem});
+            this.статистикаToolStripMenuItem,
+            this.корреляционныйАнализToolStripMenuItem,
+            this.спектральныйАнализToolStripMenuItem});
             this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
             this.анализToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
             this.анализToolStripMenuItem.Text = "Анализ";
@@ -356,6 +360,18 @@
             this.дПToolStripMenuItem.Text = "ДПФ";
             this.дПToolStripMenuItem.Click += new System.EventHandler(this.ДПТToolStripMenuItem_Click);
             // 
+            // корреляционныйАнализToolStripMenuItem
+            // 
+            this.корреляционныйАнализToolStripMenuItem.Name = "корреляционныйАнализToolStripMenuItem";
+            this.корреляционныйАнализToolStripMenuItem.Size = new System.Drawing.Size(262, 26);
+            this.корреляционныйАнализToolStripMenuItem.Text = "Корреляционный анализ";
+            // 
+            // спектральныйАнализToolStripMenuItem
+            // 
+            this.спектральныйАнализToolStripMenuItem.Name = "спектральныйАнализToolStripMenuItem";
+            this.спектральныйАнализToolStripMenuItem.Size = new System.Drawing.Size(262, 26);
+            this.спектральныйАнализToolStripMenuItem.Text = "Спектральный анализ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -412,6 +428,8 @@
         private System.Windows.Forms.ToolStripMenuItem арифметическаяСуперпозицияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem мультипликативнаяСуперпозицияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem дПToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem корреляционныйАнализToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem спектральныйАнализToolStripMenuItem;
     }
 }
 

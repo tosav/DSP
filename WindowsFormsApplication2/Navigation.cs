@@ -244,6 +244,21 @@ namespace WindowsFormsApplication2
             for (level = 0; !chart.Equals(order[level]); level++) { }//определеяем, на каком графике будт рисоваться линия (из какого графика событие)
             disp.CreateDPF(level);
         }
+
+        private void корреляционныйАнализToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            int level;
+            for (level = 0; !chart.Equals(order[level]); level++) { }//определеяем, на каком графике будт рисоваться линия (из какого графика событие)
+          //  disp.CreateDPF(level);
+        }
+
+        private void спектральныйАнализToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int level;
+            for (level = 0; !chart.Equals(order[level]); level++) { }//определеяем, на каком графике будт рисоваться линия (из какого графика событие)
+            //  disp.CreateDPF(level);
+        }
     }
 }
  

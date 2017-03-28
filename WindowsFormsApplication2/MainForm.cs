@@ -27,6 +27,8 @@ namespace WindowsFormsApplication2 {
         ToolStripMenuItem[] items; //выпадающий список с названиями каналов
         ToolStripMenuItem[] calls; //выпадающий список с названиями каналов
         ToolStripMenuItem[] calls2; //выпадающий список с названиями каналов
+        ToolStripMenuItem[] correl; //выпадающий список с названиями каналов
+        ToolStripMenuItem[] spectral; //выпадающий список с названиями каналов
         Modelling modellng;
         super sup;
         public MainForm() {
@@ -170,32 +172,48 @@ namespace WindowsFormsApplication2 {
             this.осцилограммаToolStripMenuItem.DropDownItems.Clear();
             this.статистикаToolStripMenuItem.DropDownItems.Clear();
             this.дПToolStripMenuItem.DropDownItems.Clear();
+            this.спектральныйАнализToolStripMenuItem.DropDownItems.Clear();
+            this.корреляционныйАнализToolStripMenuItem.DropDownItems.Clear();
             if (disp.getNav() != null) //если есть окно навигации //хотя,по-моему, оно всегда будет (Аля)
             {
                 items = new ToolStripMenuItem[disp.getNames().Length]; //создаётся массив по кол-ву каналов
                 calls = new ToolStripMenuItem[disp.getNames().Length]; //создаётся массив по кол-ву каналов
                 calls2 = new ToolStripMenuItem[disp.getNames().Length]; //создаётся массив по кол-ву каналов
+                correl = new ToolStripMenuItem[disp.getNames().Length]; //создаётся массив по кол-ву каналов
+                spectral = new ToolStripMenuItem[disp.getNames().Length]; //создаётся массив по кол-ву каналов
                 for (int i = 0; i < disp.getNames().Length; i++)
                 {
                         items[i] = new ToolStripMenuItem();
                         calls[i] = new ToolStripMenuItem();
                         calls2[i] = new ToolStripMenuItem();
+                        correl[i] = new ToolStripMenuItem();
+                        spectral[i] = new ToolStripMenuItem();
                         items[i].Name = "dynamicItem" + disp.getNames()[i];
                         calls[i].Name = "dynamicItem" + disp.getNames()[i];
                         calls2[i].Name = "dynamicItem" + disp.getNames()[i];
+                        correl[i].Name = "dynamicItem" + disp.getNames()[i];
+                        spectral[i].Name = "dynamicItem" + disp.getNames()[i];
                         items[i].Tag = i;
                         calls[i].Tag = i;
                         calls2[i].Tag = i;
+                        correl[i].Tag = i;
+                        spectral[i].Tag = i;
                         items[i].Text = disp.getNames()[i];
                         calls[i].Text = disp.getNames()[i];
                         calls2[i].Text = disp.getNames()[i];
+                        correl[i].Text = disp.getNames()[i];
+                        spectral[i].Text = disp.getNames()[i];
                         items[i].Click += new EventHandler(MenuItemClickHandler);
                         calls[i].Click += new EventHandler(StatMenuItemClickHandler);
                         calls2[i].Click += new EventHandler(ДПТItemClickHandler);
+                        correl[i].Click += new EventHandler(CorrelItemClickHandler);
+                        spectral[i].Click += new EventHandler(SpectralItemClickHandler);
                 }
                 this.осцилограммаToolStripMenuItem.DropDownItems.AddRange(items);
                 this.статистикаToolStripMenuItem.DropDownItems.AddRange(calls);
                 this.дПToolStripMenuItem.DropDownItems.AddRange(calls2);
+                this.спектральныйАнализToolStripMenuItem.DropDownItems.AddRange(correl);
+                this.корреляционныйАнализToolStripMenuItem.DropDownItems.AddRange(spectral);
             }
 
         }
@@ -243,21 +261,6 @@ namespace WindowsFormsApplication2 {
             }
             else
                 disp.CreateStat((int)clickedItem.Tag);
-
-            /*if (clickedItem.CheckState.Equals(CheckState.Checked))
-            {
-                if (  > 1)
-                    for (int j = 0; j < disp.getOsc().order.Count(); j++)
-                    { //проверяем, какой пункт совпадает по названию с осциллограммой
-                        if (disp.getOsc().order[j].Series[0].LegendText == clickedItem.Text)
-                            disp.getOsc().remove(j);//передаём номер графика на удаление
-                    }
-                else
-                    disp.getOsc().remove(0);
-            }
-            //тут галку впарить или передать добавить в осцилограммы
-            else
-                disp.CreateOsc((int)clickedItem.Tag);*/
         }
         private void ДПТItemClickHandler(object sender, EventArgs e) {
 
@@ -279,6 +282,47 @@ namespace WindowsFormsApplication2 {
                 disp.CreateDPF((int)clickedItem.Tag);
 
         }
+
+        private void CorrelItemClickHandler(object sender, EventArgs e)
+        {/*
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            //во первых надо узнать который из них
+            if (clickedItem.CheckState.Equals(CheckState.Checked))
+            {
+                if (disp.getOsc().order.Count() > 1)
+                    for (int j = 0; j < disp.getOsc().order.Count(); j++)
+                    { //проверяем, какой пункт совпадает по названию с осциллограммой
+                        if (disp.getOsc().order[j].Series[0].LegendText == clickedItem.Text)
+                            disp.getOsc().remove(j);//передаём номер графика на удаление
+                    }
+                else
+                    disp.getOsc().remove(0);
+            }
+            //тут галку впарить или передать добавить в осцилограммы
+            else
+                disp.CreateOsc((int)clickedItem.Tag);*/
+        }
+
+
+        private void SpectralItemClickHandler(object sender, EventArgs e)
+        {
+           /* ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            //во первых надо узнать который из них
+            if (clickedItem.CheckState.Equals(CheckState.Checked))
+            {
+                if (disp.getOsc().order.Count() > 1)
+                    for (int j = 0; j < disp.getOsc().order.Count(); j++)
+                    { //проверяем, какой пункт совпадает по названию с осциллограммой
+                        if (disp.getOsc().order[j].Series[0].LegendText == clickedItem.Text)
+                            disp.getOsc().remove(j);//передаём номер графика на удаление
+                    }
+                else
+                    disp.getOsc().remove(0);
+            }
+            //тут галку впарить или передать добавить в осцилограммы
+            else
+                disp.CreateOsc((int)clickedItem.Tag);*/
+        }
         public void osc(bool k)
         {
             this.задатьДиапазонToolStripMenuItem.Enabled = k;
@@ -287,6 +331,16 @@ namespace WindowsFormsApplication2 {
         public void dpf(bool k)
         {
             this.дПToolStripMenuItem.Enabled = k;
+        }
+
+        public void spf(bool k)
+        {
+            this.спектральныйАнализToolStripMenuItem.Enabled = k;
+        }
+
+        public void cor(bool k)
+        {
+            this.корреляционныйАнализToolStripMenuItem.Enabled = k;
         }
 
         public void sv(bool k)
