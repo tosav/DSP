@@ -20,8 +20,6 @@ namespace WindowsFormsApplication2
         private int Y1;
         private int X2;
         private int Y2;
-        double[] Re;
-        double[] Im;
         int prob = 30;
         private Interval inter;
         private int W = 700; // стандартная длина графика
@@ -45,17 +43,19 @@ namespace WindowsFormsApplication2
         }
         public void DDFT(int n)
         {
-            Re = new double[disp.getN()];
-            Im = new double[disp.getN()];
             for (int i = 0; i < disp.getN(); i++)
             {
-                Re[i] = 0; Im[i] = 0 ;
+                double Re = 0, Im = 0 ;
                 Furie[i] = new Complex();
                 for (int j = 0; j < disp.getN(); j++)
                 {
-                    Re[i] += disp.getData()[n, j].Y * Math.Cos(2 * Math.PI * i * j / disp.getFD());
-                    Im[i] += disp.getData()[n, j].Y * -(Math.Sin(2 * Math.PI * i * j / disp.getFD()));
+                    Re += disp.getData()[n, j].Y * Math.Cos(2 * Math.PI * i * j / disp.getFD());
+                    Im += disp.getData()[n, j].Y * -(Math.Sin(2 * Math.PI * i * j / disp.getFD()));
                 }
+                Furie[i].Re = Re;
+                Furie[i].Im = Im;
+                Furie[i].Amplitude = (Math.Sqrt(Math.Pow(Re, 2) + Math.Pow(Im, 2)));
+                Furie[i].Faza = i / (disp.getFD() / 180);
             }
         }
         //создание и добавление нового чарта на форму
@@ -63,41 +63,21 @@ namespace WindowsFormsApplication2
         {
 
             if (!kol.Contains(n))
-                {
-                Series series = new Series("DFT");
+            {
                 DDFT(n);
-                
-                for (int i = 0; i < disp.getN(); i++)
+                CreateChart( n);
+                order.Add(chart); //добавление чарта в общий список
+                for (int i = 1; i < disp.getN(); i++)//инициализация массива
                 {
-                    if (i > 0)
-                    {
-                        series.Points.AddXY((double)i / (disp.getFD() / 180), Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]));
-                    }
+                    chart.Series[0].Points.AddXY(Furie[i].Faza, Furie[i].Amplitude);
                 }
-
-                kol.Add(n);
-                disp.getMf().CheckItem(n);
-                // Создаём новый элемент управления Chart
-                chart = new Chart();
-                // Помещаем его на форму
-                chart.Parent = this;
-                // Задаём размеры элемента
-                chart.SetBounds(0, prob + H * order.Count, W, H);
-
-                series.ChartType = SeriesChartType.Line;
-
-                chart.Series.Clear();
-                chart.Series.Add(series);
-
-
-                ChartArea area = new ChartArea();
-                Axis areaX = area.AxisX;
-                areaX.MajorGrid.LineColor = Color.LightGray;
-                areaX.IsLogarithmic = true;
-                Axis areaY = area.AxisY;
-                areaY.MajorGrid.LineColor = Color.LightGray;
-                areaY.IsLogarithmic = true;
-                chart.ChartAreas.Add(area);
+                chart.Tag = n.ToString();
+                chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
+                chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
+                this.Width = this.W;
+                this.Height = prob + this.H * order.Count + 40;
+                this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
+                this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
             }
         }
 
