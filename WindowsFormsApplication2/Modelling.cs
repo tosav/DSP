@@ -10,7 +10,7 @@ namespace WindowsFormsApplication2
         Dispatcher disp = Dispatcher.getInstance();
         static string str = "-,.";
         static char[] symb = str.ToCharArray(0, 3); //массив символов, которые можно вводить (я чёт больше не нашла другого способа, си шарп такой си шарп)
-        private System.Windows.Forms.Label label = new System.Windows.Forms.Label(); //верхняя запись - с названием выбранного пункта моделирования
+        private System.Windows.Forms.Label label = new System.Windows.Forms.Label(); //верхняя запись - с xназванием выбранного пункта моделирования
         List<Label> labels = new List<Label>(); // лист подписей
         List<TextBox> texts = new List<TextBox>(); //лист текст-боксов
         private System.Windows.Forms.Button but = new System.Windows.Forms.Button();
@@ -59,7 +59,7 @@ namespace WindowsFormsApplication2
 
         private static string RussianDouble(string s) // заменяем точку на запятую для нормального считывания вещ.чисел
         {
-            return s.Replace(".", ",");
+            return s.Replace(".", ",").Replace(",", ",");  
         }
 
         private void createmodel(object sender, EventArgs e/*, int type*/)
