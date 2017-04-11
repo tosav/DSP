@@ -35,6 +35,8 @@ namespace WindowsFormsApplication2
         Hashtable hash = new Hashtable(); //для чего хэш?
         bool nav_was_del = true;
         DFT dpf;
+        Spectral sp;
+        Correlation cor;
         public Dispatcher() { }
 
         public static Dispatcher getInstance()
@@ -418,6 +420,72 @@ namespace WindowsFormsApplication2
             else
                 mf.dpf(true);
             dpf = d;
+        }
+
+
+        public void CreateSp(int level)
+        {
+            if (getSp() == null) //если не создана осциллограмма
+            {
+                setSpF(new Spectral(mf)); //то создаётся новая дочерняя форма с осциллограммами
+                getSp().MdiParent = mf;
+
+                try
+                {
+                    getSp().Owner = mf;
+                }
+                catch (ArgumentException argEx)
+                {
+                    //MessageBox.Show("Error: Could not do this. Original error: " + argEx.Message);
+                }
+            }
+            getSp().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
+            getSp().Show();
+        }
+        public Spectral getSp()
+        {
+            return sp;
+        }
+        public void setSpF(Spectral d)
+        {
+            if (d == null)
+                mf.spf(false);
+            else
+                mf.spf(true);
+            sp = d;
+        }
+
+
+        public void CreateCor(int level)
+        {
+            if (getSp() == null) //если не создана осциллограмма
+            {
+                setCor(new Correlation(mf)); //то создаётся новая дочерняя форма с осциллограммами
+                getCor().MdiParent = mf;
+
+                try
+                {
+                    getCor().Owner = mf;
+                }
+                catch (ArgumentException argEx)
+                {
+                    //MessageBox.Show("Error: Could not do this. Original error: " + argEx.Message);
+                }
+            }
+            getCor().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
+            getCor().Show();
+        }
+        public Correlation getCor()
+        {
+            return cor;
+        }
+        public void setCor(Correlation d)
+        {
+            if (d == null)
+                mf.cor(false);
+            else
+                mf.cor(true);
+            cor = d;
         }
     }
 }

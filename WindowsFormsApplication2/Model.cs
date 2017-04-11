@@ -59,10 +59,12 @@ namespace WindowsFormsApplication2
         //создание и добавление нового чарта на форму
         public void SetData(int n, double mini, double maxi)
         {
-            data=new PointF[disp.getN()];
             PointF[] tata = new PointF[disp.getN()]; //массив для белого шума
-            texts =(List<TextBox>)disp.get("model");
+            data = new PointF[disp.getN()];
+            
+            texts =(List<TextBox>)disp.get("model"); //массив значений, введённых с формы
             CreateChart(mini, maxi, n);
+
             switch ((int) disp.get("model_k")) {
             case 12:
                 for (int i = 0; i < Convert.ToInt64(disp.getN()); i++)

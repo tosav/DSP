@@ -1,13 +1,13 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using ComplexConsole;
 
 namespace WindowsFormsApplication2
 {
-    public partial class DFT : Form
+    public partial class Spectral : Form
     {
         bool loc = true;//локальный масштаб
         bool sharp = true;//решетка
@@ -20,13 +20,10 @@ namespace WindowsFormsApplication2
         private int Y1;
         private int X2;
         private int Y2;
-        double[] Re;
-        double[] Im;
         int prob = 30;
-        private Interval inter;
-        private int W = 700; // стандартная длина графика
-        private int H = 200; // стандартная высота графика + отступ с названием канала
-        Complex[] Furie;
+        Interval inter;
+        int W = 700; // стандартная длина графика
+        int H = 200; // стандартная высота графика + отступ с названием канала
 
         private void resize(object sender, EventArgs e)
         {
@@ -38,55 +35,44 @@ namespace WindowsFormsApplication2
                 location();
             }
         }
-        public DFT(MainForm ParrentForm)
+
+        public Spectral(MainForm ParrentForm)
         {
             InitializeComponent();
-            Furie = new Complex[disp.getN()];
         }
-        public void DDFT(int n)
-        {
-            Re = new double[disp.getN()];
-            Im = new double[disp.getN()];
-            for (int i = 0; i < disp.getN(); i++)
-            {
-                Re[i] = 0; Im[i] = 0 ;
-                Furie[i] = new Complex();
-                for (int j = 0; j < disp.getN(); j++)
-                {
-                    Re[i] += disp.getData()[n, j].Y * Math.Cos(2 * Math.PI * i * j / disp.getFD());
-                    Im[i] += disp.getData()[n, j].Y * -(Math.Sin(2 * Math.PI * i * j / disp.getFD()));
-                }
-            }
-        }
+
         //создание и добавление нового чарта на форму
         public void SetData(int n, double mini, double maxi)
         {
-
             if (!kol.Contains(n))
-                {
-                DDFT(n);
-                CreateChart(n);
+            {
+                CreateChart(mini, maxi, n);
                 order.Add(chart); //добавление чарта в общий список
-                for (int i = 0; i < disp.getN(); i++)
+                //double k = 1 / 60 / disp.getFD();
+                for (int i = 0; i < disp.getN(); i++)//инициализация массива
                 {
-                    if (i > 0)
-                    {
-                        chart.Series[0].Points.AddXY((double)i / (disp.getFD() / 180), Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]));
-                    }
+                    /*DateTime date= new DateTime(2001,01,01,0,0,0);
+                    date += TimeSpan.FromSeconds((1 / disp.getFD()) * i);
+                    chart.Series[0].Points.AddXY(date,disp.getData()[n, i].Y);*/
+                    chart.Series[0].Points.AddXY(i, disp.getData()[n, i].Y);
+                    chart.Tag = n.ToString();
                 }
                 chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
                 chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
                 //изменение размеров окна
                 this.Width = this.W;
                 this.Height = prob + this.H * order.Count + 40;
+
                 this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
                 this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
             }
         }
 
-        private void CreateChart(int n)
+        private void CreateChart(double min, double max, int n)
         {
 
+            /*               DateTime date = new DateTime(2001, 01, 01, 0, 0, 0);
+                           date += TimeSpan.FromSeconds(disp.getDateFin().Subtract(disp.getDateBegin()).Seconds);*/
             kol.Add(n);
             disp.getMf().CheckItem(n);
             // Создаём новый элемент управления Chart
@@ -96,12 +82,24 @@ namespace WindowsFormsApplication2
             // Задаём размеры элемента
             chart.SetBounds(0, prob + H * order.Count, W, H);
 
+            // Создаём новую область для построения графика
             ChartArea area = new ChartArea();
-
+            // Даём ей имя (чтобы потом добавлять графики)
             area.Name = "myGraph";
+            //area.AxisX.LabelStyle.Format = "dd:HH:mm:ss";
+            //area.AxisX.IntervalType = DateTimeIntervalType.Auto;
+            area.AxisY.Minimum = min;
+            area.AxisY.Maximum = max;
+            area.AxisX.Minimum = 0;
+            area.AxisX.Maximum = disp.getN();
+            //area.AxisX.Maximum = date.ToOADate();
+            //задаём кол-во знаков после запятой для меток на осях
             area.AxisY.LabelStyle.Format = "N2";
             area.AxisX.LabelStyle.Format = "N0";
             area.AxisX.ScrollBar.Enabled = true;
+            // area.AxisX.Minimum = ChartPoint.BaseTime.ToOADate();
+            //area.AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Auto;
+            //area.AxisX.LabelStyle.Format = "T";
             area.CursorX.IsUserEnabled = true;
             area.CursorX.IsUserSelectionEnabled = true;
             area.AxisX.ScaleView.Zoomable = true;
@@ -111,28 +109,25 @@ namespace WindowsFormsApplication2
             area.BorderWidth = 1;
             area.AxisX.MajorGrid.Enabled = sharp;
             area.AxisY.MajorGrid.Enabled = sharp;
-            area.AxisY.MajorGrid.LineColor = Color.Black;
-            area.AxisX.MajorGrid.LineColor = Color.Black;
-            area.AxisX.IsLogarithmic = false;
-            area.AxisY.IsLogarithmic = false;
-            //area.AxisX.ScaleView.Zoom(disp.getStart(), disp.getFinish());//вылетает
+            //area
+            // Добавляем область в диаграмму
             chart.ChartAreas.Add(area);
-
-            Series series = new Series();
-            series.ChartType = SeriesChartType.Line;
-
+            // Создаём объект для первого графика
+            Series series1 = new Series();
+            // Ссылаемся на область для построения графика
+            series1.ChartArea = "myGraph";
             if (dots)
-                series.MarkerStyle = MarkerStyle.None;
+                series1.MarkerStyle = MarkerStyle.None;
             else
-                series.MarkerStyle = MarkerStyle.Circle;
-            series.ChartType = SeriesChartType.Line;
-
-            chart.Series.Clear();
-            chart.Series.Add(series);
-            chart.Series[0].ChartArea = "myGraph";
-
-            series.LegendText = disp.getNames()[n];
+                series1.MarkerStyle = MarkerStyle.Circle;
+            // Задаём тип графика - сплайны
+            //series1.XValueType = ChartValueType.DateTime;
+            series1.ChartType = SeriesChartType.Line;
+            series1.LegendText = disp.getNames()[n];
             chart.Legends.Add(disp.getNames()[n]);
+            // Добавляем в список графиков диаграммы
+            chart.Series.Add(series1);
+            area.AxisX.ScaleView.Zoom(disp.getStart(), disp.getFinish());
         }
 
 
@@ -151,11 +146,14 @@ namespace WindowsFormsApplication2
         {
             X2 = e.X;
             Y2 = e.Y;
+            //disp.setFinish(X2);
         }
         public void area(int x1, int x2) //изменяет интервал отображения
         {
             foreach (Chart ch in order)
                 ch.ChartAreas["myGraph"].AxisX.ScaleView.Zoom(x1, x2);
+            /*ch.ChartAreas["myGraph"].AxisY.Minimum = disp.mini(Convert.ToInt32(ch.Tag), disp.getData(), x1, x2);
+            ch.ChartAreas["myGraph"].AxisY.Maximum = disp.maxi(Convert.ToInt32(ch.Tag), disp.getData(), x1, x2);*/
             location();
         }
 
@@ -214,15 +212,15 @@ namespace WindowsFormsApplication2
         public void close(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
             disp.getMf().UnCheckItem();
-            disp.setDPF(null);
+            disp.setOsc(null);
         }
 
         private void локальныйМасштабToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!loc)
             {
-                this.локальныйМасштабToolStripMenuItem.CheckState = CheckState.Checked;
-                глобальныйМасштабToolStripMenuItem.CheckState = CheckState.Unchecked;
+                this.toolStripButton3.CheckState = CheckState.Checked;
+                toolStripButton3.CheckState = CheckState.Unchecked;
                 loc = true;
                 location();
             }
@@ -232,8 +230,8 @@ namespace WindowsFormsApplication2
         {
             if (loc)
             {
-                this.локальныйМасштабToolStripMenuItem.CheckState = CheckState.Unchecked;
-                глобальныйМасштабToolStripMenuItem.CheckState = CheckState.Checked;
+                this.toolStripButton4.CheckState = CheckState.Unchecked;
+                toolStripButton4.CheckState = CheckState.Checked;
                 loc = false;
                 location();
             }

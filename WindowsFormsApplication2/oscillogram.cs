@@ -69,9 +69,6 @@ namespace WindowsFormsApplication2
 
         private void CreateChart(double min, double max, int n)
         {
-
- /*               DateTime date = new DateTime(2001, 01, 01, 0, 0, 0);
-                date += TimeSpan.FromSeconds(disp.getDateFin().Subtract(disp.getDateBegin()).Seconds);*/
                 kol.Add(n);
                 disp.getMf().CheckItem(n);
                 // Создаём новый элемент управления Chart

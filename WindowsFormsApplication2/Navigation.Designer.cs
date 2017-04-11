@@ -32,6 +32,8 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.осцилограммаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dPFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.корреляционныйАнализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.спектральныйАнализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,23 +42,39 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.осцилограммаToolStripMenuItem,
-            this.dPFToolStripMenuItem});
+            this.dPFToolStripMenuItem,
+            this.корреляционныйАнализToolStripMenuItem,
+            this.спектральныйАнализToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(191, 84);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(263, 136);
             // 
             // осцилограммаToolStripMenuItem
             // 
             this.осцилограммаToolStripMenuItem.Name = "осцилограммаToolStripMenuItem";
-            this.осцилограммаToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.осцилограммаToolStripMenuItem.Size = new System.Drawing.Size(262, 26);
             this.осцилограммаToolStripMenuItem.Text = "Осцилограмма";
             this.осцилограммаToolStripMenuItem.Click += new System.EventHandler(this.осцилограммаToolStripMenuItem_Click);
             // 
             // dPFToolStripMenuItem
             // 
             this.dPFToolStripMenuItem.Name = "dPFToolStripMenuItem";
-            this.dPFToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.dPFToolStripMenuItem.Size = new System.Drawing.Size(262, 26);
             this.dPFToolStripMenuItem.Text = "DPF";
             this.dPFToolStripMenuItem.Click += new System.EventHandler(this.dPFToolStripMenuItem_Click);
+            // 
+            // корреляционныйАнализToolStripMenuItem
+            // 
+            this.корреляционныйАнализToolStripMenuItem.Name = "корреляционныйАнализToolStripMenuItem";
+            this.корреляционныйАнализToolStripMenuItem.Size = new System.Drawing.Size(262, 26);
+            this.корреляционныйАнализToolStripMenuItem.Text = "Корреляционный анализ";
+            this.корреляционныйАнализToolStripMenuItem.Click += new System.EventHandler(this.корреляционныйАнализToolStripMenuItem_Click);
+            // 
+            // спектральныйАнализToolStripMenuItem
+            // 
+            this.спектральныйАнализToolStripMenuItem.Name = "спектральныйАнализToolStripMenuItem";
+            this.спектральныйАнализToolStripMenuItem.Size = new System.Drawing.Size(262, 26);
+            this.спектральныйАнализToolStripMenuItem.Text = "Спектральный анализ";
+            this.спектральныйАнализToolStripMenuItem.Click += new System.EventHandler(this.спектральныйАнализToolStripMenuItem_Click);
             // 
             // Navigation
             // 
@@ -83,5 +101,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem осцилограммаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dPFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem корреляционныйАнализToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem спектральныйАнализToolStripMenuItem;
     }
 }
