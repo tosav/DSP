@@ -55,7 +55,7 @@ namespace WindowsFormsApplication2
             if (disp.getN() == 0 || disp.getFD() == 0) //если нет навигации и не сохранены отсчёты и частота, то
             {
                 createtextlabel("n ( целое число )", 7);
-                createtextlabel("fd (  >0  )", 1);
+                createtextlabel("fd ( >0 )", 1);
             }
             findtype();
         }
