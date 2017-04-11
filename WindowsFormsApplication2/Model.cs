@@ -74,7 +74,7 @@ namespace WindowsFormsApplication2
                 }
                 break;
             }   
-            order.Add(chart); //добавление чарта в общий список
+            
 
             for (int i = 0; i < Convert.ToInt64(disp.getN()); i++)//вычисление данных для моделей и запихивание их в чарт
             {
@@ -136,6 +136,7 @@ namespace WindowsFormsApplication2
             chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
             //изменение размеров окна
             //location();
+            order.Add(chart); //добавление чарта в общий список
             this.Width = this.W;
             this.Height = prob+ this.H * order.Count + 40;
             this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);

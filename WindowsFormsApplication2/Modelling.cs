@@ -77,7 +77,7 @@ namespace WindowsFormsApplication2
             }
             if (flag == true) //отрисовка модели, если все текстбоксы заполнены
             {
-                if (texts[0].Name == "n( целое число )")
+                if (texts[0].Name == "n ( целое число )")
                 {
                     disp.setN(Convert.ToInt32(RussianDouble(texts[0].Text)));
                     texts.RemoveAt(0);
