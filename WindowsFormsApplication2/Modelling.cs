@@ -10,25 +10,29 @@ namespace WindowsFormsApplication2
         Dispatcher disp = Dispatcher.getInstance();
         static string str = "-,.";
         static char[] symb = str.ToCharArray(0, 3); //массив символов, которые можно вводить (я чёт больше не нашла другого способа, си шарп такой си шарп)
-        private System.Windows.Forms.Label label = new System.Windows.Forms.Label(); //верхняя запись - с xназванием выбранного пункта моделирования
+
+        private System.Windows.Forms.Label label = new System.Windows.Forms.Label(); //верхняя запись - с названием выбранного пункта моделирования
         List<Label> labels = new List<Label>(); // лист подписей
         List<TextBox> texts = new List<TextBox>(); //лист текст-боксов
+
         private System.Windows.Forms.Button but = new System.Windows.Forms.Button();
+
         int l = 25; //разрыв между лэйблами
         int t; //для подсчёта кол-ва лейблов и текстбоксов, чтобы потом расположить кнопку ОК// НО ЭТО МОЖНО УБРАТЬ
         Model mo;
+
         MyDelegate[] check = new MyDelegate[9]; //массив делегатов
         delegate void MyDelegate(object sender, EventArgs e); //"шаблон" процедуры-делегата
+
         Navigation newForm;
         String textmod;
         Modelling modellng;
-        public Modelling(bool k)
-        { 
+
+        public Modelling(bool k) { 
             fisha();
         }
 
-        private void fisha()
-        {
+        private void fisha() {
             InitializeComponent();
             check[0] = check1;
             check[1] = check2;
@@ -245,10 +249,10 @@ namespace WindowsFormsApplication2
             }
         }
 
-        private void TextChange(object sender, EventArgs e) // хз, зачем это
+        /*private void TextChange(object sender, EventArgs e) // хз, зачем это
         {
             Console.WriteLine(sender.ToString());
-        }
+        }*/
 
         // функции для обработки введённых значений в текстбоксы
         private static void check1(object sender, EventArgs e) //0 //значение а от 0 до 1

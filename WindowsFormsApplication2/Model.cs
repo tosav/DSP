@@ -59,10 +59,12 @@ namespace WindowsFormsApplication2
         //создание и добавление нового чарта на форму
         public void SetData(int n, double mini, double maxi)
         {
-            data=new PointF[disp.getN()];
             PointF[] tata = new PointF[disp.getN()]; //массив для белого шума
-            texts =(List<TextBox>)disp.get("model");
+            data = new PointF[disp.getN()];
+            
+            texts =(List<TextBox>)disp.get("model"); //массив значений, введённых с формы
             CreateChart(mini, maxi, n);
+
             switch ((int) disp.get("model_k")) {
             case 12:
                 for (int i = 0; i < Convert.ToInt64(disp.getN()); i++)
@@ -80,8 +82,11 @@ namespace WindowsFormsApplication2
                     case 1: data[i] = new PointF(i, i == Convert.ToDouble(RussianDouble(texts[0].Text)) ? 1 : 0); break;
                     case 2: data[i] = new PointF(i, i < Convert.ToDouble(RussianDouble(texts[0].Text)) ? 0 : 1); break;
                     case 3: data[i] = new PointF(i, Convert.ToSingle(Math.Pow(Convert.ToDouble(RussianDouble(texts[0].Text)), i))); break;
-                    case 4: data[i] = new PointF(i, Convert.ToSingle(Convert.ToDouble(RussianDouble(texts[0].Text)) * Math.Sin(i * Math.PI/180) * Convert.ToDouble(RussianDouble(texts[1].Text)) * Math.PI / 180 + Convert.ToDouble(RussianDouble(texts[2].Text)) * Math.PI / 180)); break;
-                    case 5: data[i] = new PointF(i, i % Convert.ToDouble(RussianDouble(texts[0].Text)) < Convert.ToDouble(RussianDouble(texts[0].Text)) / 2 ? 1 : -1); break;
+                    //case 4: data[i] = new PointF(i, Convert.ToSingle(Convert.ToDouble(RussianDouble(texts[0].Text)) * Math.Sin(i * Math.PI/180) * Convert.ToDouble(RussianDouble(texts[1].Text)) * Math.PI / 180 + Convert.ToDouble(RussianDouble(texts[2].Text)) * Math.PI / 180)); break;
+                    case 4: data[i] = new PointF(i, Convert.ToSingle(Convert.ToDouble(RussianDouble(texts[0].Text)) * Math.Sin(i * (Convert.ToDouble(RussianDouble(texts[1].Text)) * Math.PI / 180) + Convert.ToDouble(RussianDouble(texts[2].Text)) * Math.PI / 180))); break;
+                    case 5: data[i] = new PointF(i, i % Convert.ToDouble(RussianDouble(texts[0].Text)) < Convert.ToDouble(RussianDouble(texts[0].Text)) / 2 ? 1 : -1);
+                        //MessageBox.Show(Convert.ToString(data[i]));
+                            break;
                     case 6: data[i] = new PointF(i, Convert.ToSingle((i % Convert.ToDouble(RussianDouble(texts[0].Text))) / Convert.ToDouble(RussianDouble(texts[0].Text)))); break;//до сюда дошла
                     case 7: data[i] = new PointF(i, Convert.ToSingle(Convert.ToDouble(RussianDouble(texts[0].Text)) * Math.Exp(-i / Convert.ToDouble(RussianDouble(texts[1].Text))) * Math.Cos(2 * Math.PI * Convert.ToDouble(RussianDouble(texts[2].Text)) * i + Convert.ToDouble(RussianDouble(texts[3].Text))))); break;
                     case 8: data[i] = new PointF(i, Convert.ToSingle((Convert.ToDouble(RussianDouble(texts[0].Text)) * Math.Cos(2 * Math.PI * Convert.ToDouble(RussianDouble(texts[1].Text)) * i) * Math.Cos(2 * Math.PI * Convert.ToDouble(RussianDouble(texts[2].Text)) * i + Convert.ToDouble(RussianDouble(texts[3].Text)))))); break;
