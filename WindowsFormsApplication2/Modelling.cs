@@ -22,7 +22,6 @@ namespace WindowsFormsApplication2
         Navigation newForm;
         String textmod;
         Modelling modellng;
-
         public Modelling(bool k)
         { 
             fisha();
@@ -51,8 +50,8 @@ namespace WindowsFormsApplication2
             this.Controls.Add(this.label);
             if (disp.getN() == 0 || disp.getFD() == 0) //если нет навигации и не сохранены отсчёты и частота, то
             {
-                createtextlabel("n", 7);
-                createtextlabel("fd", 1);
+                createtextlabel("n ( целое число )", 7);
+                createtextlabel("fd (  >0  )", 1);
             }
             findtype();
         }
@@ -74,19 +73,18 @@ namespace WindowsFormsApplication2
             }
             if (flag == true) //отрисовка модели, если все текстбоксы заполнены
             {
-                if (texts[0].Name == "n")
+                if (texts[0].Name == "n( целое число )")
                 {
                     disp.setN(Convert.ToInt32(RussianDouble(texts[0].Text)));
                     texts.RemoveAt(0);
                 }
-                if (texts[0].Name == "fd")
+                if (texts[0].Name == "fd ( >0 )")
                 {
                     disp.setFD(Convert.ToDouble(RussianDouble(texts[0].Text)));
                     texts.RemoveAt(0);
                 }
                 if (!disp.check("modell_t") && textmod.Trim() == "Случайный сигнал АРСС (p,q)")
                 {
-                    Console.WriteLine("lfdkdkds");
                     if (disp.check("modell"))
                     {
                         modellng = (Modelling)disp.get("modell");
@@ -122,7 +120,7 @@ namespace WindowsFormsApplication2
             labels[labels.Count - 1].TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.Controls.Add(labels[labels.Count - 1]);
             texts.Add(new TextBox());
-            texts[texts.Count - 1].Location = new System.Drawing.Point(14 + 100, 11 + texts.Count * l);
+            texts[texts.Count - 1].Location = new System.Drawing.Point(14 + 125, 11 + texts.Count * l);
             texts[texts.Count - 1].Name = name;
             texts[texts.Count - 1].Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Controls.Add(texts[texts.Count - 1]);
@@ -131,7 +129,7 @@ namespace WindowsFormsApplication2
                 texts[texts.Count - 1].LostFocus += new EventHandler(check[ch]);
             t = texts.Count + 1;
         }
-
+        
         private void findtype() //выдать нужные поля в зависимости от выбранного моделирования
         {
             //int t;
@@ -140,52 +138,51 @@ namespace WindowsFormsApplication2
             {
                 case "Задержанный единичный импульс":
                     disp.set("model_k", 1);
-                    createtextlabel("n0", 1);
-                    //t = 1;
+                    createtextlabel("n0 ( значение от 0 до 1 )", 1);
                     break;
                 case "Задержанный единичный скачок":
                     disp.set("model_k", 2);
-                    createtextlabel("n0", 1);
+                    createtextlabel("n0 ( значение от 0 до 1 )", 1);
                     break;
                 case "Дискретизированная убывающая экспонента":
                     disp.set("model_k", 3);
-                    createtextlabel("a", 0);
+                    createtextlabel("a ( значение от 0 до 1 )", 0);
                     break;
                 case "Дискретизированная синусоида с заданными амплитудой a, круговой частотой \u03C9 и начальной фазой \u03C6.":
                     disp.set("model_k", 4);
-                    createtextlabel("a", 4);
-                    createtextlabel("\u03C9 (в градусах)", 2);
-                    createtextlabel("\u03C6 (в градусах)", 3);
+                    createtextlabel("a ( значение от 0 до 1 )", 4);
+                    createtextlabel("\u03C9 ( в градусах )", 2);
+                    createtextlabel("\u03C6 ( в градусах )", 3);
                     break;
                 case "\"Меандр\" с периодом L":
                     disp.set("model_k", 5);
-                    createtextlabel("L", 5);
+                    createtextlabel("L ( >0 )", 5);
                     break;
                 case "\"Пила\" с периодом L":
                     disp.set("model_k", 6);
-                    createtextlabel("L", 5);
+                    createtextlabel("L ( >0 )", 5);
                     break;
                 case "Cигнал с экспоненциальной огибающей - амплитудная модуляция":
                     disp.set("model_k", 7);
-                    createtextlabel("a", 4);
+                    createtextlabel("a ( значение от 0 до 1 )", 4);
                     createtextlabel("\u03C4", 8);
                     createtextlabel("\u0192", 8); //нужно поменять
-                    createtextlabel("\u03C6", 3);
+                    createtextlabel("\u03C6 ( в градусах )", 3);
                     break;
                 case "Cигнал с балансной огибающей - амплитудная модуляция":
                     disp.set("model_k", 8);
-                    createtextlabel("a", 4);
+                    createtextlabel("a ( значение от 0 до 1 )", 4);
                     createtextlabel("\u0192", 4);
                     createtextlabel("\u0192", 4);
-                    createtextlabel("\u03C6", 3);
+                    createtextlabel("\u03C6 ( в градусах )", 3);
                     break;
                 case "Cигнал с тональной огибающей. - амплитудная модуляция":
                     disp.set("model_k", 9);
-                    createtextlabel("a", 4);
+                    createtextlabel("a ( значение от 0 до 1 )", 4);
                     createtextlabel("m", 0);
                     createtextlabel("\u0192", 4);
                     createtextlabel("\u0192", 4);
-                    createtextlabel("\u03C6", 3);
+                    createtextlabel("\u03C6 ( в градусах )", 3);
                     break;
                 case "Белый шум равномерный в [a,b]":
                     disp.set("model_k", 10);
@@ -237,7 +234,7 @@ namespace WindowsFormsApplication2
             but.Click += new System.EventHandler(createmodel);
             this.Controls.Add(this.but);
             this.Height = 11 + l * (t + 3);
-            Width = 250;
+            Width = 270;
         }
 
         private void Start_KeyPress(object sender, KeyPressEventArgs e)
