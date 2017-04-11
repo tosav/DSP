@@ -80,7 +80,7 @@ namespace WindowsFormsApplication2
                     case 1: data[i] = new PointF(i, i == Convert.ToDouble(RussianDouble(texts[0].Text)) ? 1 : 0); break;
                     case 2: data[i] = new PointF(i, i < Convert.ToDouble(RussianDouble(texts[0].Text)) ? 0 : 1); break;
                     case 3: data[i] = new PointF(i, Convert.ToSingle(Math.Pow(Convert.ToDouble(RussianDouble(texts[0].Text)), i))); break;
-                    case 4: data[i] = new PointF(i, Convert.ToSingle(Convert.ToDouble(RussianDouble(texts[0].Text)) * Math.Sin(i * Math.PI/180) * Convert.ToDouble(RussianDouble(texts[1].Text)) * Math.PI / 180 + Convert.ToDouble(RussianDouble(texts[2].Text)) * Math.PI / 180)); break;
+                    case 4: data[i] = new PointF(i, Convert.ToSingle(Convert.ToDouble(RussianDouble(texts[0].Text)) * Math.Sin(i * (Convert.ToDouble(RussianDouble(texts[1].Text)) * Math.PI / 180) + Convert.ToDouble(RussianDouble(texts[2].Text)) * Math.PI / 180))); break;
                     case 5: data[i] = new PointF(i, i % Convert.ToDouble(RussianDouble(texts[0].Text)) < Convert.ToDouble(RussianDouble(texts[0].Text)) / 2 ? 1 : -1); break;
                     case 6: data[i] = new PointF(i, Convert.ToSingle((i % Convert.ToDouble(RussianDouble(texts[0].Text))) / Convert.ToDouble(RussianDouble(texts[0].Text)))); break;//до сюда дошла
                     case 7: data[i] = new PointF(i, Convert.ToSingle(Convert.ToDouble(RussianDouble(texts[0].Text)) * Math.Exp(-i / Convert.ToDouble(RussianDouble(texts[1].Text))) * Math.Cos(2 * Math.PI * Convert.ToDouble(RussianDouble(texts[2].Text)) * i + Convert.ToDouble(RussianDouble(texts[3].Text))))); break;
