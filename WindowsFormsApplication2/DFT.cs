@@ -20,6 +20,7 @@ namespace WindowsFormsApplication2
         private int Y1;
         private int X2;
         private int Y2;
+        private bool log = false;
         double[] Re;
         double[] Im;
         int prob = 30;
@@ -43,18 +44,24 @@ namespace WindowsFormsApplication2
             InitializeComponent();
             Furie = new Complex[disp.getN()];
         }
-        public void DDFT(int n)
+        public void DDFT(int nk)
         {
-            Re = new double[disp.getN()];
-            Im = new double[disp.getN()];
-            for (int i = 0; i < disp.getN(); i++)
+            double[] x = new double[disp.getN()];
+            int N = disp.getN();
+            for (int i = 0; i < N; i++)
             {
-                Re[i] = 0; Im[i] = 0 ;
-                Furie[i] = new Complex();
-                for (int j = 0; j < disp.getN(); j++)
+                x[i] = disp.getData()[nk, i].Y;
+            }
+                Re = new double[N];
+            Im = new double[N];
+            for (int k = 0; k < N; k++)
+            {
+                Re[k] = 0; Im[k] = 0 ;
+                Furie[k] = new Complex();
+                for (int n = 0; n < N; n++)
                 {
-                    Re[i] += disp.getData()[n, j].Y * Math.Cos(2 * Math.PI * i * j / disp.getFD());
-                    Im[i] += disp.getData()[n, j].Y * -(Math.Sin(2 * Math.PI * i * j / disp.getFD()));
+                    Re[k] += x[n] * Math.Cos(2 * Math.PI * n * k / N);
+                    Im[k] += x[n] * -(Math.Sin(2 * Math.PI * n * k / N));
                 }
             }
         }
@@ -71,7 +78,7 @@ namespace WindowsFormsApplication2
                 {
                     if (i > 0)
                     {
-                        chart.Series[0].Points.AddXY((double)i / (disp.getFD() / 180), Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]));
+                        chart.Series[0].Points.AddXY((double)i / (disp.getN() ), Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]));
                     }
                 }
                 chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
@@ -113,8 +120,8 @@ namespace WindowsFormsApplication2
             area.AxisY.MajorGrid.Enabled = sharp;
             area.AxisY.MajorGrid.LineColor = Color.Black;
             area.AxisX.MajorGrid.LineColor = Color.Black;
-            area.AxisX.IsLogarithmic = false;
-            area.AxisY.IsLogarithmic = false;
+            area.AxisX.IsLogarithmic = log;
+            area.AxisY.IsLogarithmic = log;
             //area.AxisX.ScaleView.Zoom(disp.getStart(), disp.getFinish());//вылетает
             chart.ChartAreas.Add(area);
 
@@ -274,6 +281,20 @@ namespace WindowsFormsApplication2
             inter = new Interval();
             inter.Hide();
             inter.Show();
+        }
+
+        private void toolStripButton5_Click_1(object sender, EventArgs e)
+        {
+            if (order.Count > 0)
+            {
+                log = !log;
+                toolStripButton5.Checked = log;
+                for (int i = 0; i < order.Count; i++)
+                {
+                    chart.ChartAreas[0].AxisX.IsLogarithmic = log;
+                    chart.ChartAreas[0].AxisY.IsLogarithmic = log;
+                }
+            }
         }
     }
 }
