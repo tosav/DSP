@@ -64,46 +64,29 @@ namespace WindowsFormsApplication2
 
             if (!kol.Contains(n))
                 {
-                Series series = new Series("DFT");
                 DDFT(n);
-                
+                CreateChart(n);
+                order.Add(chart); //добавление чарта в общий список
                 for (int i = 0; i < disp.getN(); i++)
                 {
                     if (i > 0)
                     {
-                        series.Points.AddXY((double)i / (disp.getFD() / 180), Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]));
+                        chart.Series[0].Points.AddXY((double)i / (disp.getFD() / 180), Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]));
                     }
                 }
-
-                kol.Add(n);
-                disp.getMf().CheckItem(n);
-                // Создаём новый элемент управления Chart
-                chart = new Chart();
-                // Помещаем его на форму
-                chart.Parent = this;
-                // Задаём размеры элемента
-                chart.SetBounds(0, prob + H * order.Count, W, H);
-
-                series.ChartType = SeriesChartType.Line;
-
-                chart.Series.Clear();
-                chart.Series.Add(series);
-
-
-                ChartArea area = new ChartArea();
-                Axis areaX = area.AxisX;
-                areaX.MajorGrid.LineColor = Color.LightGray;
-                areaX.IsLogarithmic = true;
-                Axis areaY = area.AxisY;
-                areaY.MajorGrid.LineColor = Color.LightGray;
-                areaY.IsLogarithmic = true;
-                chart.ChartAreas.Add(area);
+                chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
+                chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
+                //изменение размеров окна
+                this.Width = this.W;
+                this.Height = prob + this.H * order.Count + 40;
+                this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
+                this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
             }
         }
 
         private void CreateChart(int n)
         {
-            
+
             kol.Add(n);
             disp.getMf().CheckItem(n);
             // Создаём новый элемент управления Chart
@@ -113,9 +96,8 @@ namespace WindowsFormsApplication2
             // Задаём размеры элемента
             chart.SetBounds(0, prob + H * order.Count, W, H);
 
-            // Создаём новую область для построения графика
             ChartArea area = new ChartArea();
-            // Даём ей имя (чтобы потом добавлять графики)
+
             area.Name = "myGraph";
             area.AxisY.LabelStyle.Format = "N2";
             area.AxisX.LabelStyle.Format = "N0";
@@ -128,31 +110,29 @@ namespace WindowsFormsApplication2
             area.BorderColor = Color.Black;
             area.BorderWidth = 1;
             area.AxisX.MajorGrid.Enabled = sharp;
-            area.AxisX.IsLogarithmic = true;
-            area.AxisY.IsLogarithmic = true;
             area.AxisY.MajorGrid.Enabled = sharp;
             area.AxisY.MajorGrid.LineColor = Color.Black;
             area.AxisX.MajorGrid.LineColor = Color.Black;
-            
-            //area
-            // Добавляем область в диаграмму
+            area.AxisX.IsLogarithmic = true;
+            area.AxisY.IsLogarithmic = true;
+            //area.AxisX.ScaleView.Zoom(disp.getStart(), disp.getFinish());//вылетает
             chart.ChartAreas.Add(area);
-            // Создаём объект для первого графика
-            Series series1 = new Series();
-            // Ссылаемся на область для построения графика
-            series1.ChartArea = "myGraph";
+
+            Series series = new Series();
+            series.ChartType = SeriesChartType.Line;
+
             if (dots)
-                series1.MarkerStyle = MarkerStyle.None;
+                series.MarkerStyle = MarkerStyle.None;
             else
-                series1.MarkerStyle = MarkerStyle.Circle;
-            // Задаём тип графика - сплайны
-            //series1.XValueType = ChartValueType.DateTime;
-            series1.ChartType = SeriesChartType.Line;
-            series1.LegendText = disp.getNames()[n];
+                series.MarkerStyle = MarkerStyle.Circle;
+            series.ChartType = SeriesChartType.Line;
+
+            chart.Series.Clear();
+            chart.Series.Add(series);
+            chart.Series[0].ChartArea = "myGraph";
+
+            series.LegendText = disp.getNames()[n];
             chart.Legends.Add(disp.getNames()[n]);
-            // Добавляем в список графиков диаграммы
-            chart.Series.Add(series1);
-            area.AxisX.ScaleView.Zoom(disp.getStart(), disp.getFinish());
         }
 
 
@@ -171,14 +151,11 @@ namespace WindowsFormsApplication2
         {
             X2 = e.X;
             Y2 = e.Y;
-            //disp.setFinish(X2);
         }
         public void area(int x1, int x2) //изменяет интервал отображения
         {
             foreach (Chart ch in order)
                 ch.ChartAreas["myGraph"].AxisX.ScaleView.Zoom(x1, x2);
-            /*ch.ChartAreas["myGraph"].AxisY.Minimum = disp.mini(Convert.ToInt32(ch.Tag), disp.getData(), x1, x2);
-            ch.ChartAreas["myGraph"].AxisY.Maximum = disp.maxi(Convert.ToInt32(ch.Tag), disp.getData(), x1, x2);*/
             location();
         }
 
