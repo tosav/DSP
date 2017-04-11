@@ -113,8 +113,8 @@ namespace WindowsFormsApplication2
             area.AxisY.MajorGrid.Enabled = sharp;
             area.AxisY.MajorGrid.LineColor = Color.Black;
             area.AxisX.MajorGrid.LineColor = Color.Black;
-            area.AxisX.IsLogarithmic = true;
-            area.AxisY.IsLogarithmic = true;
+            area.AxisX.IsLogarithmic = false;
+            area.AxisY.IsLogarithmic = false;
             //area.AxisX.ScaleView.Zoom(disp.getStart(), disp.getFinish());//вылетает
             chart.ChartAreas.Add(area);
 
