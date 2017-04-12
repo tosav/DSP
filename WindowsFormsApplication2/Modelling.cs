@@ -168,21 +168,21 @@ namespace WindowsFormsApplication2
                     break;
                 case "Cигнал с экспоненциальной огибающей - амплитудная модуляция":
                     disp.set("model_k", 7);
-                    createtextlabel("a ( значение от 0 до 1 )", 4);
+                    createtextlabel("a", 4);
                     createtextlabel("\u03C4", 8);
                     createtextlabel("\u0192", 8); //нужно поменять
                     createtextlabel("\u03C6 ( в градусах )", 3);
                     break;
                 case "Cигнал с балансной огибающей - амплитудная модуляция":
                     disp.set("model_k", 8);
-                    createtextlabel("a ( значение от 0 до 1 )", 4);
+                    createtextlabel("a", 4);
                     createtextlabel("\u0192", 4);
                     createtextlabel("\u0192", 4);
                     createtextlabel("\u03C6 ( в градусах )", 3);
                     break;
                 case "Cигнал с тональной огибающей. - амплитудная модуляция":
                     disp.set("model_k", 9);
-                    createtextlabel("a ( значение от 0 до 1 )", 4);
+                    createtextlabel("a", 4);
                     createtextlabel("m", 0);
                     createtextlabel("\u0192", 4);
                     createtextlabel("\u0192", 4);
@@ -269,7 +269,7 @@ namespace WindowsFormsApplication2
                 {
                     if ((Convert.ToDouble(RussianDouble(((Control)sender).Text)) >= 1) || (Convert.ToDouble(RussianDouble(((Control)sender).Text)) <= 0))
                     {
-                        MessageBox.Show("Значениие а должно быть в интервале от 0 до 1!");
+                        MessageBox.Show("Значение должно быть в интервале от 0 до 1!");
                         ((Control)sender).Text = "0,1";
                     }
                 }
@@ -311,7 +311,7 @@ namespace WindowsFormsApplication2
                 {
                     if ((Convert.ToDouble(RussianDouble(((Control)sender).Text)) > 180) || (Convert.ToDouble(RussianDouble(((Control)sender).Text)) < 0))
                     {
-                        MessageBox.Show("Значениие а должно быть в конечном диапазоне от 0 до 180 (град.)");
+                        MessageBox.Show("Значениие должно быть в конечном диапазоне от 0 до 180 (град.)");
                         ((Control)sender).Text = "0";
                     }
                 }
@@ -332,7 +332,7 @@ namespace WindowsFormsApplication2
                 {
                     if ((Convert.ToDouble(RussianDouble(((Control)sender).Text)) > 360) || (Convert.ToDouble(RussianDouble(((Control)sender).Text)) < 0))
                     {
-                        MessageBox.Show("Значениие а должно быть в конечном диапазоне от 0 до 360 (град.)");
+                        MessageBox.Show("Значениие должно быть в конечном диапазоне от 0 до 360 (град.)");
                         ((Control)sender).Text = "0";
                     }
                 }
