@@ -226,21 +226,22 @@ namespace WindowsFormsApplication2
         }
         public double mini(PointF[] data, int s, int f)
         {
+            /*data.Min(x => x.Y);
             double mini = data[s].Y;
             for (int i = s; i < f; i++)
             {
                 mini = mini > data[i].Y ? data[i].Y : mini;
-            }
-            return mini;
+            }*/
+            return data.Min(x => x.Y);
         }
         public double mini(int[] data, int s, int f)
         {
-            double mini = data[s];
+            /*double mini = data[s];
             for (int i = s; i < f; i++)
             {
                 mini = mini > data[i] ? data[i] : mini;
-            }
-            return mini;
+            }*/
+            return data.Min();
         }
         public double maxi(int n, PointF[,] data, int s, int f)
         {
@@ -253,21 +254,21 @@ namespace WindowsFormsApplication2
         }
         public double maxi(PointF[] data, int s, int f)
         {
-            double maxi = data[s].Y;
+            /*double maxi = data[s].Y;
             for (int i = s; i < f; i++)
             {
                 maxi = maxi < data[i].Y ? data[i].Y : maxi;
-            }
-            return maxi;
+            }*/
+            return data.Max(x => x.Y);
         }
         public double maxi(int[] data, int s, int f)
         {
-            double maxi = data[s];
+           /* double maxi = data[s];
             for (int i = s; i < f; i++)
             {
                 maxi = maxi < data[i] ? data[i] : maxi;
-            }
-            return maxi;
+            }*/
+            return data.Max();
         }
         public void setStart(double st)
         {

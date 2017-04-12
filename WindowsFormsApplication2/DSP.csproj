@@ -53,7 +53,6 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="ComplexConsole.cs" />
     <Compile Include="Spectral.cs">
       <SubType>Form</SubType>
     </Compile>
