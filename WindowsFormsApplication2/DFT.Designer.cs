@@ -167,6 +167,10 @@
             this.ClientSize = new System.Drawing.Size(601, 253);
             this.Controls.Add(this.toolStrip1);
             this.Name = "DFT";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.close);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position2);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position1);
+            this.Resize += new System.EventHandler(this.resize);
             this.Text = "Дискретное преобразование Фурье";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

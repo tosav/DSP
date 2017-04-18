@@ -183,13 +183,13 @@ namespace WindowsFormsApplication2
         private void scroller(object sender, System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs e)
         {
             double round = disp.getFinish() - disp.getStart();
-            disp.setStart(e.ChartArea.AxisX.ScaleView.Position);
-            disp.setFinish(e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size);
+            disp.setStart(e.ChartArea.AxisX.ScaleView.Position * disp.getN());
+            disp.setFinish((e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size) * disp.getN());
         }
         private void viewchanged(object sender, System.Windows.Forms.DataVisualization.Charting.ViewEventArgs e)
         {
-            disp.setStart(e.ChartArea.AxisX.ScaleView.Position);
-            disp.setFinish(e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size);
+            disp.setStart(e.ChartArea.AxisX.ScaleView.Position * disp.getN());
+            disp.setFinish((e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size) * disp.getN());
         }
         //удаление осцилограмм по клику правой клавишей
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
