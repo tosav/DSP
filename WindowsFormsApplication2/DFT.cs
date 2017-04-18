@@ -103,7 +103,7 @@ namespace WindowsFormsApplication2
 
             area.Name = "myGraph";
             area.AxisY.LabelStyle.Format = "N2";
-            area.AxisX.LabelStyle.Format = "N0";
+            area.AxisX.LabelStyle.Format = "N10";
             area.AxisX.ScrollBar.Enabled = true;
             area.CursorX.IsUserEnabled = true;
             area.CursorX.IsUserSelectionEnabled = true;
@@ -118,9 +118,8 @@ namespace WindowsFormsApplication2
             area.AxisX.MajorGrid.LineColor = Color.Black;
             area.AxisX.IsLogarithmic = logX;
             area.AxisY.IsLogarithmic = logY;
-            //area.AxisX.ScaleView.Zoom(disp.getStart(), disp.getFinish());//вылетает
+            area.AxisX.ScaleView.Zoom(disp.getStart()/disp.getN(), disp.getFinish() / disp.getN());
             chart.ChartAreas.Add(area);
-
             Series series = new Series();
             series.ChartType = SeriesChartType.Line;
 
@@ -158,7 +157,7 @@ namespace WindowsFormsApplication2
         public void area(int x1, int x2) //изменяет интервал отображения
         {
             foreach (Chart ch in order)
-                ch.ChartAreas["myGraph"].AxisX.ScaleView.Zoom(x1, x2);
+                ch.ChartAreas["myGraph"].AxisX.ScaleView.Zoom(x1 / disp.getN(), x2 / disp.getN());
             location();
         }
 
