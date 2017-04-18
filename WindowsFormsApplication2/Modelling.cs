@@ -108,6 +108,7 @@ namespace WindowsFormsApplication2
                     disp.set("model", texts);
                     disp.setModel(mo);
                     disp.getModel().SetData(0, 0, Convert.ToDouble(disp.getN()));
+                    disp.getModel().Show();
                 }
             }
             else { MessageBox.Show("Пожалуйста, введите значения во все поля"); }
@@ -142,11 +143,11 @@ namespace WindowsFormsApplication2
             {
                 case "Задержанный единичный импульс":
                     disp.set("model_k", 1);
-                    createtextlabel("n0 ( значение от 0 до 1 )", 1);
+                    createtextlabel("n0 (целое значение от 0 до n )", 6);
                     break;
                 case "Задержанный единичный скачок":
                     disp.set("model_k", 2);
-                    createtextlabel("n0 ( значение от 0 до 1 )", 1);
+                    createtextlabel("n0 ( значение от 0 до n )", 4);
                     break;
                 case "Дискретизированная убывающая экспонента":
                     disp.set("model_k", 3);

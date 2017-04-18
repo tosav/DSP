@@ -250,14 +250,14 @@ namespace WindowsFormsApplication2
 
             int level;
             for (level = 0; !chart.Equals(order[level]); level++) { }//определеяем, на каком графике будт рисоваться линия (из какого графика событие)
-          //  disp.CreateDPF(level);
+            disp.CreateCor(level);
         }
 
         private void спектральныйАнализToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int level;
             for (level = 0; !chart.Equals(order[level]); level++) { }//определеяем, на каком графике будт рисоваться линия (из какого графика событие)
-            //  disp.CreateDPF(level);
+              disp.CreateSp(level);
         }
     }
 }

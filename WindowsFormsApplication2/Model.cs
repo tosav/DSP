@@ -140,7 +140,6 @@ namespace WindowsFormsApplication2
             this.Height = prob+ this.H * order.Count + 40;
             this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
             this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
-            this.Show();
             chart.Tag = disp.get("model_k");
         }
 

@@ -221,7 +221,7 @@ namespace WindowsFormsApplication2
                 order[k].Dispose();
                 order.RemoveAt(k);//должно удалять заданный chart
                 location();
-                disp.getMf().UnCheckItem(kol[k]);
+                disp.getMf().UnCheckItemSt(kol[k]);
                 kol.RemoveAt(k);
             }
         }
@@ -242,7 +242,7 @@ namespace WindowsFormsApplication2
         //при закрытии удаляет осцилограмму в диспетчере
         public void close(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-            disp.getMf().UnCheckItem();
+            disp.getMf().UnCheckItemSt();
             disp.set("stat", null);
         }
         private void resize(object sender, EventArgs e)

@@ -162,11 +162,75 @@ namespace WindowsFormsApplication2 {
             foreach (ToolStripMenuItem item in items)
                 item.CheckState = CheckState.Unchecked;
         }
-        public void UnCheckStatItem()
+
+        //айтемы Корреляционного анализа
+        public void CheckItemCor(int lev)
+        {
+            correl[lev].CheckState = CheckState.Checked;
+        }
+
+        public void UnCheckItemCor(int lev)
+        {
+            correl[lev].CheckState = CheckState.Unchecked;
+        }
+
+        public void UnCheckItemCor()
+        {
+            foreach (ToolStripMenuItem item in correl)
+                item.CheckState = CheckState.Unchecked;
+        }
+
+        //айтемы Спектрального анализа
+        public void CheckItemSp(int lev)
+        {
+            spectral[lev].CheckState = CheckState.Checked;
+        }
+
+        public void UnCheckItemSp(int lev)
+        {
+            spectral[lev].CheckState = CheckState.Unchecked;
+        }
+
+        public void UnCheckItemSp()
+        {
+            foreach (ToolStripMenuItem item in spectral)
+                item.CheckState = CheckState.Unchecked;
+        }
+
+        //айтемы Фурье
+        public void CheckItemDPF(int lev)
+        {
+            calls2[lev].CheckState = CheckState.Checked;
+        }
+
+        public void UnCheckItemDPF(int lev)
+        {
+            calls2[lev].CheckState = CheckState.Unchecked;
+        }
+
+        public void UnCheckItemDPF()
+        {
+            foreach (ToolStripMenuItem item in calls2)
+                item.CheckState = CheckState.Unchecked;
+        }
+
+        //айтемы Статистика
+        public void CheckItemSt(int lev)
+        {
+            calls[lev].CheckState = CheckState.Checked;
+        }
+
+        public void UnCheckItemSt(int lev)
+        {
+            calls[lev].CheckState = CheckState.Unchecked;
+        }
+
+        public void UnCheckItemSt()
         {
             foreach (ToolStripMenuItem item in calls)
                 item.CheckState = CheckState.Unchecked;
         }
+
         public void callItem()
         {
             this.осцилограммаToolStripMenuItem.DropDownItems.Clear();
@@ -212,8 +276,8 @@ namespace WindowsFormsApplication2 {
                 this.осцилограммаToolStripMenuItem.DropDownItems.AddRange(items);
                 this.статистикаToolStripMenuItem.DropDownItems.AddRange(calls);
                 this.дПToolStripMenuItem.DropDownItems.AddRange(calls2);
-                this.спектральныйАнализToolStripMenuItem.DropDownItems.AddRange(correl);
-                this.корреляционныйАнализToolStripMenuItem.DropDownItems.AddRange(spectral);
+                this.спектральныйАнализToolStripMenuItem.DropDownItems.AddRange(spectral);
+                this.корреляционныйАнализToolStripMenuItem.DropDownItems.AddRange(correl); 
             }
 
         }
@@ -269,7 +333,7 @@ namespace WindowsFormsApplication2 {
             if (clickedItem.CheckState.Equals(CheckState.Checked))
             {
                 if (disp.getDPF().order.Count() > 1)
-                    for (int j = 0; j < disp.getOsc().order.Count(); j++)
+                    for (int j = 0; j < disp.getDPF().order.Count(); j++)
                     { //проверяем, какой пункт совпадает по названию с осциллограммой
                         if (disp.getDPF().order[j].Series[0].LegendText == clickedItem.Text)
                             disp.getDPF().remove(j);//передаём номер графика на удаление
@@ -282,46 +346,43 @@ namespace WindowsFormsApplication2 {
                 disp.CreateDPF((int)clickedItem.Tag);
 
         }
-
         private void CorrelItemClickHandler(object sender, EventArgs e)
-        {/*
+        {
             ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             //во первых надо узнать который из них
             if (clickedItem.CheckState.Equals(CheckState.Checked))
             {
-                if (disp.getOsc().order.Count() > 1)
-                    for (int j = 0; j < disp.getOsc().order.Count(); j++)
+                if (disp.getCor().order.Count() > 1)
+                    for (int j = 0; j < disp.getCor().order.Count(); j++)
                     { //проверяем, какой пункт совпадает по названию с осциллограммой
-                        if (disp.getOsc().order[j].Series[0].LegendText == clickedItem.Text)
-                            disp.getOsc().remove(j);//передаём номер графика на удаление
+                        if (disp.getCor().order[j].Series[0].LegendText == clickedItem.Text)
+                            disp.getCor().remove(j);//передаём номер графика на удаление
                     }
                 else
-                    disp.getOsc().remove(0);
+                    disp.getCor().remove(0);
             }
             //тут галку впарить или передать добавить в осцилограммы
             else
-                disp.CreateOsc((int)clickedItem.Tag);*/
+                disp.CreateCor((int)clickedItem.Tag);
         }
-
-
         private void SpectralItemClickHandler(object sender, EventArgs e)
         {
-           /* ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
             //во первых надо узнать который из них
             if (clickedItem.CheckState.Equals(CheckState.Checked))
             {
-                if (disp.getOsc().order.Count() > 1)
-                    for (int j = 0; j < disp.getOsc().order.Count(); j++)
+                if (disp.getSp().order.Count() > 1)
+                    for (int j = 0; j < disp.getSp().order.Count(); j++)
                     { //проверяем, какой пункт совпадает по названию с осциллограммой
-                        if (disp.getOsc().order[j].Series[0].LegendText == clickedItem.Text)
-                            disp.getOsc().remove(j);//передаём номер графика на удаление
+                        if (disp.getSp().order[j].Series[0].LegendText == clickedItem.Text)
+                            disp.getSp().remove(j);//передаём номер графика на удаление
                     }
                 else
-                    disp.getOsc().remove(0);
+                    disp.getSp().remove(0);
             }
             //тут галку впарить или передать добавить в осцилограммы
             else
-                disp.CreateOsc((int)clickedItem.Tag);*/
+                disp.CreateSp((int)clickedItem.Tag);
         }
         public void osc(bool k)
         {

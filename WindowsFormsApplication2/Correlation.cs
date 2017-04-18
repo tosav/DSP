@@ -70,7 +70,7 @@ namespace WindowsFormsApplication2
             /*               DateTime date = new DateTime(2001, 01, 01, 0, 0, 0);
                            date += TimeSpan.FromSeconds(disp.getDateFin().Subtract(disp.getDateBegin()).Seconds);*/
             kol.Add(n);
-            disp.getMf().CheckItem(n);
+            disp.getMf().CheckItemCor(n);
             // Создаём новый элемент управления Chart
             chart = new Chart();
             // Помещаем его на форму
@@ -198,14 +198,14 @@ namespace WindowsFormsApplication2
                 order[k].Dispose();
                 order.RemoveAt(k);//должно удалять заданный chart
                 location();
-                disp.getMf().UnCheckItem(kol[k]);
+                disp.getMf().UnCheckItemCor(kol[k]);
                 kol.RemoveAt(k);
             }
         }
         //при закрытии удаляет осцилограмму в диспетчере
         public void close(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-            disp.getMf().UnCheckItem();
+            disp.getMf().UnCheckItemCor();
             disp.setOsc(null);
         }
 

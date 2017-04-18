@@ -82,6 +82,7 @@ namespace WindowsFormsApplication2
             mo = m;
             if (mo != null)
                 mo.MdiParent = mf;
+
         }
 
         public Model getModel() { return mo; }
@@ -416,10 +417,10 @@ namespace WindowsFormsApplication2
         }
         public void setDPF(DFT d)
         {
-            if (d == null)
+            /*if (d == null)
                 mf.dpf(false);
             else
-                mf.dpf(true);
+                mf.dpf(true);*/
             dpf = d;
         }
 

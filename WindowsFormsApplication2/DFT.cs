@@ -66,10 +66,52 @@ namespace WindowsFormsApplication2
         {
 
             if (!kol.Contains(n))
-                {
+            {
+                TabControl tabControl1 = new TabControl();
+                tabControl1.Location = new Point(0,27);
+                tabControl1.Name = "tabControl1";
+                tabControl1.SelectedIndex = 0;
+                tabControl1.Size = new Size(W, H);
+                tabControl1.TabIndex = 1;
+                TabPage tabPage1 = new TabPage();
+                tabPage1.Location = new System.Drawing.Point(0, 0);
+                tabPage1.Name = "tabPage1";
+                tabPage1.Size = new Size(W, H);
+                tabPage1.TabIndex = 0;
+                tabPage1.Text = "|X(k)|";
+                tabPage1.UseVisualStyleBackColor = true;
+                TabPage tabPage2 = new TabPage();
+                tabPage2.Location = new System.Drawing.Point(4, 25);
+                tabPage2.Name = "tabPage2";
+                tabPage2.Padding = new System.Windows.Forms.Padding(3);
+                tabPage2.Size = new System.Drawing.Size(192, 71);
+                tabPage2.TabIndex = 1;
+                tabPage2.Text = "|ArgX(k)|";
+                tabPage2.UseVisualStyleBackColor = true;
+                TabPage tabPage3 = new TabPage();
+                tabPage3.Location = new System.Drawing.Point(4, 25);
+                tabPage3.Name = "tabPage3";
+                tabPage3.Padding = new System.Windows.Forms.Padding(3);
+                tabPage3.Size = new System.Drawing.Size(192, 71);
+                tabPage3.TabIndex = 1;
+                tabPage3.Text = "ReX(k)";
+                tabPage3.UseVisualStyleBackColor = true;
+                TabPage tabPage4 = new TabPage();
+                tabPage4.Location = new System.Drawing.Point(4, 25);
+                tabPage4.Name = "tabPage4";
+                tabPage4.Padding = new System.Windows.Forms.Padding(3);
+                tabPage4.Size = new System.Drawing.Size(192, 71);
+                tabPage4.TabIndex = 1;
+                tabPage4.Text = "ImX(k)";
+                tabPage4.UseVisualStyleBackColor = true;
+                tabControl1.Controls.Add(tabPage1);
+                tabControl1.Controls.Add(tabPage2);
+                tabControl1.Controls.Add(tabPage3);
+                tabControl1.Controls.Add(tabPage4);
                 DDFT(n);
                 CreateChart(n);
                 order.Add(chart); //добавление чарта в общий список
+                tabPage1.Controls.Add(chart);
                 for (int i = 0; i < disp.getN(); i++)
                 {
                     if (i > 0)
@@ -77,13 +119,15 @@ namespace WindowsFormsApplication2
                         chart.Series[0].Points.AddXY((double)i / disp.getN() , Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]));
                     }
                 }
+                tabPage1.Controls.Add(chart);
                 chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
                 chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
                 //изменение размеров окна
                 this.Width = this.W;
-                this.Height = prob + this.H * order.Count + 40;
+                this.Height = prob + this.H * order.Count + 40+27*2;
                 this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
                 this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
+                this.Controls.Add(tabControl1);
             }
         }
 
@@ -91,13 +135,13 @@ namespace WindowsFormsApplication2
         {
 
             kol.Add(n);
-            disp.getMf().CheckItem(n);
+            disp.getMf().CheckItemDPF(n);
             // Создаём новый элемент управления Chart
             chart = new Chart();
             // Помещаем его на форму
             chart.Parent = this;
             // Задаём размеры элемента
-            chart.SetBounds(0, prob + H * order.Count, W, H);
+            chart.SetBounds(0, /*prob + H * order.Count*/0, W, H);
 
             ChartArea area = new ChartArea();
 
@@ -208,14 +252,14 @@ namespace WindowsFormsApplication2
                 order[k].Dispose();
                 order.RemoveAt(k);//должно удалять заданный chart
                 location();
-                disp.getMf().UnCheckItem(kol[k]);
+                disp.getMf().UnCheckItemDPF(kol[k]);
                 kol.RemoveAt(k);
             }
         }
         //при закрытии удаляет осцилограмму в диспетчере
         public void close(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
-            disp.getMf().UnCheckItem();
+            disp.getMf().UnCheckItemDPF();
             disp.setDPF(null);
         }
 
