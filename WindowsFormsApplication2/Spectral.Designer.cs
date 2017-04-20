@@ -59,7 +59,7 @@
             this.toolStripButton5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(282, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(510, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -130,7 +130,7 @@
             this.yЛинейныйToolStripMenuItem,
             this.yЛогарифмическийToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(327, 162);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(327, 134);
             // 
             // сгладитьПериодограмнуюОценкуToolStripMenuItem
             // 
@@ -166,14 +166,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.ClientSize = new System.Drawing.Size(510, 334);
             this.Controls.Add(this.toolStrip1);
+            this.Name = "Spectral";
+            this.Text = "Correlation";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.close);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position2);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position1);
             this.Resize += new System.EventHandler(this.resize);
-            this.Name = "Spectral";
-            this.Text = "Correlation";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);

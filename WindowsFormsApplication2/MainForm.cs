@@ -333,10 +333,10 @@ namespace WindowsFormsApplication2 {
             if (clickedItem.CheckState.Equals(CheckState.Checked))
             {
                 if (disp.getDPF().order.Count() > 1)
-                    for (int j = 0; j < disp.getDPF().order.Count(); j++)
+                    for (int i = 0; i < disp.getDPF().order.Count(); i++)
                     { //проверяем, какой пункт совпадает по названию с осциллограммой
-                        if (disp.getDPF().order[j].Series[0].LegendText == clickedItem.Text)
-                            disp.getDPF().remove(j);//передаём номер графика на удаление
+                            if (disp.getDPF().order[i][0].Series[0].LegendText == clickedItem.Text)
+                                disp.getDPF().remove(i);//передаём номер графика на удаление
                     }
                 else
                     disp.getDPF().remove(0);
