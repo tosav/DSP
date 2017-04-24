@@ -26,6 +26,8 @@ namespace WindowsFormsApplication2
         private Interval inter;
         private int W = 700; // стандартная длина графика
         private int H = 200; // стандартная высота графика + отступ с названием канала
+        TabControl tabControl1;
+        TabPage tabPage1, tabPage2, tabPage3, tabPage4;
 
         private void resize(object sender, EventArgs e)//нужно изменять размер таба
         {
@@ -69,20 +71,25 @@ namespace WindowsFormsApplication2
             {
                 Chart[] ch = new Chart[4];
                 DDFT(n);
-                TabControl tabControl1 = new TabControl();
-                tabControl1.Location = new Point(0,27);
-                tabControl1.Name = "tabControl1";
-                tabControl1.SelectedIndex = 0;
-                tabControl1.Size = new Size(W, H+ prob);
-                tabControl1.TabIndex = 1;
-                tabControl1.BackColor = Color.Blue;
 
-                TabPage tabPage1 = new TabPage();
-                tabPage1.Location = new System.Drawing.Point(0, 0);
-                tabPage1.Name = "tabPage1";
-                tabPage1.TabIndex = 0;
-                tabPage1.Text = "|X(k)|";
-                tabPage1.BackColor = Color.Black;
+                if (tabControl1 == null)
+                {
+                    tabControl1 = new TabControl();
+                    tabControl1.Location = new Point(0, 27);
+                    tabControl1.Name = "tabControl1";
+                    tabControl1.SelectedIndex = 0;
+                    tabControl1.TabIndex = 1;
+                }
+
+                if (tabPage1 == null)
+                {
+                    tabPage1 = new TabPage();
+                    tabPage1.Location = new System.Drawing.Point(0, 0);
+                    tabPage1.Name = "tabPage1";
+                    tabPage1.TabIndex = 0;
+                    tabPage1.Text = "|X(k)|";
+                    tabPage1.UseVisualStyleBackColor = true;
+                }
                 chart = CreateChart(n);
                 ch[0]=chart; //добавление чарта в общий список
                 for (int i = 0; i < disp.getN(); i++)
@@ -93,17 +100,16 @@ namespace WindowsFormsApplication2
                     }
                 }
                 tabPage1.Controls.Add(chart);
-                chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
-                chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
-                this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
-                this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
 
-                TabPage tabPage2 = new TabPage();
-                tabPage2.Location = new System.Drawing.Point(0, 0);
-                tabPage2.Name = "tabPage2";
-                tabPage2.TabIndex = 1;
-                tabPage2.Text = "|ArgX(k)|";
-                tabPage2.UseVisualStyleBackColor = true;
+                if (tabPage2 == null)
+                {
+                    tabPage2 = new TabPage();
+                    tabPage2.Location = new System.Drawing.Point(0, 0);
+                    tabPage2.Name = "tabPage1";
+                    tabPage2.TabIndex = 0;
+                    tabPage2.Text = "|Arg(k)|";
+                    tabPage2.UseVisualStyleBackColor = true;
+                }
                 chart = CreateChart(n);
                 ch[1] = chart; ; //добавление чарта в общий список
                 for (int i = 0; i < disp.getN(); i++)
@@ -114,18 +120,16 @@ namespace WindowsFormsApplication2
                     }
                 }
                 tabPage2.Controls.Add(chart);
-                chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
-                chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
-                this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
-                this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
 
-
-                TabPage tabPage3 = new TabPage();
-                tabPage3.Location = new System.Drawing.Point(0,0);
-                tabPage3.Name = "tabPage3";
-                tabPage3.TabIndex = 2;
-                tabPage3.Text = "ReX(k)";
-                tabPage3.UseVisualStyleBackColor = true;
+                if (tabPage3 == null)
+                {
+                    tabPage3 = new TabPage();
+                    tabPage3.Location = new System.Drawing.Point(0, 0);
+                    tabPage3.Name = "tabPage1";
+                    tabPage3.TabIndex = 0;
+                    tabPage3.Text = "Re(k)";
+                    tabPage3.UseVisualStyleBackColor = true;
+                }
                 chart = CreateChart(n);
                 ch[2] = chart; //добавление чарта в общий список
                 for (int i = 0; i < disp.getN(); i++)
@@ -136,18 +140,17 @@ namespace WindowsFormsApplication2
                     }
                 }
                 tabPage3.Controls.Add(chart);
-                chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
-                chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
-                this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
-                this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
 
 
-                TabPage tabPage4 = new TabPage();
-                tabPage4.Location = new System.Drawing.Point(0,0);
-                tabPage4.Name = "tabPage4";
-                tabPage4.TabIndex = 3;
-                tabPage4.Text = "ImX(k)";
-                tabPage4.UseVisualStyleBackColor = true;
+                if (tabPage4 == null)
+                {
+                    tabPage4 = new TabPage();
+                    tabPage4.Location = new System.Drawing.Point(0, 0);
+                    tabPage4.Name = "tabPage1";
+                    tabPage4.TabIndex = 0;
+                    tabPage4.Text = "Im(k)";
+                    tabPage4.UseVisualStyleBackColor = true;
+                }
                 chart = CreateChart(n);
                 ch[3] = chart; //добавление чарта в общий список
                 for (int i = 0; i < disp.getN(); i++)
@@ -159,27 +162,27 @@ namespace WindowsFormsApplication2
                 }
                 tabPage4.Controls.Add(chart);
                 order.Add(ch);
-                chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
-                chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
-                this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
-                this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
 
-
-                tabControl1.Controls.Add(tabPage1);
-                tabControl1.Controls.Add(tabPage2);
-                tabControl1.Controls.Add(tabPage3);
-                tabControl1.Controls.Add(tabPage4);
+                if (!tabControl1.Controls.Contains(tabPage1))
+                    tabControl1.Controls.Add(tabPage1);
+                if (!tabControl1.Controls.Contains(tabPage2))
+                    tabControl1.Controls.Add(tabPage2);
+                if (!tabControl1.Controls.Contains(tabPage3))
+                    tabControl1.Controls.Add(tabPage3);
+                if (!tabControl1.Controls.Contains(tabPage4))
+                    tabControl1.Controls.Add(tabPage4);
 
                 //изменение размеров окна
 
-                this.BackColor = Color.Red;
                 this.Width = this.W;
+                tabControl1.Size = new Size(W, H *order.Count + prob);
                 tabPage1.Size = new System.Drawing.Size(W, H * order.Count + prob);
                 tabPage2.Size = new System.Drawing.Size(W, H * order.Count + prob);
                 tabPage3.Size = new System.Drawing.Size(W, H * order.Count + prob);
                 tabPage4.Size = new System.Drawing.Size(W, H * order.Count + prob);
                 this.Height = prob*3 + this.H * order.Count;
-                this.Controls.Add(tabControl1);
+                if (!Controls.Contains(tabControl1))
+                    Controls.Add(tabControl1);
             }
         }
 
@@ -200,7 +203,7 @@ namespace WindowsFormsApplication2
 
             area.Name = "myGraph";
             area.AxisY.LabelStyle.Format = "N2";
-            area.AxisX.LabelStyle.Format = "N10";
+            area.AxisX.LabelStyle.Format = "N1";
             area.AxisX.ScrollBar.Enabled = true;
             area.CursorX.IsUserEnabled = true;
             area.CursorX.IsUserSelectionEnabled = true;
@@ -232,6 +235,11 @@ namespace WindowsFormsApplication2
 
             series.LegendText = disp.getNames()[n];
             chart.Legends.Add(disp.getNames()[n]);
+
+            chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
+            chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
+            chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
+            chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
             return chart;
         }
 
@@ -243,7 +251,15 @@ namespace WindowsFormsApplication2
             Y1 = e.Y;
             if (e.Button == MouseButtons.Right)
             {
-                chart = (Chart)sender;
+                try
+                {
+
+                    chart = (Chart)sender;
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 
