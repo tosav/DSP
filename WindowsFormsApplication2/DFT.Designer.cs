@@ -39,6 +39,7 @@
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.локальныйМасштабToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.глобальныйМасштабToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.marks = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.grid,
+            this.marks,
             this.lg_x,
             this.lg_y,
             this.toolStripSeparator1,
@@ -127,6 +129,31 @@
             this.toolStripButton3.Size = new System.Drawing.Size(24, 24);
             this.toolStripButton3.Text = "Уменьшить";
             // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // локальныйМасштабToolStripMenuItem
+            // 
+            this.локальныйМасштабToolStripMenuItem.Name = "локальныйМасштабToolStripMenuItem";
+            this.локальныйМасштабToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // глобальныйМасштабToolStripMenuItem
+            // 
+            this.глобальныйМасштабToolStripMenuItem.Name = "глобальныйМасштабToolStripMenuItem";
+            this.глобальныйМасштабToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // marks
+            // 
+            this.marks.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.marks.Image = ((System.Drawing.Image)(resources.GetObject("marks.Image")));
+            this.marks.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.marks.Name = "marks";
+            this.marks.Size = new System.Drawing.Size(24, 24);
+            this.marks.Text = "Маркеры";
+            this.marks.Click += new System.EventHandler(this.marks_Click);
+            // 
             // DFT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,5 +188,6 @@
         private System.Windows.Forms.ToolStripMenuItem глобальныйМасштабToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton lg_x;
         private System.Windows.Forms.ToolStripButton lg_y;
+        private System.Windows.Forms.ToolStripButton marks;
     }
 }

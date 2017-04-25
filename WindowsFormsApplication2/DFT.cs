@@ -11,7 +11,7 @@ namespace WindowsFormsApplication2
        // private System.ComponentModel.IContainer components = null;
         bool loc = true;//локальный масштаб
         bool sharp = true;//решетка
-        bool dots = true;
+        bool dots = false;
         Dispatcher disp = Dispatcher.getInstance();
         public List<Chart[]> order = new List<Chart[]>();//порядок графиков
         Chart chart;//текущий график
@@ -283,9 +283,9 @@ namespace WindowsFormsApplication2
             series.ChartType = SeriesChartType.Line;
 
             if (dots)
-                series.MarkerStyle = MarkerStyle.None;
-            else
                 series.MarkerStyle = MarkerStyle.Circle;
+            else
+                series.MarkerStyle = MarkerStyle.None;
             series.ChartType = SeriesChartType.Line;
 
             chart.Series.Clear();
@@ -437,20 +437,20 @@ namespace WindowsFormsApplication2
             }
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void marks_Click(object sender, EventArgs e)
         {
             if (order.Count > 0)
             {
                 dots = !dots;
-                this.toolStripButton2.Checked = dots;
+                this.marks.Checked = dots;
                 for (int i = 0; i < order.Count; i++)
                 {
                     for (int j = 0; j < 4; j++)
                     {
                         if (dots)
-                            order[i][j].Series[0].MarkerStyle = MarkerStyle.None;
-                        else
                             order[i][j].Series[0].MarkerStyle = MarkerStyle.Circle;
+                        else
+                            order[i][j].Series[0].MarkerStyle = MarkerStyle.None;
                     }
                 }
             }
