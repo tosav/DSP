@@ -380,7 +380,7 @@ namespace WindowsFormsApplication2
             if (order.Count > 0)
             {
                 sharp = !sharp;
-                this.toolStripButton1.Checked = sharp;
+                this.grid.Checked = sharp;
                 for (int i = 0; i < order.Count; i++)
                 {
                     for (int j = 0; j < 4; j++)
@@ -411,19 +411,19 @@ namespace WindowsFormsApplication2
             }
         }
 
-        private void toolStripButton5_Click(object sender, EventArgs e)
+        private void interv_Click(object sender, EventArgs e)
         {
             inter = new Interval();
             inter.Hide();
             inter.Show();
         }
 
-        private void toolStripButton5_Click_1(object sender, EventArgs e)
+        private void lgx_Click(object sender, EventArgs e)
         {
             if (order.Count > 0)
             {
                 logX = !logX;
-                toolStripButton5.Checked = logX;
+                lg_x.Checked = logX;
                 for (int i = 0; i < order.Count; i++)
                 {
                     for (int j = 0; j < 2; j++)
@@ -434,13 +434,13 @@ namespace WindowsFormsApplication2
             }
         }
 
-        private void toolStripButton6_Click(object sender, EventArgs e)
+        private void lgy_Click(object sender, EventArgs e)
         {
 
             if (order.Count > 0)
             {
                 logY = !logY;
-                toolStripButton5.Checked = logY;
+                lg_y.Checked = logY;
                 for (int i = 0; i < order.Count; i++)
                 {
                     for (int j = 0; j < 2; j++)
