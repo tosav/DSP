@@ -116,7 +116,7 @@ namespace WindowsFormsApplication2
                 {
                     if (i > 0)
                     {
-                        chart.Series[0].Points.AddXY((double)i / disp.getN(), Math.Atan2(Im[i], Re[i]));
+                        chart.Series[0].Points.AddXY((double)i / disp.getN(), Math.Abs( Math.Atan2(Im[i], Re[i])));
                     }
                 }
                 tabPage2.Controls.Add(chart);
@@ -413,7 +413,7 @@ namespace WindowsFormsApplication2
                 toolStripButton5.Checked = logX;
                 for (int i = 0; i < order.Count; i++)
                 {
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < 2; j++)
                     {
                         order[i][j].ChartAreas["myGraph"].AxisX.IsLogarithmic = logX;
                     }
@@ -430,7 +430,7 @@ namespace WindowsFormsApplication2
                 toolStripButton5.Checked = logY;
                 for (int i = 0; i < order.Count; i++)
                 {
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < 2; j++)
                     {
                         order[i][j].ChartAreas["myGraph"].AxisY.IsLogarithmic = logY;
                     }
