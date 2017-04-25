@@ -8,29 +8,37 @@ namespace WindowsFormsApplication2
 {
     public partial class DFT : Form
     {
-       // private System.ComponentModel.IContainer components = null;
-        bool loc = true;//локальный масштаб
-        bool sharp = true;//решетка
-        bool dots = false;
+        bool loc = true; //локальный масштаб
+        bool sharp = true; //решетка
+        bool dots = false; //маркеры
+
         Dispatcher disp = Dispatcher.getInstance();
+
         public List<Chart[]> order = new List<Chart[]>();//порядок графиков
         Chart chart;//текущий график
         public List<int> kol = new List<int>();
+
         private int X1;
         private int Y1;
         private int X2;
         private int Y2;
+
         private bool logX = false, logY=false;
+
         double[] Re;
         double[] Im;
+
         int prob = 30;
         private Interval inter;
         private int W = 700; // стандартная длина графика
         private int H = 200; // стандартная высота графика + отступ с названием канала
+
         TabControl tabControl1;
         TabPage tabPage1, tabPage2, tabPage3, tabPage4;
         System.ComponentModel.Container components = new System.ComponentModel.Container();
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+
+        double dpf_start = 0, dpf_fin = 0.5; 
 
         private void resize(object sender, EventArgs e)//нужно изменять размер таба
         {
@@ -68,6 +76,7 @@ namespace WindowsFormsApplication2
                 }
             }
         }
+
         private void ContextStrip()
         {
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -114,7 +123,7 @@ namespace WindowsFormsApplication2
             {
                 Chart[] ch = new Chart[4];
                 DDFT(n);
-
+                 //заменить на цикл
                 if (tabControl1 == null) //если нет таб-контрола
                 {
                     tabControl1 = new TabControl();
@@ -261,7 +270,7 @@ namespace WindowsFormsApplication2
             area.CursorX.IsUserSelectionEnabled = true;
 
             area.AxisX.ScaleView.Zoomable = true;
-            area.AxisX.ScaleView.Zoom(disp.getStart() / disp.getN(), disp.getFinish() / disp.getN());
+            area.AxisX.ScaleView.Zoom(dpf_start, dpf_fin);
 
             area.AxisX.ScrollBar.IsPositionedInside = true;
 
@@ -356,16 +365,28 @@ namespace WindowsFormsApplication2
             this.Width = this.W;
             this.Height = this.H * order.Count + 40 + prob;
         }
-        private void scroller(object sender, System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs e)
-        {
-            double round = disp.getFinish() - disp.getStart();
-            disp.setStart(e.ChartArea.AxisX.ScaleView.Position * disp.getN());
-            disp.setFinish((e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size) * disp.getN());
+
+        private void scroller(object sender, System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs e) {
+            dpf_start = e.ChartArea.AxisX.ScaleView.Position;
+            dpf_fin = e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size;
+            for (int i = 0; i < order.Count; i++) {
+                for (int j = 0; j < 4; j++) {
+                    order[i][j].ChartAreas["myGraph"].AxisX.ScaleView.Zoom(dpf_start, dpf_fin);
+                }
+            }
         }
         private void viewchanged(object sender, System.Windows.Forms.DataVisualization.Charting.ViewEventArgs e)
         {
-            disp.setStart(e.ChartArea.AxisX.ScaleView.Position * disp.getN());
-            disp.setFinish((e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size) * disp.getN());
+            dpf_start = e.ChartArea.AxisX.ScaleView.Position;
+            dpf_fin = e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size;
+            for (int i = 0; i < order.Count; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    order[i][j].ChartAreas["myGraph"].AxisX.ScaleView.Zoom(dpf_start, dpf_fin);
+                    //order[i][j].ChartAreas["myGraph"].AxisY.MajorGrid.Enabled = sharp;
+                }
+            }
         }
         //удаление осцилограмм по клику правой клавишей
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
