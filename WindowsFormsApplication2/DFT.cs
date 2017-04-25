@@ -349,21 +349,28 @@ namespace WindowsFormsApplication2
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    order[i][j].Bounds = new Rectangle(0, prob + H * i, W, H);
+                    order[i][j].Bounds = new Rectangle(0, H * i, W, H);
                     if (loc)
                     {
-                        order[i][j].ChartAreas["myGraph"].AxisY.Minimum = disp.mini(Convert.ToInt32(order[i][j].Tag), disp.getData(), (int)disp.getStart(), (int)disp.getFinish());
-                        order[i][j].ChartAreas["myGraph"].AxisY.Maximum = disp.maxi(Convert.ToInt32(order[i][j].Tag), disp.getData(), (int)disp.getStart(), (int)disp.getFinish());
+                        double min = order[i][j].Series[0].Points[(int)disp.getStart()].YValues[0];
+                        double max = min;
+                        for (int k = (int)disp.getStart(); k < (int)disp.getFinish()-1; k++)
+                        {
+                            min = min > order[i][j].Series[0].Points[k].YValues[0] ? order[i][j].Series[0].Points[k].YValues[0] : min;
+                            max = max < order[i][j].Series[0].Points[k].YValues[0] ? order[i][j].Series[0].Points[k].YValues[0] : max;
+                        }
+                        order[i][j].ChartAreas["myGraph"].AxisY.Minimum = min;
+                        order[i][j].ChartAreas["myGraph"].AxisY.Maximum = max;
                     }
                     else
                     {
-                        order[i][j].ChartAreas["myGraph"].AxisY.Minimum = disp.mini(Convert.ToInt32(order[i][j].Tag), disp.getData(), 0, disp.getN());
-                        order[i][j].ChartAreas["myGraph"].AxisY.Maximum = disp.maxi(Convert.ToInt32(order[i][j].Tag), disp.getData(), 0, disp.getN());
+                        order[i][j].ChartAreas["myGraph"].AxisY.Minimum = order[i][j].ChartAreas[0].AxisY.Minimum;
+                        order[i][j].ChartAreas["myGraph"].AxisY.Maximum = order[i][j].ChartAreas[0].AxisY.Maximum;
                     }
                 }
             }
             this.Width = this.W;
-            this.Height = this.H * order.Count + 40 + prob;
+            this.Height = prob * 3 + this.H * order.Count;
         }
 
         private void scroller(object sender, System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs e) {
