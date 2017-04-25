@@ -39,10 +39,12 @@ namespace WindowsFormsApplication2
                 location();
             }*/
         }
+
         public DFT(MainForm ParrentForm)
         {
             InitializeComponent();
         }
+
         public void DDFT(int nk)
         {
             double[] x = new double[disp.getN()];
@@ -63,16 +65,16 @@ namespace WindowsFormsApplication2
                 }
             }
         }
+
         //создание и добавление нового чарта на форму
         public void SetData(int n, double mini, double maxi)
         {
-
             if (!kol.Contains(n))
             {
                 Chart[] ch = new Chart[4];
                 DDFT(n);
 
-                if (tabControl1 == null)
+                if (tabControl1 == null) //если нет таб-контрола
                 {
                     tabControl1 = new TabControl();
                     tabControl1.Location = new Point(0, 27);
@@ -81,8 +83,8 @@ namespace WindowsFormsApplication2
                     tabControl1.TabIndex = 1;
                 }
 
-                if (tabPage1 == null)
-                {
+                if (tabPage1 == null) //если нет первой страницы в табе
+                {                       // создаём её
                     tabPage1 = new TabPage();
                     tabPage1.Location = new System.Drawing.Point(0, 0);
                     tabPage1.Name = "tabPage1";
@@ -90,8 +92,9 @@ namespace WindowsFormsApplication2
                     tabPage1.Text = "|X(k)|";
                     tabPage1.UseVisualStyleBackColor = true;
                 }
-                chart = CreateChart(n);
+                chart = CreateChart(n); 
                 ch[0]=chart; //добавление чарта в общий список
+
                 for (int i = 0; i < disp.getN(); i++)
                 {
                     if (i > 0)
@@ -99,6 +102,7 @@ namespace WindowsFormsApplication2
                         chart.Series[0].Points.AddXY((double)i / disp.getN(), Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]));
                     }
                 }
+
                 tabPage1.Controls.Add(chart);
 
                 if (tabPage2 == null)
@@ -160,9 +164,9 @@ namespace WindowsFormsApplication2
                         chart.Series[0].Points.AddXY((double)i / disp.getN(), Im[i]);
                     }
                 }
-                tabPage4.Controls.Add(chart);
+                tabPage4.Controls.Add(chart); //tabControl1.TabPages[0].Controls.Add(chart);
                 order.Add(ch);
-
+                
                 if (!tabControl1.Controls.Contains(tabPage1))
                     tabControl1.Controls.Add(tabPage1);
                 if (!tabControl1.Controls.Contains(tabPage2))
@@ -202,24 +206,34 @@ namespace WindowsFormsApplication2
             ChartArea area = new ChartArea();
 
             area.Name = "myGraph";
+
             area.AxisY.LabelStyle.Format = "N2";
             area.AxisX.LabelStyle.Format = "N1";
+
             area.AxisX.ScrollBar.Enabled = true;
+
             area.CursorX.IsUserEnabled = true;
             area.CursorX.IsUserSelectionEnabled = true;
+
             area.AxisX.ScaleView.Zoomable = true;
+            area.AxisX.ScaleView.Zoom(disp.getStart() / disp.getN(), disp.getFinish() / disp.getN());
+
             area.AxisX.ScrollBar.IsPositionedInside = true;
+
             area.BorderDashStyle = ChartDashStyle.Solid;
             area.BorderColor = Color.Black;
             area.BorderWidth = 1;
+
             area.AxisX.MajorGrid.Enabled = sharp;
             area.AxisY.MajorGrid.Enabled = sharp;
             area.AxisY.MajorGrid.LineColor = Color.Black;
             area.AxisX.MajorGrid.LineColor = Color.Black;
+
             area.AxisX.IsLogarithmic = logX;
             area.AxisY.IsLogarithmic = logY;
-            area.AxisX.ScaleView.Zoom(disp.getStart()/disp.getN(), disp.getFinish() / disp.getN());
+            
             chart.ChartAreas.Add(area);
+
             Series series = new Series();
             series.ChartType = SeriesChartType.Line;
 
@@ -253,7 +267,6 @@ namespace WindowsFormsApplication2
             {
                 try
                 {
-
                     chart = (Chart)sender;
                 }
                 catch (Exception ex)
