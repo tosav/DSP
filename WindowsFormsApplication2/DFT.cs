@@ -8,6 +8,7 @@ namespace WindowsFormsApplication2
 {
     public partial class DFT : Form
     {
+       // private System.ComponentModel.IContainer components = null;
         bool loc = true;//локальный масштаб
         bool sharp = true;//решетка
         bool dots = true;
@@ -28,6 +29,8 @@ namespace WindowsFormsApplication2
         private int H = 200; // стандартная высота графика + отступ с названием канала
         TabControl tabControl1;
         TabPage tabPage1, tabPage2, tabPage3, tabPage4;
+        System.ComponentModel.Container components = new System.ComponentModel.Container();
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
 
         private void resize(object sender, EventArgs e)//нужно изменять размер таба
         {
@@ -65,10 +68,48 @@ namespace WindowsFormsApplication2
                 }
             }
         }
+        private void ContextStrip()
+        {
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.удалитьToolStripMenuItem,
+            this.локальныйМасштабToolStripMenuItem,
+            this.глобальныйМасштабToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(236, 82);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(235, 26);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
+            // 
+            // локальныйМасштабToolStripMenuItem
+            // 
+            this.локальныйМасштабToolStripMenuItem.Checked = true;
+            this.локальныйМасштабToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.локальныйМасштабToolStripMenuItem.Name = "локальныйМасштабToolStripMenuItem";
+            this.локальныйМасштабToolStripMenuItem.Size = new System.Drawing.Size(235, 26);
+            this.локальныйМасштабToolStripMenuItem.Text = "Локальный масштаб";
+            this.локальныйМасштабToolStripMenuItem.Click += new System.EventHandler(this.локальныйМасштабToolStripMenuItem_Click);
+            // 
+            // глобальныйМасштабToolStripMenuItem
+            // 
+            this.глобальныйМасштабToolStripMenuItem.Name = "глобальныйМасштабToolStripMenuItem";
+            this.глобальныйМасштабToolStripMenuItem.Size = new System.Drawing.Size(235, 26);
+            this.глобальныйМасштабToolStripMenuItem.Text = "Глобальный масштаб";
+            this.глобальныйМасштабToolStripMenuItem.Click += new System.EventHandler(this.глобальныйМасштабToolStripMenuItem_Click);
 
+            this.contextMenuStrip1.ResumeLayout(false);
+        }
         //создание и добавление нового чарта на форму
         public void SetData(int n, double mini, double maxi)
         {
+            if (contextMenuStrip1 == null)
+                ContextStrip();
             if (!kol.Contains(n))
             {
                 Chart[] ch = new Chart[4];
@@ -91,6 +132,7 @@ namespace WindowsFormsApplication2
                     tabPage1.TabIndex = 0;
                     tabPage1.Text = "|X(k)|";
                     tabPage1.UseVisualStyleBackColor = true;
+                    tabPage1.ContextMenuStrip = contextMenuStrip1;                
                 }
                 chart = CreateChart(n); 
                 ch[0]=chart; //добавление чарта в общий список
@@ -113,6 +155,7 @@ namespace WindowsFormsApplication2
                     tabPage2.TabIndex = 0;
                     tabPage2.Text = "|Arg(k)|";
                     tabPage2.UseVisualStyleBackColor = true;
+                    tabPage2.ContextMenuStrip = contextMenuStrip1;
                 }
                 chart = CreateChart(n);
                 ch[1] = chart; ; //добавление чарта в общий список
@@ -133,6 +176,7 @@ namespace WindowsFormsApplication2
                     tabPage3.TabIndex = 0;
                     tabPage3.Text = "Re(k)";
                     tabPage3.UseVisualStyleBackColor = true;
+                    tabPage3.ContextMenuStrip = contextMenuStrip1;
                 }
                 chart = CreateChart(n);
                 ch[2] = chart; //добавление чарта в общий список
@@ -154,6 +198,7 @@ namespace WindowsFormsApplication2
                     tabPage4.TabIndex = 0;
                     tabPage4.Text = "Im(k)";
                     tabPage4.UseVisualStyleBackColor = true;
+                    tabPage4.ContextMenuStrip = contextMenuStrip1;
                 }
                 chart = CreateChart(n);
                 ch[3] = chart; //добавление чарта в общий список
@@ -326,8 +371,8 @@ namespace WindowsFormsApplication2
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int level;
-            for (level = 0; !chart.Equals(order[level]); level++) { }
-            remove(level);
+            for (level = 0; order.Count!=0&&!chart.Equals(order[level]); level++) { }
+                remove(level);
         }
         public void remove(int k)
         {
