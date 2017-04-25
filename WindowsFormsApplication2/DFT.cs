@@ -68,7 +68,6 @@ namespace WindowsFormsApplication2
                 }
             }
         }
-<<<<<<< HEAD
         private void ContextStrip()
         {
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -111,12 +110,6 @@ namespace WindowsFormsApplication2
         {
             if (contextMenuStrip1 == null)
                 ContextStrip();
-=======
-
-        //создание и добавление нового чарта на форму
-        public void SetData(int n, double mini, double maxi)
-        {
->>>>>>> origin/master
             if (!kol.Contains(n))
             {
                 Chart[] ch = new Chart[4];
