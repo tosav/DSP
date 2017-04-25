@@ -42,13 +42,13 @@ namespace WindowsFormsApplication2
 
         private void resize(object sender, EventArgs e)//нужно изменять размер таба
         {
-           /* if (order.Count > 0)
+            if (order.Count > 0)
             {
                 //Console.WriteLine();
                 W = this.Width;
-                H = (this.Height - 40 - prob) / order.Count;
+                H = (this.Height - prob*3) / order.Count;
                 location();
-            }*/
+            }
         }
 
         public DFT(MainForm ParrentForm)
@@ -162,7 +162,7 @@ namespace WindowsFormsApplication2
                     tabPage2.Location = new System.Drawing.Point(0, 0);
                     tabPage2.Name = "tabPage1";
                     tabPage2.TabIndex = 0;
-                    tabPage2.Text = "|Arg(k)|";
+                    tabPage2.Text = "Arg(k)";
                     tabPage2.UseVisualStyleBackColor = true;
                     tabPage2.ContextMenuStrip = contextMenuStrip1;
                 }
@@ -172,7 +172,7 @@ namespace WindowsFormsApplication2
                 {
                     if (i > 0)
                     {
-                        chart.Series[0].Points.AddXY((double)i / disp.getN(), Math.Abs( Math.Atan2(Im[i], Re[i])));
+                        chart.Series[0].Points.AddXY((double)i / disp.getN(),  Math.Atan2(Im[i], Re[i]));
                     }
                 }
                 tabPage2.Controls.Add(chart);
@@ -369,6 +369,11 @@ namespace WindowsFormsApplication2
                     }
                 }
             }
+            tabControl1.Size = new Size(W, H * order.Count + prob);
+            tabPage1.Size = new System.Drawing.Size(W, H * order.Count + prob);
+            tabPage2.Size = new System.Drawing.Size(W, H * order.Count + prob);
+            tabPage3.Size = new System.Drawing.Size(W, H * order.Count + prob);
+            tabPage4.Size = new System.Drawing.Size(W, H * order.Count + prob);
             this.Width = this.W;
             this.Height = prob * 3 + this.H * order.Count;
         }
@@ -398,9 +403,16 @@ namespace WindowsFormsApplication2
         //удаление осцилограмм по клику правой клавишей
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int level;
-            for (level = 0; order.Count!=0&&!chart.Equals(order[level]); level++) { }
-                remove(level);
+            int level=0;
+            for (int i = 0; i < order.Count; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (chart.Equals(order[i][j]))
+                        level = i;
+                }
+            }
+            remove(level);
         }
         public void remove(int k)
         {
@@ -516,7 +528,7 @@ namespace WindowsFormsApplication2
                 lg_y.Checked = logY;
                 for (int i = 0; i < order.Count; i++)
                 {
-                    for (int j = 0; j < 2; j++)
+                    for (int j = 0; j < 1; j++)
                     {
                         order[i][j].ChartAreas["myGraph"].AxisY.IsLogarithmic = logY;
                     }
