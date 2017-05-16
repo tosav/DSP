@@ -23,7 +23,7 @@ namespace WindowsFormsApplication2
         private int X2;
         private int Y2;
 
-        private bool logX = false, logY=false;
+        private bool logX = false, logY = false;
 
         double[] Re;
         double[] Im;

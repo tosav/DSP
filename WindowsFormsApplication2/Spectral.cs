@@ -25,6 +25,11 @@ namespace WindowsFormsApplication2
         int W = 700; // стандартная длина графика
         int H = 200; // стандартная высота графика + отступ с названием канала
 
+        double[] Re;
+        double[] Im;
+        double dpf_start = 0, dpf_fin = 0.5;
+
+        private bool logX = false, logY = false;
         private void resize(object sender, EventArgs e)
         {
             if (order.Count > 0)
@@ -46,88 +51,120 @@ namespace WindowsFormsApplication2
         {
             if (!kol.Contains(n))
             {
-                CreateChart(mini, maxi, n);
+                DDFT(n);
+                chart=CreateChart(n);
                 order.Add(chart); //добавление чарта в общий список
                 //double k = 1 / 60 / disp.getFD();
+                double min=double.MaxValue, max=double.MinValue;
                 for (int i = 0; i < disp.getN(); i++)//инициализация массива
                 {
-                    /*DateTime date= new DateTime(2001,01,01,0,0,0);
-                    date += TimeSpan.FromSeconds((1 / disp.getFD()) * i);
-                    chart.Series[0].Points.AddXY(date,disp.getData()[n, i].Y);*/
-                    chart.Series[0].Points.AddXY(i, disp.getData()[n, i].Y);
-                    chart.Tag = n.ToString();
+                    if (i>0)
+                    {
+                        double z = Math.Atan2(Im[i], Re[i]);
+                        min = min > z ? z : min;
+                        max=  max < z ? z : max;
+                        chart.Series[0].Points.AddXY((double)i / disp.getN(), z);//то что показывается на графике
+                        chart.Tag = n.ToString();
+                    }
                 }
                 chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
                 chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
                 //изменение размеров окна
                 this.Width = this.W;
                 this.Height = prob + this.H * order.Count + 40;
-
+                this.Controls.Add(chart);
                 this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
                 this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
             }
         }
 
-        private void CreateChart(double min, double max, int n)
+        public void DDFT(int nk)//вычисления
         {
-
-            /*               DateTime date = new DateTime(2001, 01, 01, 0, 0, 0);
-                           date += TimeSpan.FromSeconds(disp.getDateFin().Subtract(disp.getDateBegin()).Seconds);*/
+            double[] x = new double[disp.getN()];
+            int N = disp.getN();
+            for (int i = 0; i < N; i++)
+            {
+                x[i] = disp.getData()[nk, i].Y;
+            }
+            Re = new double[N];
+            Im = new double[N];
+            for (int k = 0; k < N; k++)
+            {
+                Re[k] = 0; Im[k] = 0;
+                for (int n = 0; n < N; n++)
+                {
+                    Re[k] += x[n] * Math.Cos(2 * Math.PI * n * k / N);
+                    Im[k] += x[n] * -(Math.Sin(2 * Math.PI * n * k / N));
+                }
+            }
+        }
+        private Chart CreateChart(int n)
+        {
+            Chart chart = new Chart();
             kol.Add(n);
-            disp.getMf().CheckItemSp(n);
+            disp.getMf().CheckItemDPF(n);
             // Создаём новый элемент управления Chart
             chart = new Chart();
             // Помещаем его на форму
             chart.Parent = this;
             // Задаём размеры элемента
-            chart.SetBounds(0, prob + H * order.Count, W, H);
+            chart.Size = new Size(W, H);
+            chart.Location = new Point(0, this.H * order.Count);
 
-            // Создаём новую область для построения графика
             ChartArea area = new ChartArea();
-            // Даём ей имя (чтобы потом добавлять графики)
+
             area.Name = "myGraph";
-            //area.AxisX.LabelStyle.Format = "dd:HH:mm:ss";
-            //area.AxisX.IntervalType = DateTimeIntervalType.Auto;
-            area.AxisY.Minimum = min;
-            area.AxisY.Maximum = max;
-            area.AxisX.Minimum = 0;
-            area.AxisX.Maximum = disp.getN();
-            //area.AxisX.Maximum = date.ToOADate();
-            //задаём кол-во знаков после запятой для меток на осях
+
             area.AxisY.LabelStyle.Format = "N2";
-            area.AxisX.LabelStyle.Format = "N0";
+            area.AxisX.LabelStyle.Format = "N2";
+
             area.AxisX.ScrollBar.Enabled = true;
-            // area.AxisX.Minimum = ChartPoint.BaseTime.ToOADate();
-            //area.AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Auto;
-            //area.AxisX.LabelStyle.Format = "T";
+
             area.CursorX.IsUserEnabled = true;
             area.CursorX.IsUserSelectionEnabled = true;
+
             area.AxisX.ScaleView.Zoomable = true;
+            area.AxisX.ScaleView.Zoom(dpf_start, dpf_fin);
+
             area.AxisX.ScrollBar.IsPositionedInside = true;
+
             area.BorderDashStyle = ChartDashStyle.Solid;
             area.BorderColor = Color.Black;
             area.BorderWidth = 1;
+
             area.AxisX.MajorGrid.Enabled = sharp;
             area.AxisY.MajorGrid.Enabled = sharp;
-            //area
-            // Добавляем область в диаграмму
+            area.AxisY.MajorGrid.LineColor = Color.Black;
+            area.AxisX.MajorGrid.LineColor = Color.Black;
+
+            area.AxisX.IsLogarithmic = logX;
+            area.AxisY.IsLogarithmic = logY;
+
+            //area.AxisY.Minimum = -Math.PI;
+            //area.AxisY.Maximum = Math.PI;
             chart.ChartAreas.Add(area);
-            // Создаём объект для первого графика
-            Series series1 = new Series();
-            // Ссылаемся на область для построения графика
-            series1.ChartArea = "myGraph";
+
+            Series series = new Series();
+            series.ChartType = SeriesChartType.Line;
+
             if (dots)
-                series1.MarkerStyle = MarkerStyle.None;
+                series.MarkerStyle = MarkerStyle.Circle;
             else
-                series1.MarkerStyle = MarkerStyle.Circle;
-            // Задаём тип графика - сплайны
-            //series1.XValueType = ChartValueType.DateTime;
-            series1.ChartType = SeriesChartType.Line;
-            series1.LegendText = disp.getNames()[n];
+                series.MarkerStyle = MarkerStyle.None;
+            series.ChartType = SeriesChartType.Line;
+
+            chart.Series.Clear();
+            chart.Series.Add(series);
+            chart.Series[0].ChartArea = "myGraph";
+
+            series.LegendText = disp.getNames()[n];
             chart.Legends.Add(disp.getNames()[n]);
-            // Добавляем в список графиков диаграммы
-            chart.Series.Add(series1);
-            area.AxisX.ScaleView.Zoom(disp.getStart(), disp.getFinish());
+
+            chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
+            chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
+            chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
+            chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
+            return chart;
         }
 
 
@@ -164,13 +201,13 @@ namespace WindowsFormsApplication2
                 order[i].Bounds = new Rectangle(0, prob + H * i, W, H);
                 if (loc)
                 {
-                    order[i].ChartAreas["myGraph"].AxisY.Minimum = disp.mini(Convert.ToInt32(order[i].Tag), disp.getData(), (int)disp.getStart(), (int)disp.getFinish());
-                    order[i].ChartAreas["myGraph"].AxisY.Maximum = disp.maxi(Convert.ToInt32(order[i].Tag), disp.getData(), (int)disp.getStart(), (int)disp.getFinish());
+                    //order[i].ChartAreas["myGraph"].AxisY.Minimum = disp.mini(Convert.ToInt32(order[i].Tag), disp.getData(), (int)disp.getStart(), (int)disp.getFinish());
+                    //order[i].ChartAreas["myGraph"].AxisY.Maximum = disp.maxi(Convert.ToInt32(order[i].Tag), disp.getData(), (int)disp.getStart(), (int)disp.getFinish());
                 }
                 else
                 {
-                    order[i].ChartAreas["myGraph"].AxisY.Minimum = disp.mini(Convert.ToInt32(order[i].Tag), disp.getData(), 0, disp.getN());
-                    order[i].ChartAreas["myGraph"].AxisY.Maximum = disp.maxi(Convert.ToInt32(order[i].Tag), disp.getData(), 0, disp.getN());
+                    //order[i].ChartAreas["myGraph"].AxisY.Minimum = disp.mini(Convert.ToInt32(order[i].Tag), disp.getData(), 0, disp.getN());
+                    //order[i].ChartAreas["myGraph"].AxisY.Maximum = disp.maxi(Convert.ToInt32(order[i].Tag), disp.getData(), 0, disp.getN());
                 }
             }
             this.Width = this.W;

@@ -474,7 +474,7 @@ namespace WindowsFormsApplication2
                     //MessageBox.Show("Error: Could not do this. Original error: " + argEx.Message);
                 }
             }
-            getCor().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
+            //getCor().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
             getCor().Show();
         }
         public Correlation getCor()

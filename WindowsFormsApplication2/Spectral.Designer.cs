@@ -169,7 +169,7 @@
             this.ClientSize = new System.Drawing.Size(510, 334);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Spectral";
-            this.Text = "Correlation";
+            this.Text = "Spectral";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.close);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position2);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position1);
