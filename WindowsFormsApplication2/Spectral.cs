@@ -95,8 +95,11 @@ namespace WindowsFormsApplication2
                 {
                     Re[k] += x[n] * Math.Cos(2 * Math.PI * n * k / N);
                     Im[k] += x[n] * -(Math.Sin(2 * Math.PI * n * k / N));
+
                 }
-            }
+                Re[k] = Math.Pow(Re[k],2)/ N;
+                Im[k] = Math.Pow(Im[k], 2) / N;
+            } 
         }
         private Chart CreateChart(int n)
         {
