@@ -174,9 +174,9 @@ namespace WindowsFormsApplication2
         }
         private void scroller(object sender, System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs e)
         {
-            double round = disp.getFinish() - disp.getStart();
-            disp.setStart(e.ChartArea.AxisX.ScaleView.Position);
-            disp.setFinish(e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size);
+            //double round = disp.getFinish() - disp.getStart();
+            /*disp.setStart(e.ChartArea.AxisX.ScaleView.Position);
+            disp.setFinish(e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size);*/
         }
         private void viewchanged(object sender, System.Windows.Forms.DataVisualization.Charting.ViewEventArgs e)
         {
