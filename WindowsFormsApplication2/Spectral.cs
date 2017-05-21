@@ -107,7 +107,6 @@ namespace WindowsFormsApplication2
             kol.Add(n);
             disp.getMf().CheckItemDPF(n);
             // Создаём новый элемент управления Chart
-            chart = new Chart();
             // Помещаем его на форму
             chart.Parent = this;
             // Задаём размеры элемента
@@ -313,5 +312,7 @@ namespace WindowsFormsApplication2
             inter.Hide();
             inter.Show();
         }
+
+        
     }
 }

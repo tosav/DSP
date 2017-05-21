@@ -460,7 +460,7 @@ namespace WindowsFormsApplication2
 
         public void CreateCor(int level)
         {
-            if (getSp() == null) //если не создана осциллограмма
+            if (getCor() == null) //если не создана осциллограмма
             {
                 setCor(new Correlation(mf)); //то создаётся новая дочерняя форма с осциллограммами
                 getCor().MdiParent = mf;
@@ -474,7 +474,7 @@ namespace WindowsFormsApplication2
                     //MessageBox.Show("Error: Could not do this. Original error: " + argEx.Message);
                 }
             }
-            //getCor().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
+            getCor().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
             getCor().Show();
         }
         public Correlation getCor()
