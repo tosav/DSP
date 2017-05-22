@@ -70,28 +70,22 @@ namespace WindowsFormsApplication2
         {
             Boolean flag = true;
             int i = 0;
-            while ((flag == true) & (i < texts.Count)) //Проверка на пустоту текстбокса
-            {
+            while ((flag == true) & (i < texts.Count)) {//Проверка на пустоту текстбокса
                 if (texts[i].Text == String.Empty)
                     flag = false;
                 i++;
             }
-            if (flag == true) //отрисовка модели, если все текстбоксы заполнены
-            {
-                if (texts[0].Name == "n ( целое число )")
-                {
+            if (flag == true) { //отрисовка модели, если все текстбоксы заполнены
+                if (texts[0].Name == "n ( целое число )") {
                     disp.setN(Convert.ToInt32(RussianDouble(texts[0].Text)));
                     texts.RemoveAt(0);
                 }
-                if (texts[0].Name == "fd ( >0 )")
-                {
+                if (texts[0].Name == "fd ( >0 )") {
                     disp.setFD(Convert.ToDouble(RussianDouble(texts[0].Text)));
                     texts.RemoveAt(0);
                 }
-                if (!disp.check("modell_t") && textmod.Trim() == "Случайный сигнал АРСС (p,q)")
-                {
-                    if (disp.check("modell"))
-                    {
+                if (!disp.check("modell_t") && textmod.Trim() == "Случайный сигнал АРСС (p,q)") {
+                    if (disp.check("modell")) {
                         modellng = (Modelling)disp.get("modell");
                         modellng.Close();
                     }
@@ -100,9 +94,7 @@ namespace WindowsFormsApplication2
                     modellng.MdiParent = disp.getMf();
                     modellng.Show();
                     disp.set("modell", modellng);
-                }
-                else
-                {
+                } else {
                     if (disp.getModel() != null)
                         disp.getModel().Close();
                     mo = new Model(disp.getMf());
@@ -245,16 +237,10 @@ namespace WindowsFormsApplication2
 
         private void Start_KeyPress(object sender, KeyPressEventArgs e)
         {   //если цифра, есть в массиве допустимых символов или клавиша бэкспэйс
-            if (!Char.IsDigit(e.KeyChar) && !(Array.IndexOf(symb, e.KeyChar) != -1) && e.KeyChar != Convert.ToChar(8))
-            {
+            if (!Char.IsDigit(e.KeyChar) && !(Array.IndexOf(symb, e.KeyChar) != -1) && e.KeyChar != Convert.ToChar(8)) {
                 e.Handled = true;
             }
         }
-
-        /*private void TextChange(object sender, EventArgs e) // хз, зачем это
-        {
-            Console.WriteLine(sender.ToString());
-        }*/
 
         // функции для обработки введённых значений в текстбоксы
         private static void check1(object sender, EventArgs e) //0 //значение а от 0 до 1
