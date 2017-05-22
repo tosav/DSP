@@ -38,7 +38,13 @@
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.сгладитьПериодограмнуюОценкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xЛинейныйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yЛинейныйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yЛогарифмическийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -53,7 +59,7 @@
             this.toolStripButton5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(282, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(510, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -117,23 +123,60 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сгладитьПериодограмнуюОценкуToolStripMenuItem,
+            this.xЛинейныйToolStripMenuItem,
+            this.xToolStripMenuItem,
+            this.yЛинейныйToolStripMenuItem,
+            this.yЛогарифмическийToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(67, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(327, 134);
+            // 
+            // сгладитьПериодограмнуюОценкуToolStripMenuItem
+            // 
+            this.сгладитьПериодограмнуюОценкуToolStripMenuItem.Name = "сгладитьПериодограмнуюОценкуToolStripMenuItem";
+            this.сгладитьПериодограмнуюОценкуToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.сгладитьПериодограмнуюОценкуToolStripMenuItem.Text = "Сгладить периодограмную оценку";
+            // 
+            // xЛинейныйToolStripMenuItem
+            // 
+            this.xЛинейныйToolStripMenuItem.Name = "xЛинейныйToolStripMenuItem";
+            this.xЛинейныйToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.xЛинейныйToolStripMenuItem.Text = "X - линейный";
+            // 
+            // xToolStripMenuItem
+            // 
+            this.xToolStripMenuItem.Name = "xToolStripMenuItem";
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.xToolStripMenuItem.Text = "X - логарифмический";
+            // 
+            // yЛинейныйToolStripMenuItem
+            // 
+            this.yЛинейныйToolStripMenuItem.Name = "yЛинейныйToolStripMenuItem";
+            this.yЛинейныйToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.yЛинейныйToolStripMenuItem.Text = "Y - линейный";
+            // 
+            // yЛогарифмическийToolStripMenuItem
+            // 
+            this.yЛогарифмическийToolStripMenuItem.Name = "yЛогарифмическийToolStripMenuItem";
+            this.yЛогарифмическийToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.yЛогарифмическийToolStripMenuItem.Text = "Y - логарифмический";
             // 
             // Correlation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.ClientSize = new System.Drawing.Size(510, 334);
             this.Controls.Add(this.toolStrip1);
+            this.Name = "Correlation";
+            this.Text = "Correlation";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.close);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position2);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position1);
             this.Resize += new System.EventHandler(this.resize);
-            this.Name = "Correlation";
-            this.Text = "Correlation";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -149,5 +192,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripMenuItem сгладитьПериодограмнуюОценкуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xЛинейныйToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem yЛинейныйToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem yЛогарифмическийToolStripMenuItem;
     }
 }
