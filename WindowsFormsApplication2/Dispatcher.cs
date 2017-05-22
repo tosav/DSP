@@ -441,7 +441,8 @@ namespace WindowsFormsApplication2
                     //MessageBox.Show("Error: Could not do this. Original error: " + argEx.Message);
                 }
             }
-            getSp().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
+
+            getSp().SetData(level);
             getSp().Show();
         }
         public Spectral getSp()
@@ -450,10 +451,10 @@ namespace WindowsFormsApplication2
         }
         public void setSpF(Spectral d)
         {
-            if (d == null)
+            /*if (d == null)
                 mf.spf(false);
             else
-                mf.spf(true);
+                mf.spf(true);*/
             sp = d;
         }
 

@@ -24,11 +24,10 @@ namespace WindowsFormsApplication2
         Interval inter;
         int W = 700; // стандартная длина графика
         int H = 200; // стандартная высота графика + отступ с названием канала
-
         double[] Re;
         double[] Im;
         double dpf_start = 0, dpf_fin = 0.5;
-
+        int L;
         private bool logX = false, logY = false;
         private void resize(object sender, EventArgs e)
         {
@@ -40,44 +39,51 @@ namespace WindowsFormsApplication2
                 location();
             }
         }
-
+        public void setL(int l)
+        {
+            L = l;
+        }
         public Spectral(MainForm ParrentForm)
         {
-            InitializeComponent();
             Length_of_the_segment l = new Length_of_the_segment();
-            l.Show();
+            l.Sp(this);
+            l.ShowDialog();
+            if (DialogResult.OK == l.DialogResult)
+            {
+                InitializeComponent();
+            }
         }
 
         //создание и добавление нового чарта на форму
-        public void SetData(int n, double mini, double maxi)
+        public void SetData(int n)
         {
-            if (!kol.Contains(n))
-            {
-                DDFT(n);
-                chart=CreateChart(n);
-                order.Add(chart); //добавление чарта в общий список
-                //double k = 1 / 60 / disp.getFD();
-                double min=double.MaxValue, max=double.MinValue;
-                for (int i = 0; i < disp.getN(); i++)//инициализация массива
+                if (!kol.Contains(n))
                 {
-                    if (i>0)
+                    DDFT(n);
+                    chart = CreateChart(n);
+                    order.Add(chart); //добавление чарта в общий список
+                                      //double k = 1 / 60 / disp.getFD();
+                    double min = double.MaxValue, max = double.MinValue;
+                    for (int i = 0; i < disp.getN(); i++)//инициализация массива
                     {
-                        double z = Math.Atan2(Im[i], Re[i]);
-                        min = min > z ? z : min;
-                        max=  max < z ? z : max;
-                        chart.Series[0].Points.AddXY((double)i / disp.getN(), z);//то что показывается на графике
-                        chart.Tag = n.ToString();
+                        if (i > 0)
+                        {
+                            double z = Math.Atan2(Im[i], Re[i]);
+                            min = min > z ? z : min;
+                            max = max < z ? z : max;
+                            chart.Series[0].Points.AddXY((double)i / disp.getN(), z);//то что показывается на графике
+                            chart.Tag = n.ToString();
+                        }
                     }
+                    chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
+                    chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
+                    //изменение размеров окна
+                    this.Width = this.W;
+                    this.Height = prob + this.H * order.Count + 40;
+                    this.Controls.Add(chart);
+                    this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
+                    this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
                 }
-                chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
-                chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
-                //изменение размеров окна
-                this.Width = this.W;
-                this.Height = prob + this.H * order.Count + 40;
-                this.Controls.Add(chart);
-                this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
-                this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
-            }
         }
 
         public void DDFT(int nk)//вычисления

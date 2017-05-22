@@ -12,6 +12,7 @@ namespace WindowsFormsApplication2
 {
     public partial class Length_of_the_segment : Form
     {
+        private Spectral sp;
         public Length_of_the_segment()
         {
             InitializeComponent();
@@ -19,7 +20,13 @@ namespace WindowsFormsApplication2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            sp.setL( Convert.ToInt32(textBox1.Text));
+            this.Close();
+        }
 
+        public void Sp(Spectral SP)
+        {
+            sp = SP;
         }
     }
 }
