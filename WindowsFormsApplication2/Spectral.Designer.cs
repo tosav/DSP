@@ -59,7 +59,7 @@
             this.toolStripButton5});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(510, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(382, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -130,46 +130,47 @@
             this.yЛинейныйToolStripMenuItem,
             this.yЛогарифмическийToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(327, 134);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(267, 114);
             // 
             // сгладитьПериодограмнуюОценкуToolStripMenuItem
             // 
             this.сгладитьПериодограмнуюОценкуToolStripMenuItem.Name = "сгладитьПериодограмнуюОценкуToolStripMenuItem";
-            this.сгладитьПериодограмнуюОценкуToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.сгладитьПериодограмнуюОценкуToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.сгладитьПериодограмнуюОценкуToolStripMenuItem.Text = "Сгладить периодограмную оценку";
             // 
             // xЛинейныйToolStripMenuItem
             // 
             this.xЛинейныйToolStripMenuItem.Name = "xЛинейныйToolStripMenuItem";
-            this.xЛинейныйToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.xЛинейныйToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.xЛинейныйToolStripMenuItem.Text = "X - линейный";
             // 
             // xToolStripMenuItem
             // 
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.xToolStripMenuItem.Text = "X - логарифмический";
             // 
             // yЛинейныйToolStripMenuItem
             // 
             this.yЛинейныйToolStripMenuItem.Name = "yЛинейныйToolStripMenuItem";
-            this.yЛинейныйToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.yЛинейныйToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.yЛинейныйToolStripMenuItem.Text = "Y - линейный";
             // 
             // yЛогарифмическийToolStripMenuItem
             // 
             this.yЛогарифмическийToolStripMenuItem.Name = "yЛогарифмическийToolStripMenuItem";
-            this.yЛогарифмическийToolStripMenuItem.Size = new System.Drawing.Size(326, 26);
+            this.yЛогарифмическийToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.yЛогарифмическийToolStripMenuItem.Text = "Y - логарифмический";
             // 
             // Spectral
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(510, 334);
+            this.ClientSize = new System.Drawing.Size(382, 271);
             this.Controls.Add(this.toolStrip1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Spectral";
-            this.Text = "Spectral";
+            this.Text = "Спектральный анализ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.close);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position2);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position1);
