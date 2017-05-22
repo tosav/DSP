@@ -51,21 +51,19 @@ namespace WindowsFormsApplication2
         {
             if (!kol.Contains(n))
             {
-                DDFT(n);
+                double srx=SRX(n);
                 chart=CreateChart(n);
                 order.Add(chart); //добавление чарта в общий список
                 //double k = 1 / 60 / disp.getFD();
                 double min=double.MaxValue, max=double.MinValue;
-                for (int i = 0; i < disp.getN(); i++)//инициализация массива
+                for (int i = -disp.getN()+1; i < disp.getN(); i++)//инициализация массива
                 {
-                    if (i>0)
-                    {
-                        double z = Math.Atan2(Im[i], Re[i]);
-                        min = min > z ? z : min;
-                        max=  max < z ? z : max;
-                        chart.Series[0].Points.AddXY((double)i / disp.getN(), z);//то что показывается на графике
-                        chart.Tag = n.ToString();
-                    }
+                    int l = Math.Abs(i);
+                    double z = Cor(n,l,srx);
+                    min = min > z ? z : min;
+                    max=  max < z ? z : max;
+                    chart.Series[0].Points.AddXY((double)i, z);//то что показывается на графике
+                    chart.Tag = n.ToString();
                 }
                 chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
                 chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
@@ -78,28 +76,23 @@ namespace WindowsFormsApplication2
             }
         }
 
-        public void DDFT(int nk)//вычисления
+        public double SRX(int nk)//вычисления
         {
-            double[] x = new double[disp.getN()];
-            int N = disp.getN();
-            for (int i = 0; i < N; i++)
+            double x = 0;
+            for (int n = 0; n < disp.getN(); n++)
             {
-                x[i] = disp.getData()[nk, i].Y;
+                x += disp.getData()[nk, n].Y;
             }
-            Re = new double[N];
-            Im = new double[N];
-            for (int k = 0; k < N; k++)
+            return x / disp.getN();
+        }
+        public double Cor(int N,int m, double srx)//вычисления
+        {
+            double K = 0;
+            for (int n = 0; n < disp.getN()-m; n++)
             {
-                Re[k] = 0; Im[k] = 0;
-                for (int n = 0; n < N; n++)
-                {
-                    Re[k] += x[n] * Math.Cos(2 * Math.PI * n * k / N);
-                    Im[k] += x[n] * -(Math.Sin(2 * Math.PI * n * k / N));
-
-                }
-                Re[k] = Math.Pow(Re[k],2)/ N;
-                Im[k] = Math.Pow(Im[k], 2) / N;
-            } 
+                K += (disp.getData()[N, n].Y-srx)*(disp.getData()[N, n+m].Y - srx);
+            }
+            return K / disp.getN();
         }
         private Chart CreateChart(int n)
         {
