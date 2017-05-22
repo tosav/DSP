@@ -25,15 +25,10 @@ namespace WindowsFormsApplication2
         int W = 700; // стандартная длина графика
         int H = 200; // стандартная высота графика + отступ с названием канала
 
-        double[] Re;
-        double[] Im;
-        double dpf_start = 0, dpf_fin = 0.5;
-
         private bool logX = false, logY = false;
-        private void resize(object sender, EventArgs e)
-        {
-            if (order.Count > 0)
-            {
+
+        private void resize(object sender, EventArgs e) {
+            if (order.Count > 0) {
                 //Console.WriteLine();
                 W = this.Width;
                 H = (this.Height - 40 - prob) / order.Count;
@@ -79,23 +74,21 @@ namespace WindowsFormsApplication2
         public double SRX(int nk)//вычисления
         {
             double x = 0;
-            for (int n = 0; n < disp.getN(); n++)
-            {
+            for (int n = 0; n < disp.getN(); n++) {
                 x += disp.getData()[nk, n].Y;
             }
             return x / disp.getN();
         }
-        public double Cor(int N,int m, double srx)//вычисления
-        {
+
+        public double Cor(int N,int m, double srx) {//вычисления
             double K = 0;
-            for (int n = 0; n < disp.getN()-m; n++)
-            {
+            for (int n = 0; n < disp.getN()-m; n++) {
                 K += (disp.getData()[N, n].Y-srx)*(disp.getData()[N, n+m].Y - srx);
             }
             return K / disp.getN();
         }
-        private Chart CreateChart(int n)
-        {
+
+        private Chart CreateChart(int n) {
             Chart chart = new Chart();
             kol.Add(n);
             disp.getMf().CheckItemDPF(n);
@@ -119,7 +112,7 @@ namespace WindowsFormsApplication2
             area.CursorX.IsUserSelectionEnabled = true;
 
             area.AxisX.ScaleView.Zoomable = true;
-            area.AxisX.ScaleView.Zoom(dpf_start, dpf_fin);
+            //area.AxisX.ScaleView.Zoom(dpf_start, dpf_fin);
 
             area.AxisX.ScrollBar.IsPositionedInside = true;
 
@@ -162,24 +155,20 @@ namespace WindowsFormsApplication2
             return chart;
         }
 
-
         // для определения графика для удаления
-        private void position1(object sender, MouseEventArgs e)
-        {
+        private void position1(object sender, MouseEventArgs e) {
             X1 = e.X;
             Y1 = e.Y;
             if (e.Button == MouseButtons.Right)
-            {
                 chart = (Chart)sender;
-            }
         }
 
-        private void position2(object sender, MouseEventArgs e)
-        {
+        private void position2(object sender, MouseEventArgs e) {
             X2 = e.X;
             Y2 = e.Y;
             //disp.setFinish(X2);
         }
+
         public void area(int x1, int x2) //изменяет интервал отображения
         {
             foreach (Chart ch in order)
@@ -244,7 +233,7 @@ namespace WindowsFormsApplication2
         public void close(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
             disp.getMf().UnCheckItemCor();
-            disp.setOsc(null);
+            disp.setCor(null);
         }
 
         private void локальныйМасштабToolStripMenuItem_Click(object sender, EventArgs e)
@@ -305,7 +294,5 @@ namespace WindowsFormsApplication2
             inter.Hide();
             inter.Show();
         }
-
-        
     }
 }

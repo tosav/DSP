@@ -278,19 +278,12 @@ namespace WindowsFormsApplication2
                 if (data != null)
                     nav.VAsf(0);
         }
-        public bool getDelNav()
-        {
-            return nav_was_del;
-        }
 
-        public void setDelNav(bool model_st)
-        {
-            nav_was_del = model_st;
-        }
-        public double getStart()
-        {
-            return start;
-        }
+        public bool getDelNav() { return nav_was_del; }
+
+        public void setDelNav(bool model_st) { nav_was_del = model_st; }
+
+        public double getStart() { return start; }
         //при задании нового диапазона будет отрисовываться в каждом окне в зависимости от наличия
         public void setFinish(double fn)
         {
@@ -312,20 +305,21 @@ namespace WindowsFormsApplication2
             if (mo != null)
                 mo.area(Convert.ToInt32(start), Convert.ToInt32(finish));
         }
-        public double getFinish()
-        {
+
+        public double getFinish() {
             if (finish == 0)
                 finish = N;
             return finish;
         }
-        public void UstroyDestroy()
-        {
+
+        public void UstroyDestroy() {
             if (Osc != null) //закрытие окна осциллограмм при открытии нового файла (если осц.были открыты)
                 Osc.Close();
             start = 0; //обнуление переменных начала и конца фрагмента
             finish = N;
             mf.osc(false);
         }
+
         public void CreateOsc(int level)
         {
             if (getOsc() == null) //если не создана осциллограмма
@@ -345,23 +339,23 @@ namespace WindowsFormsApplication2
             getOsc().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
             getOsc().Show();
         }
-        public Object get(String objectName)
-        {
+
+        public Object get(String objectName) {
             return hash[objectName];
         }
-        public void remove(String objectName)
-        {
+
+        public void remove(String objectName) {
             hash.Remove(objectName);
         }
-        public void set(String objectName, Object obj)
-        {
+
+        public void set(String objectName, Object obj) {
             if (check(objectName))
                 hash[objectName] = obj;
             else
                 hash.Add(objectName, obj);
         }
-        public bool check(String objectName)
-        {
+
+        public bool check(String objectName) {
             return hash.ContainsKey(objectName);
         }
 
@@ -411,19 +405,10 @@ namespace WindowsFormsApplication2
             getDPF().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
             getDPF().Show();
         }
-        public DFT getDPF()
-        {
-            return dpf;
-        }
-        public void setDPF(DFT d)
-        {
-            /*if (d == null)
-                mf.dpf(false);
-            else
-                mf.dpf(true);*/
-            dpf = d;
-        }
 
+        public DFT getDPF() { return dpf;}
+
+        public void setDPF(DFT d) { dpf = d; }
 
         public void CreateSp(int level)
         {
@@ -445,19 +430,9 @@ namespace WindowsFormsApplication2
             getSp().SetData(level);
             getSp().Show();
         }
-        public Spectral getSp()
-        {
-            return sp;
-        }
-        public void setSpF(Spectral d)
-        {
-            /*if (d == null)
-                mf.spf(false);
-            else
-                mf.spf(true);*/
-            sp = d;
-        }
 
+        public Spectral getSp() { return sp; }
+        public void setSpF(Spectral d) { sp = d; }
 
         public void CreateCor(int level)
         {
@@ -478,17 +453,8 @@ namespace WindowsFormsApplication2
             getCor().SetData(level, mini(level, data, 0, N), maxi(level, data, 0, N));
             getCor().Show();
         }
-        public Correlation getCor()
-        {
-            return cor;
-        }
-        public void setCor(Correlation d)
-        {
-            if (d == null)
-                mf.cor(false);
-            else
-                mf.cor(true);
-            cor = d;
-        }
+
+        public Correlation getCor() { return cor; }
+        public void setCor(Correlation d) { cor = d; }
     }
 }

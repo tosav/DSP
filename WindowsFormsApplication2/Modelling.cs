@@ -21,7 +21,7 @@ namespace WindowsFormsApplication2
         int t; //для подсчёта кол-ва лейблов и текстбоксов, чтобы потом расположить кнопку ОК// НО ЭТО МОЖНО УБРАТЬ
         Model mo;
 
-        MyDelegate[] check = new MyDelegate[9]; //массив делегатов
+        MyDelegate[] check = new MyDelegate[10]; //массив делегатов
         delegate void MyDelegate(object sender, EventArgs e); //"шаблон" процедуры-делегата
 
         Navigation newForm;
@@ -43,6 +43,7 @@ namespace WindowsFormsApplication2
             check[6] = check7;
             check[7] = check8;
             check[8] = check9;
+            check[9] = check10;
             this.label.AutoSize = true;
             this.label.Location = new System.Drawing.Point(14, 11);
             this.label.Name = "label";
@@ -69,28 +70,22 @@ namespace WindowsFormsApplication2
         {
             Boolean flag = true;
             int i = 0;
-            while ((flag == true) & (i < texts.Count)) //Проверка на пустоту текстбокса
-            {
+            while ((flag == true) & (i < texts.Count)) {//Проверка на пустоту текстбокса
                 if (texts[i].Text == String.Empty)
                     flag = false;
                 i++;
             }
-            if (flag == true) //отрисовка модели, если все текстбоксы заполнены
-            {
-                if (texts[0].Name == "n ( целое число )")
-                {
+            if (flag == true) { //отрисовка модели, если все текстбоксы заполнены
+                if (texts[0].Name == "n ( целое число )") {
                     disp.setN(Convert.ToInt32(RussianDouble(texts[0].Text)));
                     texts.RemoveAt(0);
                 }
-                if (texts[0].Name == "fd ( >0 )")
-                {
+                if (texts[0].Name == "fd ( >0 )") {
                     disp.setFD(Convert.ToDouble(RussianDouble(texts[0].Text)));
                     texts.RemoveAt(0);
                 }
-                if (!disp.check("modell_t") && textmod.Trim() == "Случайный сигнал АРСС (p,q)")
-                {
-                    if (disp.check("modell"))
-                    {
+                if (!disp.check("modell_t") && textmod.Trim() == "Случайный сигнал АРСС (p,q)") {
+                    if (disp.check("modell")) {
                         modellng = (Modelling)disp.get("modell");
                         modellng.Close();
                     }
@@ -99,9 +94,7 @@ namespace WindowsFormsApplication2
                     modellng.MdiParent = disp.getMf();
                     modellng.Show();
                     disp.set("modell", modellng);
-                }
-                else
-                {
+                } else {
                     if (disp.getModel() != null)
                         disp.getModel().Close();
                     mo = new Model(disp.getMf());
@@ -171,7 +164,7 @@ namespace WindowsFormsApplication2
                     disp.set("model_k", 7);
                     createtextlabel("a", 4);
                     createtextlabel("\u03C4", 8);
-                    createtextlabel("\u0192", 8); //нужно поменять
+                    createtextlabel("\u0192", 9); //нужно поменять
                     createtextlabel("\u03C6 ( в градусах )", 3);
                     break;
                 case "Cигнал с балансной огибающей - амплитудная модуляция":
@@ -244,16 +237,10 @@ namespace WindowsFormsApplication2
 
         private void Start_KeyPress(object sender, KeyPressEventArgs e)
         {   //если цифра, есть в массиве допустимых символов или клавиша бэкспэйс
-            if (!Char.IsDigit(e.KeyChar) && !(Array.IndexOf(symb, e.KeyChar) != -1) && e.KeyChar != Convert.ToChar(8))
-            {
+            if (!Char.IsDigit(e.KeyChar) && !(Array.IndexOf(symb, e.KeyChar) != -1) && e.KeyChar != Convert.ToChar(8)) {
                 e.Handled = true;
             }
         }
-
-        /*private void TextChange(object sender, EventArgs e) // хз, зачем это
-        {
-            Console.WriteLine(sender.ToString());
-        }*/
 
         // функции для обработки введённых значений в текстбоксы
         private static void check1(object sender, EventArgs e) //0 //значение а от 0 до 1
@@ -277,7 +264,7 @@ namespace WindowsFormsApplication2
             }
         }
 
-        private static void check2(object sender, EventArgs e) //1 //дробное больше нуля
+        private void check2(object sender, EventArgs e) //1 //дробное больше нуля
         {
             Double number;
             if (((Control)sender).Text != "")
@@ -295,6 +282,14 @@ namespace WindowsFormsApplication2
                         ((Control)sender).Text = "1";
                     }
                 }
+                if (textmod.Trim() == "Cигнал с экспоненциальной огибающей - амплитудная модуляция")
+                    if (texts[4].Text != "")
+                    {
+                        if (Convert.ToDouble(RussianDouble(texts[4].Text)) > (Convert.ToDouble(RussianDouble(((Control)sender).Text)) * 0.5)) {
+                            MessageBox.Show("Замените значение в поле f(частота несущей). Она не должна превышать половины значения частоты дискретизации!");
+                            texts[4].Text = "";
+                        }
+                    }
             }
         }
 
@@ -433,6 +428,38 @@ namespace WindowsFormsApplication2
                 {
                     MessageBox.Show("Введено неверное значение");
                     ((Control)sender).Text = "";
+                }
+            }
+        }
+
+        private void check10(object sender, EventArgs e) //9 //частота несущей (задается в интервале 0; 0.5*fd  ),       
+        {
+            double number, f_05 = 0;
+            if (((Control)sender).Text != "") //если что-то в поле записано
+            {
+                if (!Double.TryParse(RussianDouble(((Control)sender).Text), out number)) //преобразовываем текст в дробное число
+                {
+                    MessageBox.Show("Введено неверное значение");
+                    ((Control)sender).Text = "";
+                }
+                else {
+                    if (disp.getFD() == 0)
+                    {
+                        if (texts[1].Text == "")
+                        {
+                            MessageBox.Show("Значение в поле f(частота несущей) зависит от значения частоты дискретизации. Заполните указанные поля!");
+                            ((Control)sender).Text = "";
+                        }
+                        else { f_05 = Convert.ToDouble(RussianDouble(texts[1].Text)) * 0.5; }
+                    }
+                    else { f_05 = disp.getFD() * 0.5; }
+
+                    if (f_05 != 0) 
+                        if ((Convert.ToDouble(RussianDouble(((Control)sender).Text)) > f_05)  || (Convert.ToDouble(RussianDouble(((Control)sender).Text)) < 0))
+                        {
+                            MessageBox.Show("Значениие должно быть в интервале от 0 до " + f_05 + " (1/2 значения частоты дискретизации)");
+                            ((Control)sender).Text = Convert.ToString(f_05);
+                        }
                 }
             }
         }

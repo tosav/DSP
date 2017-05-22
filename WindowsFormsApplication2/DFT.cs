@@ -273,6 +273,7 @@ namespace WindowsFormsApplication2
             area.AxisX.ScaleView.Zoom(dpf_start, dpf_fin);
 
             area.AxisX.ScrollBar.IsPositionedInside = true;
+            
 
             area.BorderDashStyle = ChartDashStyle.Solid;
             area.BorderColor = Color.Black;
@@ -379,13 +380,13 @@ namespace WindowsFormsApplication2
         }
 
         private void scroller(object sender, System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs e) {
-            dpf_start = e.ChartArea.AxisX.ScaleView.Position;
+            /*dpf_start = e.ChartArea.AxisX.ScaleView.Position;
             dpf_fin = e.ChartArea.AxisX.ScaleView.Position + e.ChartArea.AxisX.ScaleView.Size;
             for (int i = 0; i < order.Count; i++) {
                 for (int j = 0; j < 4; j++) {
                     order[i][j].ChartAreas["myGraph"].AxisX.ScaleView.Zoom(dpf_start, dpf_fin);
                 }
-            }
+            }*/
         }
         private void viewchanged(object sender, System.Windows.Forms.DataVisualization.Charting.ViewEventArgs e)
         {

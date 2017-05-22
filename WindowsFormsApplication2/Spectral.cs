@@ -259,7 +259,7 @@ namespace WindowsFormsApplication2
         public void close(object sender, System.Windows.Forms.FormClosedEventArgs e)
         {
             disp.getMf().UnCheckItemSp();
-            disp.setOsc(null);
+            disp.setSpF(null);
         }
 
         private void локальныйМасштабToolStripMenuItem_Click(object sender, EventArgs e)
