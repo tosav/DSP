@@ -44,6 +44,8 @@ namespace WindowsFormsApplication2
         public Spectral(MainForm ParrentForm)
         {
             InitializeComponent();
+            Length_of_the_segment l = new Length_of_the_segment();
+            l.Show();
         }
 
         //создание и добавление нового чарта на форму

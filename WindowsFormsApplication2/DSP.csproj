@@ -74,6 +74,12 @@
     <Compile Include="Correlation.Designer.cs">
       <DependentUpon>Correlation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Length of the segment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Length of the segment.Designer.cs">
+      <DependentUpon>Length of the segment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Spectral.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Correlation.resx">
       <DependentUpon>Correlation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Length of the segment.resx">
+      <DependentUpon>Length of the segment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Spectral.resx">
       <DependentUpon>Spectral.cs</DependentUpon>
