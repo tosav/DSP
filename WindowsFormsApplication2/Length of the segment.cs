@@ -16,11 +16,16 @@ namespace WindowsFormsApplication2
         public Length_of_the_segment()
         {
             InitializeComponent();
+            if (Dispatcher.getInstance().L != 0)
+                textBox1.Text = Dispatcher.getInstance().L.ToString();
+            else
+                textBox1.Text = Math.Round(Math.Sqrt((double)Dispatcher.getInstance().getN())).ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             sp.setL( Convert.ToInt32(textBox1.Text));
+            Dispatcher.getInstance().L = Convert.ToInt32(textBox1.Text);
             this.Close();
         }
 

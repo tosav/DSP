@@ -37,6 +37,7 @@ namespace WindowsFormsApplication2
         DFT dpf;
         Spectral sp;
         Correlation cor;
+        public int L;
         public Dispatcher() { }
 
         public static Dispatcher getInstance()

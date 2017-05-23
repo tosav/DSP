@@ -28,7 +28,7 @@ namespace WindowsFormsApplication2
         double[] Im;
         double[] Pm;
         double dpf_start = 0, dpf_fin = 0.5;
-        int L;
+        int L,M;
         private bool logX = false, logY = false;
         bool kek = false;
         private void resize(object sender, EventArgs e)
@@ -64,21 +64,22 @@ namespace WindowsFormsApplication2
             {
                 if (!kol.Contains(n))
                 {
-                    DDFT(n);
-                    smooth(L);
+                    M = Math.Round((double)disp.getN() / L) < disp.getN() / L ? (int) Math.Round((double)disp.getN() / L) + 1 : (int) Math.Round((double)disp.getN() / L);
+                    //DDFT(n);
+                    kat(n);
                     chart = CreateChart(n);
                     order.Add(chart); //добавление чарта в общий список
                                       //double k = 1 / 60 / disp.getFD();
                     double min = double.MaxValue, max = double.MinValue;
-                    for (int i = 0; i < disp.getN(); i++)//инициализация массива
+                    for (int i = 0; i <L; i++)//инициализация массива
                     {
                         if (i > 0)
                         {
-                            // double z =(Re[i] * Re[i] + Im[i] * Im[i])/disp.getN();//простое спректральный анализ
-                            double z = Pm[i]* Pm[i];
+                            //double z =(Re[i] * Re[i] + Im[i] * Im[i])/disp.getN();//простое спректральный анализ
+                            double z = Pm[i];
                             min = min > z ? z : min;
                             max = max < z ? z : max;
-                            chart.Series[0].Points.AddXY((double)i / disp.getN(), z);//то что показывается на графике
+                            chart.Series[0].Points.AddXY((double)i / L, z);//то что показывается на графике
                             chart.Tag = n.ToString();
                             chart.ChartAreas[0].AxisY.Minimum = min;
                             chart.ChartAreas[0].AxisY.Maximum = max;
@@ -104,28 +105,32 @@ namespace WindowsFormsApplication2
 
         public void kat(int nk)//вычисления
         {
-            double[] x = new double[disp.getN()];
+            double[] x = new double[L * M];
             int N = disp.getN();
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < L*M; i++)
             {
-                x[i] = disp.getData()[nk, i].Y;
+                x[i] = N > i ? disp.getData()[nk, i].Y : 0;
             }
-            Re = new double[N];
-            Im = new double[N];
-            for (int k = 0; k < N; k++)
+            Re = new double[M];
+            Im = new double[M];
+            Pm = new double[L];
+            for (int k = 0; k < L; k++)
             {
-                Re[k] = 0; Im[k] = 0;
-                for (int n = 0; n < N; n++)
+                Pm[k] = 0;
+                for (int m = 0; m < M; m++)
                 {
-                    Re[k] += x[n] * Math.Cos(2 * Math.PI * n * k / N);
-                    Im[k] += x[n] * -(Math.Sin(2 * Math.PI * n * k / N));
-
+                    Re[m] = 0; Im[m] = 0; 
+                    for (int n = 0; n < L; n++)
+                    {
+                        Re[m] += x[m * L + n] * Math.Cos(2 * Math.PI * n * k / L);
+                        Im[m] += x[m * L + n] * -(Math.Sin(2 * Math.PI * n * k / L));
+                    }
+                    Pm[k] += (Re[m] * Re[m] + Im[m] * Im[m]) / L;
                 }
-                Re[k] = Math.Pow(Re[k],2)/ N;
-                Im[k] = Math.Pow(Im[k], 2) / N;
+                Pm[k] /= M;
             } 
         }
-        public void smooth(int L)
+       /* public void smooth(int L)
         {
             int i, j, z, k1, k2, hw;
             double tmp;
@@ -160,7 +165,7 @@ namespace WindowsFormsApplication2
                 }
                 Pm[i] = tmp / z;
             }
-        }
+        }*/
         public void DDFT(int nk)
         {
             double[] x = new double[disp.getN()];
