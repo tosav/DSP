@@ -68,12 +68,14 @@ namespace WindowsFormsApplication2
                     {
                         if (i > 0)
                         {
-                            double z = Math.Atan2(Im[i], Re[i]);
+                            double z = Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]);
                             min = min > z ? z : min;
                             max = max < z ? z : max;
                             chart.Series[0].Points.AddXY((double)i / disp.getN(), z);//то что показывается на графике
                             chart.Tag = n.ToString();
-                        }
+                            chart.ChartAreas[0].AxisY.Minimum = min;
+                            chart.ChartAreas[0].AxisY.Maximum = max;
+                    }
                     }
                     chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
                     chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
