@@ -428,7 +428,6 @@ namespace WindowsFormsApplication2
             }
 
             getSp().SetData(level);
-            getSp().Show();
         }
 
         public Spectral getSp() { return sp; }

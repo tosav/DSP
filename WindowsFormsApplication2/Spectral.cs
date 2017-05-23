@@ -26,9 +26,11 @@ namespace WindowsFormsApplication2
         int H = 200; // стандартная высота графика + отступ с названием канала
         double[] Re;
         double[] Im;
+        double[] Pm;
         double dpf_start = 0, dpf_fin = 0.5;
         int L;
         private bool logX = false, logY = false;
+        bool kek = false;
         private void resize(object sender, EventArgs e)
         {
             if (order.Count > 0)
@@ -50,6 +52,7 @@ namespace WindowsFormsApplication2
             l.ShowDialog();
             if (DialogResult.OK == l.DialogResult)
             {
+                kek = true;
                 InitializeComponent();
             }
         }
@@ -57,9 +60,12 @@ namespace WindowsFormsApplication2
         //создание и добавление нового чарта на форму
         public void SetData(int n)
         {
+            if (kek)
+            {
                 if (!kol.Contains(n))
                 {
                     DDFT(n);
+                    smooth(L);
                     chart = CreateChart(n);
                     order.Add(chart); //добавление чарта в общий список
                                       //double k = 1 / 60 / disp.getFD();
@@ -68,14 +74,15 @@ namespace WindowsFormsApplication2
                     {
                         if (i > 0)
                         {
-                            double z = Math.Sqrt(Re[i] * Re[i] + Im[i] * Im[i]);
+                            // double z =(Re[i] * Re[i] + Im[i] * Im[i])/disp.getN();//простое спректральный анализ
+                            double z = Pm[i]* Pm[i];
                             min = min > z ? z : min;
                             max = max < z ? z : max;
                             chart.Series[0].Points.AddXY((double)i / disp.getN(), z);//то что показывается на графике
                             chart.Tag = n.ToString();
                             chart.ChartAreas[0].AxisY.Minimum = min;
                             chart.ChartAreas[0].AxisY.Maximum = max;
-                    }
+                        }
                     }
                     chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.position1);
                     chart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.position2);
@@ -86,9 +93,16 @@ namespace WindowsFormsApplication2
                     this.chart.AxisScrollBarClicked += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ScrollBarEventArgs>(this.scroller);
                     this.chart.AxisViewChanged += new System.EventHandler<ViewEventArgs>(this.viewchanged);
                 }
+                this.Show();
+            }
+            else
+            {
+                this.Close();
+                disp.setSpF(null);
+            }
         }
 
-        public void DDFT(int nk)//вычисления
+        public void kat(int nk)//вычисления
         {
             double[] x = new double[disp.getN()];
             int N = disp.getN();
@@ -110,6 +124,64 @@ namespace WindowsFormsApplication2
                 Re[k] = Math.Pow(Re[k],2)/ N;
                 Im[k] = Math.Pow(Im[k], 2) / N;
             } 
+        }
+        public void smooth(int L)
+        {
+            int i, j, z, k1, k2, hw;
+            double tmp;
+            if (L% 2 == 0) L++;
+            hw = (L - 1) / 2;
+            int n = disp.getN();
+            for (i = 1; i < n; i++)
+            {
+                tmp = 0;
+                if (i < hw)
+                {
+                    k1 = 0;
+                    k2 = 2 * i;
+                    z = k2 + 1;
+                }
+                else if ((i + hw) > (n - 1))
+                {
+                    k1 = i - n + i + 1;
+                    k2 = n - 1;
+                    z = k2 - k1 + 1;
+                }
+                else
+                {
+                    k1 = i - hw;
+                    k2 = i + hw;
+                    z = L;
+                }
+
+                for (j = k1; j <= k2; j++)
+                {
+                    tmp += Pm[j];
+                }
+                Pm[i] = tmp / z;
+            }
+        }
+        public void DDFT(int nk)
+        {
+            double[] x = new double[disp.getN()];
+            int N = disp.getN();
+            for (int i = 0; i < N; i++)
+            {
+                x[i] = disp.getData()[nk, i].Y;
+            }
+            Re = new double[N];
+            Im = new double[N];
+            Pm = new double[N];
+            for (int k = 0; k < N; k++)
+            {
+                Re[k] = 0; Im[k] = 0; Pm[k] = 0;
+                for (int n = 0; n < N; n++)
+                {
+                    Re[k] += x[n] * Math.Cos(2 * Math.PI * n * k / N);
+                    Im[k] += x[n] * -(Math.Sin(2 * Math.PI * n * k / N));
+                }
+                Pm[k] = Math.Sqrt(Re[k] * Re[k] + Im[k] * Im[k]);
+            }
         }
         private Chart CreateChart(int n)
         {
