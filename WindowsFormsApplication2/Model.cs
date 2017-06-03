@@ -69,7 +69,7 @@ namespace WindowsFormsApplication2
             case 12:
                 for (int i = 0; i < Convert.ToInt64(disp.getN()); i++)
                 {
-                    double nu = 0; for (int j = 1; j <= 12; j++) nu += ran.NextDouble(); nu = nu / 12 - 0.5;
+                    double nu = 0; for (int j = 1; j <= 12; j++) nu += ran.NextDouble(); nu = nu/12 - 0.5;
                     tata[i] = new PointF(i, Convert.ToSingle(nu));
                 }
                 break;
@@ -100,7 +100,7 @@ namespace WindowsFormsApplication2
                                 d += Convert.ToSingle(RussianDouble(texts[a-1+j].Text)) * tata[i - j].Y;
                         for (int j = 1; j <= Convert.ToDouble(RussianDouble(text[0].Text)); j++)
                             if (i - j >= 0)
-                                d -= Convert.ToSingle(RussianDouble(texts[j-1].Text)) * tata[i - j].Y;
+                                d -= Convert.ToSingle(RussianDouble(texts[j-1].Text)) * data[i - j].Y;
                         data[i] = new PointF(i, d);
                     break;
                     case 13:
