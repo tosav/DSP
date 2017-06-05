@@ -30,7 +30,7 @@ namespace WindowsFormsApplication2
         double dpf_start = 0, dpf_fin = 0.5;
         int L,M;
         private bool logX = false, logY = false;
-        bool kek = false;
+        public bool kek = false; // паблик, чобы можно было обратиться из формы для полуширины (ваще тупо ((((((( )
         private void resize(object sender, EventArgs e)
         {
             if (order.Count > 0)
@@ -52,7 +52,7 @@ namespace WindowsFormsApplication2
             l.ShowDialog();
             if (DialogResult.OK == l.DialogResult)
             {
-                kek = true;
+                //kek = true;
                 InitializeComponent();
             }
         }
