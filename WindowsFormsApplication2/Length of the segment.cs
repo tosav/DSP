@@ -33,12 +33,14 @@ namespace WindowsFormsApplication2
         private void button1_Click(object sender, EventArgs e)
         {
             if (!check(textBox1.Text))
-                MessageBox.Show("Значение должно быть целочисленным, больше 4 и меньше либо равно " + Dispatcher.getInstance().getN().ToString() + " (количеству отсчётов в сигнале)","Ошибка!");
-            else {
-                sp.kek = true; //обращаемся к форме
+            {
+                MessageBox.Show("Значение должно быть целочисленным, больше 4 и меньше либо равно " + Dispatcher.getInstance().getN().ToString() + " (количеству отсчётов в сигнале)", "Ошибка!");
+            }
+            else
+            {
+                sp.kek = true;
                 sp.setL(Convert.ToInt32(textBox1.Text));
                 Dispatcher.getInstance().L = Convert.ToInt32(textBox1.Text);
-                this.Close();
             }
         }
 

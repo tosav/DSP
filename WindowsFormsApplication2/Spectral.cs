@@ -31,6 +31,7 @@ namespace WindowsFormsApplication2
         int L,M;
         private bool logX = false, logY = false;
         public bool kek = false; // паблик, чобы можно было обратиться из формы для полуширины (ваще тупо ((((((( )
+        DialogResult di;
         private void resize(object sender, EventArgs e)
         {
             if (order.Count > 0)
@@ -55,6 +56,7 @@ namespace WindowsFormsApplication2
                 //kek = true;
                 InitializeComponent();
             }
+            di = l.DialogResult;
         }
 
         //создание и добавление нового чарта на форму
@@ -100,6 +102,8 @@ namespace WindowsFormsApplication2
             {
                 this.Close();
                 disp.setSpF(null);
+                if (DialogResult.OK == di)
+                    disp.CreateSp(disp.LEVEL);
             }
         }
 

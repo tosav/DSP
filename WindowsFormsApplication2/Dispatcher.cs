@@ -39,7 +39,7 @@ namespace WindowsFormsApplication2
         Correlation cor;
         public int L;
         public Dispatcher() { }
-
+        public int LEVEL;
         public static Dispatcher getInstance()
         {
             if (transmitter != null)
@@ -413,6 +413,7 @@ namespace WindowsFormsApplication2
 
         public void CreateSp(int level)
         {
+            LEVEL = level;
             if (getSp() == null) //если не создана осциллограмма
             {
                 setSpF(new Spectral(mf)); //то создаётся новая дочерняя форма с осциллограммами
